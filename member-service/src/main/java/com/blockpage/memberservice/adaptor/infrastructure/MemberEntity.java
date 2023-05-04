@@ -13,12 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MemberEntity {
 
-    public enum Role{
-        MEMBER,
-        AUTHOR,
-        ADMIN
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,7 +31,6 @@ public class MemberEntity {
 
     @Column
     private String gender;
-
 
     @Enumerated(EnumType.STRING)
     private Role role;
