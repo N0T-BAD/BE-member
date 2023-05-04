@@ -2,6 +2,7 @@ package com.blockpage.memberservice.adaptor.web;
 
 import com.blockpage.memberservice.adaptor.infrastructure.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.MemberRepository;
+import com.blockpage.memberservice.adaptor.infrastructure.Role;
 import com.blockpage.memberservice.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class MockMemberController {
 //                .nickname(member.getNickname())
 //                .profileImage(member.getProfileImage())
 //                .gender(member.getGender())
-//                .role(MemberEntity.Role.MEMBER)
+//                .role(Role.MEMBER)
 //                .adult(false)
 //                .build();
 //        memberRepository.save(memberEntity);
@@ -35,9 +36,9 @@ public class MockMemberController {
         Optional<MemberEntity> memberEntity = memberRepository.findByEmail(email);
         if (memberEntity.isPresent()) {
             MemberView memberView = MemberView.builder()
-                    .nickname(memberEntity.get().getNickname())
-                    .profileImage(memberEntity.get().getProfileImage())
-                    .profileSkin(memberEntity.get().getProfileSkin())
+                    .nickname(memberEntity.get().getNickname() !=null ? memberEntity.get().getNickname():"회원")
+                    .profileImage(memberEntity.get().getProfileImage() != null ? memberEntity.get().getProfileImage() : "없음")
+                    .profileSkin(memberEntity.get().getProfileSkin() != null ? memberEntity.get().getProfileSkin() : "구매해주세요")
                     .role(memberEntity.get().getRole())
                     .build();
             return ResponseEntity.ok().body(memberView);
