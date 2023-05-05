@@ -1,6 +1,5 @@
 package com.blockpage.memberservice.adaptor.web.view;
 
-
 import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
