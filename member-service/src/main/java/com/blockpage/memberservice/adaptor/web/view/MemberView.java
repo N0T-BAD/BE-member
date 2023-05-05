@@ -1,17 +1,12 @@
 package com.blockpage.memberservice.adaptor.web.view;
 
-import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
+
+import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MemberView {
