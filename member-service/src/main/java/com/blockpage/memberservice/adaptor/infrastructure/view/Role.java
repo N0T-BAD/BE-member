@@ -1,4 +1,4 @@
-package com.blockpage.memberservice.adaptor.infrastructure;
+package com.blockpage.memberservice.adaptor.infrastructure.view;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

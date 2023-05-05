@@ -1,5 +1,6 @@
-package com.blockpage.memberservice.adaptor.infrastructure;
+package com.blockpage.memberservice.adaptor.infrastructure.repository;
 
+import com.blockpage.memberservice.adaptor.infrastructure.entity.InterestEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 

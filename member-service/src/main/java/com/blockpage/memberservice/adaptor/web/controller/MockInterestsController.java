@@ -1,7 +1,7 @@
-package com.blockpage.memberservice.adaptor.web;
+package com.blockpage.memberservice.adaptor.web.controller;
 
-import com.blockpage.memberservice.adaptor.infrastructure.InterestEntity;
-import com.blockpage.memberservice.adaptor.infrastructure.InterestRepository;
+import com.blockpage.memberservice.adaptor.infrastructure.entity.InterestEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.repository.InterestRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

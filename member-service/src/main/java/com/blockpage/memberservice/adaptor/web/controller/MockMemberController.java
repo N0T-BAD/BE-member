@@ -1,9 +1,8 @@
-package com.blockpage.memberservice.adaptor.web;
+package com.blockpage.memberservice.adaptor.web.controller;
 
-import com.blockpage.memberservice.adaptor.infrastructure.MemberEntity;
-import com.blockpage.memberservice.adaptor.infrastructure.MemberRepository;
-import com.blockpage.memberservice.adaptor.infrastructure.Role;
-import com.blockpage.memberservice.domain.Member;
+import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.repository.MemberRepository;
+import com.blockpage.memberservice.adaptor.web.view.MemberView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

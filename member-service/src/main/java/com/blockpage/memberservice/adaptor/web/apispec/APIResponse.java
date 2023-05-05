@@ -11,7 +11,6 @@ public class APIResponse<T> {
 
     private final T data;
 
-
     public APIResponse(T data) {
         this.data = data;
     }

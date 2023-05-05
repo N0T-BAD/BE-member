@@ -1,5 +1,6 @@
-package com.blockpage.memberservice.adaptor.infrastructure;
+package com.blockpage.memberservice.adaptor.infrastructure.entity;
 
+import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
