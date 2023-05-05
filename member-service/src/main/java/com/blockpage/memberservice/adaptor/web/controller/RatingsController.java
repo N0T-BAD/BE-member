@@ -17,11 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class RatingsController {
 
     @GetMapping
-    public ResponseEntity<APIResponse> getInterests(@RequestParam("episode_id") Long episodeId) {
-        MemberView memberView = MemberView.builder()
-            .ratings(8)
-            .build();
-        return ResponseEntity.ok().body(new APIResponse(memberView));
+    public ResponseEntity<APIResponse> getInterests(@RequestParam("episodeId") Long episodeId) {
+        return ResponseEntity.ok().body(new APIResponse(new MemberView(8)));
     }
 
 
