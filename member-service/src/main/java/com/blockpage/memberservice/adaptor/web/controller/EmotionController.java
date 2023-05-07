@@ -9,6 +9,7 @@ import com.blockpage.memberservice.application.port.in.RequestEmotion;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +40,7 @@ public class EmotionController {
             .commentId(requestEmotion.getEpisodeId())
             .emotion(requestEmotion.getEmotion())
             .build();
-        return ResponseEntity.status(201).body(new APIResponse("댓글 반응이 등록되었습니다.", requestEmotion.getEmotion()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new APIResponse("댓글 반응이 등록되었습니다.", requestEmotion.getEmotion()));
     }
 
     @GetMapping
