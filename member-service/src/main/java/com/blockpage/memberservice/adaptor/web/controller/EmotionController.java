@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.adaptor.web.controller;
 
-import com.blockpage.memberservice.adaptor.infrastructure.MemberEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.entity.EmotionEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
 import com.blockpage.memberservice.adaptor.web.apispec.APIResponse;
@@ -39,7 +39,7 @@ public class EmotionController {
             .commentId(requestEmotion.getEpisodeId())
             .emotion(requestEmotion.getEmotion())
             .build();
-        return ResponseEntity.ok().body(new APIResponse<>("댓글 반응이 등록되었습니다.", requestEmotion.getEmotion()));
+        return ResponseEntity.status(201).body(new APIResponse("댓글 반응이 등록되었습니다.", requestEmotion.getEmotion()));
     }
 
     @GetMapping
