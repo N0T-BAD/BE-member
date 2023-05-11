@@ -1,8 +1,8 @@
 package com.blockpage.memberservice.adaptor.web.controller;
 
-import com.blockpage.memberservice.adaptor.infrastructure.MemberEntity;
-import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
+import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.entity.RatingEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
 import com.blockpage.memberservice.adaptor.web.apispec.APIResponse;
 import com.blockpage.memberservice.adaptor.web.view.MemberView;
 import com.blockpage.memberservice.application.port.in.RequestRating;
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1/ratings")
 @Slf4j
 public class RatingsController {
+
     @PostMapping
     public ResponseEntity<APIResponse> addRating(@RequestBody RequestRating requestRating) {
         RatingEntity ratingEntity = RatingEntity.builder()

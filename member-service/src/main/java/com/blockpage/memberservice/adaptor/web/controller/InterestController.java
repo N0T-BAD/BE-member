@@ -1,11 +1,11 @@
 package com.blockpage.memberservice.adaptor.web.controller;
 
-import com.blockpage.memberservice.adaptor.infrastructure.InterestEntity;
-import com.blockpage.memberservice.adaptor.infrastructure.MemberEntity;
-import com.blockpage.memberservice.adaptor.infrastructure.Role;
+import com.blockpage.memberservice.adaptor.infrastructure.entity.InterestEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
 import com.blockpage.memberservice.adaptor.web.apispec.APIResponse;
 import com.blockpage.memberservice.adaptor.web.view.MemberView;
-import com.blockpage.memberservice.application.in.RequestInterest;
+import com.blockpage.memberservice.application.port.in.RequestInterest;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
