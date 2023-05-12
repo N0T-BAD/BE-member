@@ -1,9 +1,10 @@
 package com.blockpage.memberservice.adaptor.web.controller;
 
 import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
-import com.blockpage.memberservice.adaptor.web.view.APIResponse;
+import com.blockpage.memberservice.adaptor.web.view.ApiResponse;
 import com.blockpage.memberservice.adaptor.web.view.MemberView;
 import com.blockpage.memberservice.application.port.in.InterestUseCase;
+import com.blockpage.memberservice.application.port.in.InterestUseCase.DeleteQuery;
 import com.blockpage.memberservice.application.port.in.InterestUseCase.FindQuery;
 import com.blockpage.memberservice.application.port.in.InterestUseCase.SaveQuery;
 import com.blockpage.memberservice.application.port.in.RequestInterest;
@@ -31,7 +32,7 @@ public class InterestController {
     private final InterestUseCase interestUseCase;
 
     @PostMapping
-    public ResponseEntity<APIResponse> addInterst(@RequestBody RequestInterest requestInterest,
+    public ResponseEntity<ApiResponse<String>> addInterst(@RequestBody RequestInterest requestInterest,
         @RequestHeader("accessToken") String token) {
         //TODO 헤더 토큰으로 멤버 가져오기 구현예정(토큰>카카오토큰정보조회>카카오아이디받아오기>멤버가져오기)
         MemberEntity memberEntity = MemberEntity.builder()
@@ -39,20 +40,22 @@ public class InterestController {
             .build();
         SaveQuery saveQuery = SaveQuery.toQuery(requestInterest);
         interestUseCase.saveInterestQuery(saveQuery, memberEntity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new APIResponse<MemberView>("찜생성 되었습니다."));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<String>("찜생성 되었습니다."));
     }
 
     @GetMapping
-    public ResponseEntity<APIResponse<List<MemberView>>> getIngerest(@RequestHeader("accessToken") String token) {
+    public ResponseEntity<ApiResponse<List<MemberView>>> getIngerest(@RequestHeader("accessToken") String token) {
         FindQuery findQuery = FindQuery.toQuery(1L);
         List<MemberView> memberViewList = interestUseCase.findInterestQuery(findQuery).stream()
             .map(interestDto -> new MemberView(interestDto))
             .collect(Collectors.toList());
-        return ResponseEntity.status(HttpStatus.OK).body(new APIResponse<List<MemberView>>(memberViewList));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<List<MemberView>>(memberViewList));
     }
 
-    @DeleteMapping
-    public ResponseEntity<APIResponse> deleteInterest(@PathVariable Long id) {
-        return ResponseEntity.ok().body(new APIResponse("찜 삭제 되었습니다."));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<String>> deleteInterest(@PathVariable Long id) {
+        DeleteQuery deleteQuery = DeleteQuery.toQuery(id);
+        interestUseCase.deleteInterestQuery(deleteQuery);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<String>("찜삭제 되었습니다."));
     }
 }

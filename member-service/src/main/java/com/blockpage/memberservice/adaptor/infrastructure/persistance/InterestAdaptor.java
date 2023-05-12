@@ -37,4 +37,9 @@ public class InterestAdaptor implements InterestPort {
             .collect(Collectors.toList());
         return interestList;
     }
+
+    @Override
+    public void deleteInterest(Long id) {
+        interestRepository.deleteById(id);
+    }
 }

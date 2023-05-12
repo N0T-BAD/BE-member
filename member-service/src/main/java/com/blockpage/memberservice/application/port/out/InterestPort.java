@@ -8,4 +8,6 @@ public interface InterestPort {
     void saveInterest(Interest interest);
 
     List<Interest> findInterest(Long memberId);
+
+    void deleteInterest(Long id);
 }

@@ -12,6 +12,8 @@ public interface InterestUseCase {
 
     List<InterestDto> findInterestQuery(FindQuery query);
 
+    void deleteInterestQuery(DeleteQuery query);
+
     @Getter
     @Builder
     class SaveQuery {
@@ -45,6 +47,19 @@ public interface InterestUseCase {
 
             return FindQuery.builder()
                 .memberId(id)
+                .build();
+        }
+    }
+
+    @Getter
+    @Builder
+    class DeleteQuery {
+
+        private Long id;
+
+        public static DeleteQuery toQuery(Long id) {
+            return DeleteQuery.builder()
+                .id(id)
                 .build();
         }
     }

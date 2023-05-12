@@ -15,9 +15,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .oauth2Login()
-            .loginPage("/v1/oauth/login");
-
+            .httpBasic().disable()
+            .cors()
+            .and()
+            .csrf().disable()
+            .sessionManagement()
+            .and().authorizeRequests()
+            .antMatchers(("/v1/api/payments/best")).permitAll()
+            .antMatchers("/").permitAll()
+            .and()
+            .oauth2Login().loginPage("/v1/oauth/login");
         return http.build();
     }
+
 }
