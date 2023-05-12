@@ -4,10 +4,11 @@ import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.web.view.APIResponse;
 import com.blockpage.memberservice.adaptor.web.view.MemberView;
 import com.blockpage.memberservice.application.port.in.InterestUseCase;
+import com.blockpage.memberservice.application.port.in.InterestUseCase.FindQuery;
 import com.blockpage.memberservice.application.port.in.InterestUseCase.SaveQuery;
 import com.blockpage.memberservice.application.port.in.RequestInterest;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -42,12 +43,12 @@ public class InterestController {
     }
 
     @GetMapping
-    public ResponseEntity<APIResponse> getInterest() {
-        List<MemberView> memberViewList = new ArrayList<>();
-        memberViewList.add(new MemberView(1L, 1L, "웹툰제목", "웹툰썸네일", "작가명", "만화가명", "코믹"));
-        memberViewList.add(new MemberView(2L, 1L, "NOT-BAD", "프로핅스킨", "고은", "고은", "코믹"));
-        memberViewList.add(new MemberView(3L, 1L, "NOT-BAD", "프로핅스킨", "고은", "고은", "코믹"));
-        return ResponseEntity.ok().body(new APIResponse(memberViewList));
+    public ResponseEntity<APIResponse<List<MemberView>>> getIngerest(@RequestHeader("accessToken") String token) {
+        FindQuery findQuery = FindQuery.toQuery(1L);
+        List<MemberView> memberViewList = interestUseCase.findInterestQuery(findQuery).stream()
+            .map(interestDto -> new MemberView(interestDto))
+            .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(new APIResponse<List<MemberView>>(memberViewList));
     }
 
     @DeleteMapping
