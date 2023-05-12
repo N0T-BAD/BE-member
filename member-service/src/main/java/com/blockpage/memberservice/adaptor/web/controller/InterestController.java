@@ -4,6 +4,7 @@ import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.web.view.APIResponse;
 import com.blockpage.memberservice.adaptor.web.view.MemberView;
 import com.blockpage.memberservice.application.port.in.InterestUseCase;
+import com.blockpage.memberservice.application.port.in.InterestUseCase.DeleteQuery;
 import com.blockpage.memberservice.application.port.in.InterestUseCase.FindQuery;
 import com.blockpage.memberservice.application.port.in.InterestUseCase.SaveQuery;
 import com.blockpage.memberservice.application.port.in.RequestInterest;
@@ -51,8 +52,10 @@ public class InterestController {
         return ResponseEntity.status(HttpStatus.OK).body(new APIResponse<List<MemberView>>(memberViewList));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<APIResponse> deleteInterest(@PathVariable Long id) {
-        return ResponseEntity.ok().body(new APIResponse("찜 삭제 되었습니다."));
+        DeleteQuery deleteQuery = DeleteQuery.toQuery(id);
+        interestUseCase.deleteInterestQuery(deleteQuery);
+        return ResponseEntity.status(HttpStatus.OK).body(new APIResponse<MemberView>("찜삭제 되었습니다."));
     }
 }
