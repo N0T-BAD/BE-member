@@ -2,6 +2,7 @@ package com.blockpage.memberservice.adaptor.infrastructure.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,14 +20,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "emotion")
-public class EmotionEntity {
+public class EmotionEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "memberId")
-    @ManyToOne
+    @JoinColumn(name = "memberEntityId")
+    @ManyToOne(fetch = FetchType.LAZY)
     private MemberEntity memberEntity;
 
     @Column
