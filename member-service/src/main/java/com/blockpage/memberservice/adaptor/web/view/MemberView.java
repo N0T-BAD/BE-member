@@ -1,6 +1,7 @@
 package com.blockpage.memberservice.adaptor.web.view;
 
 import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
+import com.blockpage.memberservice.application.port.out.InterestDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.ToString;
@@ -75,5 +76,15 @@ public class MemberView {
     //평점조회
     public MemberView(Integer ratings) {
         this.ratings = ratings;
+    }
+
+    public MemberView(InterestDto interestDto) {
+        this.id = interestDto.getId();
+        this.webtoonId = interestDto.getWebtoonId();
+        this.webtoonTitle = interestDto.getWebtoonTitle();
+        this.webtoonThumbnail = interestDto.getWebtoonThumbnail();
+        this.creator = interestDto.getCreator();
+        this.illustrator = interestDto.getIllustrator();
+        this.genre = interestDto.getGenre();
     }
 }

@@ -1,12 +1,15 @@
 package com.blockpage.memberservice.application.port.out;
 
 import com.blockpage.memberservice.application.port.in.InterestUseCase.SaveQuery;
+import com.blockpage.memberservice.domain.Interest;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
 public class InterestDto {
+
+    private Long id;
 
     private Long webtoonId;
 
@@ -27,6 +30,17 @@ public class InterestDto {
             .webtoonThumbnail(saveQuery.getWebtoonThumbnail())
             .creator(saveQuery.getCreator())
             .genre(saveQuery.getGenre())
+            .build();
+    }
+
+    public static InterestDto fromInterest(Interest interest) {
+        return InterestDto.builder()
+            .webtoonId(interest.getWebtoonId())
+            .webtoonTitle(interest.getWebtoonTitle())
+            .webtoonThumbnail(interest.getWebtoonThumbnail())
+            .creator(interest.getCreator())
+            .illustrator(interest.getIllustrator())
+            .genre(interest.getGenre())
             .build();
     }
 }
