@@ -33,9 +33,9 @@ public class InterestService implements InterestUseCase {
     }
 
     @Override
-    public Void deleteInterestQuery(DeleteQuery query) {
+    public void deleteInterestQuery(DeleteQuery query) {
         interestPort.deleteInterest(query.getId());
-        return null;
+
     }
 
 }

@@ -12,7 +12,7 @@ public interface InterestUseCase {
 
     List<InterestDto> findInterestQuery(FindQuery query);
 
-    Void deleteInterestQuery(DeleteQuery query);
+    void deleteInterestQuery(DeleteQuery query);
 
     @Getter
     @Builder
