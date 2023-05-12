@@ -3,7 +3,7 @@ package com.blockpage.memberservice.adaptor.web.controller;
 import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.entity.RatingEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
-import com.blockpage.memberservice.adaptor.web.apispec.APIResponse;
+import com.blockpage.memberservice.adaptor.web.view.ApiResponse;
 import com.blockpage.memberservice.adaptor.web.view.MemberView;
 import com.blockpage.memberservice.application.port.in.RequestRating;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RatingsController {
 
     @PostMapping
-    public ResponseEntity<APIResponse> addRating(@RequestBody RequestRating requestRating) {
+    public ResponseEntity<ApiResponse> addRating(@RequestBody RequestRating requestRating) {
         RatingEntity ratingEntity = RatingEntity.builder()
             .memberEntity(
                 MemberEntity.builder().
@@ -36,12 +36,12 @@ public class RatingsController {
             .episodeId(1L)
             .ratings(8)
             .build();
-        return ResponseEntity.ok().body(new APIResponse("평점 등록되었습니다.", requestRating.getRatings()));
+        return ResponseEntity.ok().body(new ApiResponse(requestRating.getRatings()));
     }
 
     @GetMapping
-    public ResponseEntity<APIResponse> getInterest(@RequestParam("episodeId") Long episodeId) {
-        return ResponseEntity.ok().body(new APIResponse(new MemberView(8)));
+    public ResponseEntity<ApiResponse> getInterest(@RequestParam("episodeId") Long episodeId) {
+        return ResponseEntity.ok().body(new ApiResponse(new MemberView(8)));
     }
 
 }

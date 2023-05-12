@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.adaptor.web.controller;
 
-import com.blockpage.memberservice.adaptor.web.apispec.APIResponse;
+import com.blockpage.memberservice.adaptor.web.view.ApiResponse;
 import com.blockpage.memberservice.application.service.JwtTokenProvider;
 import com.blockpage.memberservice.application.service.OAuthService;
 import com.blockpage.memberservice.application.service.TokenInfo;
@@ -30,7 +30,7 @@ public class OAuthController {
     //로그인 테스트 주소
     @ResponseBody
     @GetMapping("/login")
-    public ResponseEntity<APIResponse> Login(@RequestParam("code") String code, HttpServletResponse response)
+    public ResponseEntity<ApiResponse> Login(@RequestParam("code") String code, HttpServletResponse response)
         throws JsonProcessingException {
         System.out.println(code);
         //코드 통해 카카오 회원 검증하여 email 가져오기
@@ -40,6 +40,6 @@ public class OAuthController {
         response.addHeader("accessToken", token.getAccessToken());
         response.addHeader("refreshToken", token.getRefreshToken());
         log.info(token.toString());
-        return ResponseEntity.ok().body(new APIResponse("로그인 되었습니다.", token));
+        return ResponseEntity.ok().body(new ApiResponse(token));
     }
 }
