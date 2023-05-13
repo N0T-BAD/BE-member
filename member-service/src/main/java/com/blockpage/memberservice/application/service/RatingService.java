@@ -20,4 +20,10 @@ public class RatingService implements RatingUseCase {
         ratingPort.saveRating(rating);
         return RatingDto.toQuery(saveQuery);
     }
+
+    @Override
+    public RatingDto findRatingQuery(FindQuery findQuery, Long memberId) {
+        Rating rating = new Rating(findQuery);
+        return ratingPort.findRating(rating, memberId);
+    }
 }
