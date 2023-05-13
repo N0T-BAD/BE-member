@@ -1,5 +1,6 @@
 package com.blockpage.memberservice.adaptor.infrastructure.entity;
 
+import com.blockpage.memberservice.domain.Emotion;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,4 +39,14 @@ public class EmotionEntity extends BaseEntity {
 
     @Column
     private Boolean emotion;
+    //true = 좋아요/false=싫어요
+
+    public static EmotionEntity fromEmotion(Emotion emotion) {
+        return EmotionEntity.builder()
+            .memberEntity(emotion.getMemberEntity())
+            .episodeId(emotion.getEpisodeId())
+            .commentId(emotion.getCommentId())
+            .emotion(emotion.getEmotion())
+            .build();
+    }
 }
