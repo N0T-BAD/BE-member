@@ -1,6 +1,7 @@
 package com.blockpage.memberservice.adaptor.web.view;
 
 import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
+import com.blockpage.memberservice.application.port.out.EmotionDto;
 import com.blockpage.memberservice.application.port.out.InterestDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -86,5 +87,11 @@ public class MemberView {
         this.creator = interestDto.getCreator();
         this.illustrator = interestDto.getIllustrator();
         this.genre = interestDto.getGenre();
+    }
+
+    public MemberView(EmotionDto emotionDto){
+        this.id = emotionDto.getId();
+        this.commentId = emotionDto.getCommentId();
+        this.emotion = emotionDto.getEmotion();
     }
 }
