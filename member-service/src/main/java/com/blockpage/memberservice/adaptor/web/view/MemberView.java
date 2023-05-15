@@ -14,6 +14,8 @@ public class MemberView {
 
     private Long id;
 
+    private String message;
+
     //MemberView
     private String nickname;
 
@@ -89,9 +91,13 @@ public class MemberView {
         this.genre = interestDto.getGenre();
     }
 
-    public MemberView(EmotionDto emotionDto){
+    public MemberView(EmotionDto emotionDto) {
         this.id = emotionDto.getId();
         this.commentId = emotionDto.getCommentId();
         this.emotion = emotionDto.getEmotion();
+    }
+
+    public MemberView(String message) {
+        this.message = message;
     }
 }
