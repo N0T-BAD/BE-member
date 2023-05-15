@@ -32,7 +32,7 @@ public class InterestController {
     private final InterestUseCase interestUseCase;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<String>> addInterst(@RequestBody RequestInterest requestInterest,
+    public ResponseEntity<ApiResponse<MemberView>> addInterst(@RequestBody RequestInterest requestInterest,
         @RequestHeader("accessToken") String token) {
         //TODO 헤더 토큰으로 멤버 가져오기 구현예정(토큰>카카오토큰정보조회>카카오아이디받아오기>멤버가져오기)
         MemberEntity memberEntity = MemberEntity.builder()
@@ -40,7 +40,7 @@ public class InterestController {
             .build();
         SaveQuery saveQuery = SaveQuery.toQuery(requestInterest);
         interestUseCase.saveInterestQuery(saveQuery, memberEntity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<String>("찜생성 되었습니다."));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<MemberView>(new MemberView("찜생성 되었습니다.")));
     }
 
     @GetMapping
@@ -53,9 +53,9 @@ public class InterestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<String>> deleteInterest(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<MemberView>> deleteInterest(@PathVariable Long id) {
         DeleteQuery deleteQuery = DeleteQuery.toQuery(id);
         interestUseCase.deleteInterestQuery(deleteQuery);
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<String>("찜삭제 되었습니다."));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<MemberView>(new MemberView("찜삭제 되었습니다.")));
     }
 }
