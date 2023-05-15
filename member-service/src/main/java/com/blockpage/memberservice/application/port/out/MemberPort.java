@@ -1,9 +1,12 @@
 package com.blockpage.memberservice.application.port.out;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
-import java.util.Optional;
+import com.blockpage.memberservice.domain.Member;
 
 public interface MemberPort {
 
-    Optional<MemberEntity> findMember(Long kakaoId);
+    MemberDto findMember(Member member);
+
+    void saveMember(Member member);
+
+    MemberDto findMemberInfo(Member member);
 }
