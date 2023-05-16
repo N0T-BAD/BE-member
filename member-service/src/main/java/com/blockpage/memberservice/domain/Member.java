@@ -4,6 +4,7 @@ import com.blockpage.memberservice.adaptor.external.kakao.responseBody.KakaoUser
 import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.FindMemberQuery;
+import com.blockpage.memberservice.application.port.in.MemberUseCase.UpdateQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,7 +52,7 @@ public class Member {
             .build();
     }
 
-    public static Member fromMemberEntity(MemberEntity memberEntity){
+    public static Member fromMemberEntity(MemberEntity memberEntity) {
         return Member.builder()
             .kakaoId(memberEntity.getKakaoId())
             .email(memberEntity.getEmail())
@@ -62,6 +63,15 @@ public class Member {
             .role(memberEntity.getRole())
             .creatorNickname(memberEntity.getCreatorNickname())
             .adult(memberEntity.getAdult())
+            .build();
+    }
+
+    public static Member fromUpdateQuery(UpdateQuery updateQuery) {
+        return Member.builder()
+            .id(updateQuery.getId())
+            .nickname(updateQuery.getNickname())
+            .profileImage(updateQuery.getProfileImage())
+            .profileSkin(updateQuery.getProfileSkin())
             .build();
     }
 

@@ -28,4 +28,10 @@ public class MemberService implements MemberUseCase {
         MemberDto memberDto = MemberDto.fromMember(memberPort.findMemberInfo(member));
         return memberDto;
     }
+
+    @Override
+    public void updateMemberInfo(UpdateQuery updateQuery) {
+        Member member = Member.fromUpdateQuery(updateQuery);
+        memberPort.updateMemberInfo(member);
+    }
 }
