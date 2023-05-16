@@ -1,20 +1,18 @@
 package com.blockpage.memberservice.adaptor.web.controller;
 
 import com.blockpage.memberservice.adaptor.web.view.ApiResponse;
-import com.blockpage.memberservice.application.service.JwtTokenProvider;
-import com.blockpage.memberservice.application.service.OAuthService;
-import com.blockpage.memberservice.application.service.TokenInfo;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import java.util.concurrent.TimeUnit;
+import com.blockpage.memberservice.adaptor.web.view.MemberView;
+import com.blockpage.memberservice.application.port.in.OAuthUseCase;
+import com.blockpage.memberservice.application.port.in.OAuthUseCase.LoginQuery;
+import com.blockpage.memberservice.application.port.out.OAuthDto;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,23 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class OAuthController {
 
-    private final OAuthService oAuthService;
-    private final JwtTokenProvider jwtTokenProvider;
-    private final RedisTemplate redisTemplate;
+    private final OAuthUseCase oAuthUseCase;
 
-    //로그인 테스트 주소
-    @ResponseBody
     @GetMapping("/login")
-    public ResponseEntity<ApiResponse> Login(@RequestParam("code") String code, HttpServletResponse response)
-        throws JsonProcessingException {
-        System.out.println(code);
-        //코드 통해 카카오 회원 검증하여 email 가져오기
-        String email = oAuthService.kakaoLogin(code);
-        TokenInfo token = jwtTokenProvider.generateToken(email);
-        redisTemplate.opsForValue().set(email, token.getRefreshToken(), token.getRefreshTokenExpirationTime(), TimeUnit.MILLISECONDS);
-        response.addHeader("accessToken", token.getAccessToken());
-        response.addHeader("refreshToken", token.getRefreshToken());
-        log.info(token.toString());
-        return ResponseEntity.ok().body(new ApiResponse(token));
+    public ResponseEntity<ApiResponse<MemberView>> login(@RequestParam("code") String code, HttpServletResponse response) {
+        OAuthDto oAuthDto = oAuthUseCase.oAuthLoginQuery(new LoginQuery(code));
+        response.addHeader("accessToken", oAuthDto.getAccessToken());
+        response.addHeader("accessTokenExpireTime", oAuthDto.getAccessTokenExpireTime().toString());
+        response.addHeader("refreshToken", oAuthDto.getRefreshToken());
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<MemberView>(new MemberView(oAuthDto.getMessage())));
     }
 }
