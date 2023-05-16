@@ -1,6 +1,7 @@
 package com.blockpage.memberservice.adaptor.infrastructure.entity;
 
 import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
+import com.blockpage.memberservice.domain.Member;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Table(name = "member")
-public class MemberEntity extends BaseEntity{
+public class MemberEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,5 +53,15 @@ public class MemberEntity extends BaseEntity{
 
     @Column
     private Boolean adult;
+
+    public static MemberEntity fromMember(Member member) {
+        return MemberEntity.builder()
+            .kakaoId(member.getKakaoId())
+            .email(member.getEmail())
+            .nickname(member.getNickname())
+            .profileImage(member.getProfileImage() != null ? member.getProfileImage() : "프로필 이미지를 선택하지 않았습니다.")
+            .gender(member.getGender() != null ? member.getGender() : "성별이 입력되지 않았습니다.")
+            .build();
+    }
 
 }

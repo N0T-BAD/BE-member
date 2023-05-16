@@ -21,7 +21,6 @@ public class SecurityConfig {
             .csrf().disable()
             .sessionManagement()
             .and().authorizeRequests()
-            .antMatchers(("/v1/api/payments/best")).permitAll()
             .antMatchers("/").permitAll()
             .and()
             .oauth2Login().loginPage("/v1/oauth/login");

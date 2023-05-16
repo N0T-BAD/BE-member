@@ -32,12 +32,12 @@ public class EmotionController {
     private final EmotionUseCase emotionUseCase;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<String>> addEmotion(@RequestHeader("accessToken") String token,
+    public ResponseEntity<ApiResponse<MemberView>> addEmotion(@RequestHeader("accessToken") String token,
         @RequestBody RequestEmotion requestEmotion) {
         MemberEntity memberEntity = MemberEntity.builder().id(1L).build();
         SaveQuery saveQuery = SaveQuery.toQuery(requestEmotion);
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(new ApiResponse<String>(emotionUseCase.saveEmotionQuery(saveQuery, memberEntity)));
+            .body(new ApiResponse<MemberView>(new MemberView(emotionUseCase.saveEmotionQuery(saveQuery, memberEntity))));
     }
 
     @GetMapping
@@ -52,9 +52,9 @@ public class EmotionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<String>> deleteEmotion(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<MemberView>> deleteEmotion(@PathVariable Long id) {
         emotionUseCase.deleteEmotionQuery(new DeleteQuery(id));
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>("댓글반응이 삭제되었습니다."));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<MemberView>(new MemberView("댓글반응이 삭제되었습니다.")));
     }
 
 }

@@ -28,11 +28,11 @@ public class RatingsController {
     private final RatingUseCase ratingUseCase;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<String>> addRating(@RequestHeader("accessToken") String token,
+    public ResponseEntity<ApiResponse<MemberView>> addRating(@RequestHeader("accessToken") String token,
         @RequestBody RequestRating requestRating) {
         MemberEntity memberEntity = MemberEntity.builder().id(1L).build();
         ratingUseCase.saveRatingQuery(SaveQuery.toQuery(requestRating), memberEntity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<String>("평점 등록 되었습니다."));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<MemberView>(new MemberView("평점 등록 되었습니다.")));
     }
 
     @GetMapping("/{episodeId}")

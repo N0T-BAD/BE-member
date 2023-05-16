@@ -3,6 +3,7 @@ package com.blockpage.memberservice.adaptor.web.view;
 import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
 import com.blockpage.memberservice.application.port.out.EmotionDto;
 import com.blockpage.memberservice.application.port.out.InterestDto;
+import com.blockpage.memberservice.application.port.out.MemberDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.ToString;
@@ -13,6 +14,8 @@ import lombok.ToString;
 public class MemberView {
 
     private Long id;
+
+    private String message;
 
     //MemberView
     private String nickname;
@@ -89,9 +92,22 @@ public class MemberView {
         this.genre = interestDto.getGenre();
     }
 
-    public MemberView(EmotionDto emotionDto){
+    public MemberView(EmotionDto emotionDto) {
         this.id = emotionDto.getId();
         this.commentId = emotionDto.getCommentId();
         this.emotion = emotionDto.getEmotion();
+    }
+
+    public MemberView(String message) {
+        this.message = message;
+    }
+
+    public MemberView(MemberDto memberDto) {
+        this.nickname = memberDto.getNickname();
+        this.profileImage = memberDto.getProfileImage();
+        this.profileSkin = memberDto.getProfileSkin();
+        this.role = memberDto.getRole();
+        this.creatorNickname = memberDto.getCreatorNickname();
+
     }
 }

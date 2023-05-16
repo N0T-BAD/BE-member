@@ -4,14 +4,19 @@ import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
 import com.blockpage.memberservice.adaptor.web.view.ApiResponse;
 import com.blockpage.memberservice.adaptor.web.view.MemberView;
+import com.blockpage.memberservice.application.port.in.MemberUseCase;
+import com.blockpage.memberservice.application.port.in.MemberUseCase.FindMemberQuery;
 import com.blockpage.memberservice.application.port.in.RequestMember;
+import com.blockpage.memberservice.application.port.out.MemberDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1/members")
 @Slf4j
 public class MemberController {
+
+    private final MemberUseCase memberUseCase;
 
     @PostMapping
     public ResponseEntity<ApiResponse> joinMember(@RequestBody RequestMember requestMember) {
@@ -117,10 +124,10 @@ public class MemberController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse> getMember() {
-        MemberView memberView = new MemberView("고은",
-            "https://user-images.githubusercontent.com/97498405/235885340-d63630ec-85ec-4801-bf73-ac83f96c3bd2.jpg", null,
-            Role.MEMBER, null);
-        return ResponseEntity.ok().body(new ApiResponse(memberView));
+    public ResponseEntity<ApiResponse<MemberView>> getMember(@RequestHeader("accessToken") String token) {
+        Long id = 1L;
+        FindMemberQuery findMemberQuery = new FindMemberQuery(id);
+        MemberDto memberDto = memberUseCase.findMemberinfo(findMemberQuery);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new MemberView(memberDto)));
     }
 }
