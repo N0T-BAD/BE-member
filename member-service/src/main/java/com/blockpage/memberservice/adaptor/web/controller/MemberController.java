@@ -130,11 +130,4 @@ public class MemberController {
         MemberDto memberDto = memberUseCase.findMemberinfo(findMemberQuery);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new MemberView(memberDto)));
     }
-//    @GetMapping
-//    public ResponseEntity<ApiResponse> getMember() {
-//        MemberView memberView = new MemberView("고은",
-//            "https://user-images.githubusercontent.com/97498405/235885340-d63630ec-85ec-4801-bf73-ac83f96c3bd2.jpg", null,
-//            Role.MEMBER, null);
-//        return ResponseEntity.ok().body(new ApiResponse(memberView));
-//    }
 }

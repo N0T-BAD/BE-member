@@ -1,6 +1,7 @@
 package com.blockpage.memberservice.domain;
 
-import com.blockpage.memberservice.adaptor.external.kakao.ResponseBody.KakaoUserInfoResponse;
+import com.blockpage.memberservice.adaptor.external.kakao.responseBody.KakaoUserInfoResponse;
+import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.FindMemberQuery;
 import lombok.AllArgsConstructor;
@@ -47,6 +48,20 @@ public class Member {
             .nickname(kakaoUserInfoResponse.getProperties().getNickname())
             .profileImage(kakaoUserInfoResponse.getProperties().getProfile_image_url())
             .gender(kakaoUserInfoResponse.getKakao_account().getGender())
+            .build();
+    }
+
+    public static Member fromMemberEntity(MemberEntity memberEntity){
+        return Member.builder()
+            .kakaoId(memberEntity.getKakaoId())
+            .email(memberEntity.getEmail())
+            .nickname(memberEntity.getNickname())
+            .profileImage(memberEntity.getProfileImage())
+            .profileSkin(memberEntity.getProfileSkin())
+            .gender(memberEntity.getGender())
+            .role(memberEntity.getRole())
+            .creatorNickname(memberEntity.getCreatorNickname())
+            .adult(memberEntity.getAdult())
             .build();
     }
 

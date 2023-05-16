@@ -2,7 +2,6 @@ package com.blockpage.memberservice.adaptor.infrastructure.persistance;
 
 import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.repository.MemberRepository;
-import com.blockpage.memberservice.application.port.out.MemberDto;
 import com.blockpage.memberservice.application.port.out.MemberPort;
 import com.blockpage.memberservice.domain.Member;
 import java.util.Optional;
@@ -16,11 +15,11 @@ public class MemberAdaptor implements MemberPort {
     private final MemberRepository memberRepository;
 
     @Override
-    public MemberDto findMember(Member member) {
+    public Member findMember(Member member) {
         Optional<MemberEntity> memberEntity = memberRepository.findByKakaoId(member.getKakaoId());
         if (memberEntity.isPresent()) {
-            MemberDto memberDto = MemberDto.fromMemberEntity(memberEntity.get());
-            return memberDto;
+            Member member1 = Member.fromMemberEntity(memberEntity.get());
+            return member1;
         }
         return null;
     }
@@ -31,11 +30,11 @@ public class MemberAdaptor implements MemberPort {
     }
 
     @Override
-    public MemberDto findMemberInfo(Member member) {
+    public Member findMemberInfo(Member member) {
         Optional<MemberEntity> memberEntity = memberRepository.findById(member.getId());
         if (memberEntity.isPresent()) {
-            MemberDto memberDto = MemberDto.fromMemberEntity(memberEntity.get());
-            return memberDto;
+            Member member1 = Member.fromMemberEntity(memberEntity.get());
+            return member1;
         }
         return null;
     }

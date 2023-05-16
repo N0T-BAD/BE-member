@@ -4,9 +4,9 @@ import com.blockpage.memberservice.domain.Member;
 
 public interface MemberPort {
 
-    MemberDto findMember(Member member);
+    Member findMember(Member member);
 
     void saveMember(Member member);
 
-    MemberDto findMemberInfo(Member member);
+    Member findMemberInfo(Member member);
 }

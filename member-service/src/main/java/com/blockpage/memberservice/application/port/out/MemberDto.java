@@ -1,7 +1,7 @@
 package com.blockpage.memberservice.application.port.out;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
+import com.blockpage.memberservice.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -28,17 +28,17 @@ public class MemberDto {
 
     private Boolean adult;
 
-    public static MemberDto fromMemberEntity(MemberEntity memberEntity) {
+    public static MemberDto fromMember(Member member) {
         return MemberDto.builder()
-            .kakaoId(memberEntity.getKakaoId())
-            .email(memberEntity.getEmail())
-            .nickname(memberEntity.getNickname())
-            .profileImage(memberEntity.getProfileImage())
-            .profileSkin(memberEntity.getProfileSkin())
-            .gender(memberEntity.getGender())
-            .role(memberEntity.getRole())
-            .creatorNickname(memberEntity.getCreatorNickname())
-            .adult(memberEntity.getAdult())
+            .kakaoId(member.getKakaoId())
+            .email(member.getEmail())
+            .nickname(member.getNickname())
+            .profileImage(member.getProfileImage())
+            .profileSkin(member.getProfileSkin())
+            .gender(member.getGender())
+            .role(member.getRole())
+            .creatorNickname(member.getCreatorNickname())
+            .adult(member.getAdult())
             .build();
     }
 

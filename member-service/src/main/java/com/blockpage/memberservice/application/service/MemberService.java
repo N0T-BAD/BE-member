@@ -18,12 +18,14 @@ public class MemberService implements MemberUseCase {
     @Override
     public MemberDto findMemberKakao(FindQuery findQuery) {
         Member member = new Member(findQuery.getKakaoId());
-        return memberPort.findMember(member);
+        MemberDto memberDto = MemberDto.fromMember(memberPort.findMember(member));
+        return memberDto;
     }
 
     @Override
     public MemberDto findMemberinfo(FindMemberQuery findMemberQuery) {
         Member member = new Member(findMemberQuery);
-        return memberPort.findMemberInfo(member);
+        MemberDto memberDto = MemberDto.fromMember(memberPort.findMemberInfo(member));
+        return memberDto;
     }
 }
