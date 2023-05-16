@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.adaptor.external.kakao.requestBody;
 
-import com.blockpage.memberservice.adaptor.external.kakao.controller.OAuthConfig;
+import com.blockpage.memberservice.adaptor.external.kakao.configuration.OAuthConfig;
 import com.blockpage.memberservice.application.port.in.OAuthUseCase.LoginQuery;
 import lombok.Builder;
 import lombok.Getter;

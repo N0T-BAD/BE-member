@@ -4,7 +4,7 @@ import com.blockpage.memberservice.adaptor.external.kakao.responseBody.KakaoResp
 import com.blockpage.memberservice.adaptor.external.kakao.responseBody.KakaoTokenInfoResponse;
 import com.blockpage.memberservice.adaptor.external.kakao.responseBody.KakaoTokenResponse;
 import com.blockpage.memberservice.adaptor.external.kakao.responseBody.KakaoUserInfoResponse;
-import com.blockpage.memberservice.adaptor.external.kakao.controller.OAuthConfig;
+import com.blockpage.memberservice.adaptor.external.kakao.configuration.OAuthConfig;
 import com.blockpage.memberservice.application.port.in.OAuthUseCase;
 import com.blockpage.memberservice.application.port.out.MemberPort;
 import com.blockpage.memberservice.application.port.out.OAuthDto;

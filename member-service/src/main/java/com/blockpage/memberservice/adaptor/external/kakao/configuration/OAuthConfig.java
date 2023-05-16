@@ -1,4 +1,4 @@
-package com.blockpage.memberservice.adaptor.external.kakao.controller;
+package com.blockpage.memberservice.adaptor.external.kakao.configuration;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

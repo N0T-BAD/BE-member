@@ -1,5 +1,6 @@
 package com.blockpage.memberservice.adaptor.external.kakao.controller;
 
+import com.blockpage.memberservice.adaptor.external.kakao.configuration.OAuthConfig;
 import com.blockpage.memberservice.adaptor.external.kakao.requestBody.RequestInfo;
 import com.blockpage.memberservice.adaptor.external.kakao.requestBody.RequestToken;
 import com.blockpage.memberservice.adaptor.external.kakao.responseBody.KakaoResponse;
