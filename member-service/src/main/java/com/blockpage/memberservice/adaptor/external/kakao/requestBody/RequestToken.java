@@ -1,4 +1,4 @@
-package com.blockpage.memberservice.adaptor.external.kakao.RequestBody;
+package com.blockpage.memberservice.adaptor.external.kakao.requestBody;
 
 import com.blockpage.memberservice.adaptor.external.kakao.controller.OAuthConfig;
 import com.blockpage.memberservice.application.port.in.OAuthUseCase.LoginQuery;

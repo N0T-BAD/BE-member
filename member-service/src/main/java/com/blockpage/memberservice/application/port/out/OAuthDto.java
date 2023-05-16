@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.application.port.out;
 
-import com.blockpage.memberservice.adaptor.external.kakao.ResponseBody.KakaoResponse;
+import com.blockpage.memberservice.adaptor.external.kakao.responseBody.KakaoResponse;
 import lombok.Builder;
 import lombok.Getter;
 

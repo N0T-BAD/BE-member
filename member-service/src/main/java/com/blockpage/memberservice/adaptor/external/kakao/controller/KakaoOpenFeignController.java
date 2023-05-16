@@ -1,7 +1,7 @@
 package com.blockpage.memberservice.adaptor.external.kakao.controller;
 
-import com.blockpage.memberservice.adaptor.external.kakao.RequestBody.RequestToken;
-import com.blockpage.memberservice.adaptor.external.kakao.ResponseBody.KakaoTokenResponse;
+import com.blockpage.memberservice.adaptor.external.kakao.requestBody.RequestToken;
+import com.blockpage.memberservice.adaptor.external.kakao.responseBody.KakaoTokenResponse;
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;

@@ -1,9 +1,9 @@
 package com.blockpage.memberservice.application.port.out;
 
-import com.blockpage.memberservice.adaptor.external.kakao.ResponseBody.KakaoResponse;
-import com.blockpage.memberservice.adaptor.external.kakao.ResponseBody.KakaoTokenInfoResponse;
-import com.blockpage.memberservice.adaptor.external.kakao.ResponseBody.KakaoTokenResponse;
-import com.blockpage.memberservice.adaptor.external.kakao.ResponseBody.KakaoUserInfoResponse;
+import com.blockpage.memberservice.adaptor.external.kakao.responseBody.KakaoResponse;
+import com.blockpage.memberservice.adaptor.external.kakao.responseBody.KakaoTokenInfoResponse;
+import com.blockpage.memberservice.adaptor.external.kakao.responseBody.KakaoTokenResponse;
+import com.blockpage.memberservice.adaptor.external.kakao.responseBody.KakaoUserInfoResponse;
 import com.blockpage.memberservice.adaptor.external.kakao.controller.OAuthConfig;
 import com.blockpage.memberservice.application.port.in.OAuthUseCase.LoginQuery;
 

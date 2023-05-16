@@ -1,4 +1,4 @@
-package com.blockpage.memberservice.adaptor.external.kakao.ResponseBody;
+package com.blockpage.memberservice.adaptor.external.kakao.responseBody;
 
 import lombok.Getter;
 
