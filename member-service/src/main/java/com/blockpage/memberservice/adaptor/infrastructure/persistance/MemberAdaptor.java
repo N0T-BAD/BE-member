@@ -38,4 +38,16 @@ public class MemberAdaptor implements MemberPort {
         }
         return null;
     }
+
+    @Override
+    public void updateMemberInfo(Member member) {
+        Optional<MemberEntity> memberEntity = memberRepository.findById(member.getId());
+        if (memberEntity.get().getProfileImage().equals(member.getProfileImage())) {
+            MemberEntity updateMemberEntity = MemberEntity.updateMember(memberEntity.get(), member);
+            memberRepository.save(updateMemberEntity);
+
+        } else {
+            //TODO 프로필이미지 변경시 S3 이미지 저장 및 주소 가져오기 생성
+        }
+    }
 }

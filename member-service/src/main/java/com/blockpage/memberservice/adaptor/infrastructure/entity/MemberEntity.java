@@ -64,4 +64,18 @@ public class MemberEntity extends BaseEntity {
             .build();
     }
 
+    public static MemberEntity updateMember(MemberEntity memberEntity, Member member) {
+        return MemberEntity.builder()
+            .id(memberEntity.getId())
+            .kakaoId(memberEntity.getKakaoId())
+            .email(memberEntity.getEmail())
+            .nickname(member.getNickname())
+            .profileImage(member.getProfileImage() != null ? member.getProfileImage() : memberEntity.getProfileImage())
+            .gender(member.getGender() != null ? member.getGender() : memberEntity.getGender())
+            .role(memberEntity.getRole())
+            .creatorNickname(memberEntity.getCreatorNickname())
+            .adult(member != null ? member.getAdult() : memberEntity.getAdult())
+            .build();
+    }
+
 }

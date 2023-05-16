@@ -9,4 +9,6 @@ public interface MemberPort {
     void saveMember(Member member);
 
     Member findMemberInfo(Member member);
+
+    void updateMemberInfo(Member member);
 }
