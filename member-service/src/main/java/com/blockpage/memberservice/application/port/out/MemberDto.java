@@ -28,7 +28,7 @@ public class MemberDto {
 
     private Boolean adult;
 
-    public static MemberDto fromMemberEntity(MemberEntity memberEntity){
+    public static MemberDto fromMemberEntity(MemberEntity memberEntity) {
         return MemberDto.builder()
             .kakaoId(memberEntity.getKakaoId())
             .email(memberEntity.getEmail())
