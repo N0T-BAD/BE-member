@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.application.port.out;
 
-import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
+import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
 import com.blockpage.memberservice.domain.Member;
 import lombok.Builder;
 import lombok.Getter;

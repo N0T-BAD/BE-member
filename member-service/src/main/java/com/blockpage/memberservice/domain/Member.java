@@ -2,12 +2,14 @@ package com.blockpage.memberservice.domain;
 
 import com.blockpage.memberservice.adaptor.external.kakao.responseBody.KakaoUserInfoResponse;
 import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
-import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
+import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.FindMemberQuery;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.UpdateQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Builder
@@ -24,6 +26,8 @@ public class Member {
 
     private String profileImage;
 
+    private MultipartFile newProfileImage;
+
     private String profileSkin;
 
     private String gender;
@@ -38,8 +42,11 @@ public class Member {
         this.kakaoId = kakaoId;
     }
 
-    public Member(FindMemberQuery findMemberQuery) {
-        this.id = findMemberQuery.getId();
+    public static Member findMember(FindMemberQuery findMemberQuery) {
+        return Member.builder()
+            .id(findMemberQuery.getId())
+            .creatorNickname(findMemberQuery.getCreatorNickname())
+            .build();
     }
 
     public static Member saveMember(KakaoUserInfoResponse kakaoUserInfoResponse) {
@@ -49,6 +56,7 @@ public class Member {
             .nickname(kakaoUserInfoResponse.getProperties().getNickname())
             .profileImage(kakaoUserInfoResponse.getProperties().getProfile_image_url())
             .gender(kakaoUserInfoResponse.getKakao_account().getGender())
+            .role(Role.MEMBER)
             .build();
     }
 
@@ -66,13 +74,20 @@ public class Member {
             .build();
     }
 
-    public static Member fromUpdateQuery(UpdateQuery updateQuery) {
+    public static Member fromUpdateQuery(@RequestBody UpdateQuery updateQuery) {
         return Member.builder()
             .id(updateQuery.getId())
             .nickname(updateQuery.getNickname())
-            .profileImage(updateQuery.getProfileImage())
-            .profileSkin(updateQuery.getProfileSkin())
+            .newProfileImage(updateQuery.getProfileImage())
+            .adult(updateQuery.getAdult())
             .build();
     }
 
+    public static Member updateCreator(UpdateQuery updateQuery) {
+        return Member.builder()
+            .id(updateQuery.getId())
+            .role(Role.AUTHOR)
+            .creatorNickname(updateQuery.getCreatorNickname())
+            .build();
+    }
 }
