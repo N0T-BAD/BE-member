@@ -1,10 +1,11 @@
 package com.blockpage.memberservice.application.port.in;
 
-import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
 import com.blockpage.memberservice.application.port.out.MemberDto;
+import java.io.IOException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface MemberUseCase {
 
@@ -12,7 +13,7 @@ public interface MemberUseCase {
 
     MemberDto findMemberinfo(FindMemberQuery findMemberQuery);
 
-    void updateMemberInfo(UpdateQuery updateQuery);
+    void updateMemberInfo(UpdateQuery updateQuery) throws IOException;
 
     @Getter
     @NoArgsConstructor
@@ -25,49 +26,51 @@ public interface MemberUseCase {
         }
     }
 
-
     @Getter
+    @Builder
     class FindMemberQuery {
 
         private Long id;
+        private String type;
+        private String creatorNickname;
 
-        public FindMemberQuery(Long id) {
-            this.id = id;
+        public static FindMemberQuery toQuery(String type, Long id, RequestMember requestMember) {
+            return FindMemberQuery.builder()
+                .id(id != null ? id : null)
+                .type(type)
+                .creatorNickname(requestMember != null ? requestMember.getCreatorNickname() : null)
+                .build();
         }
-
     }
 
     @Getter
     @Builder
     class UpdateQuery {
 
-        private Long id;
+        private String type;
 
-        private String email;
+        private Long id;
 
         private String nickname;
 
-        private String profileImage;
-
         private String profileSkin;
 
-        private String gender;
-
-        private Role role;
+        private Boolean adult;
 
         private String creatorNickname;
 
-        public static UpdateQuery toQuery(Long id, RequestMember requestMember) {
+        private MultipartFile profileImage;
+
+        public static UpdateQuery toQuery(Long id, String type, RequestMember requestMember,MultipartFile profileImage) {
             return UpdateQuery.builder()
+                .type(type)
                 .id(id)
-                .email(requestMember.getEmail())
                 .nickname(requestMember.getNickname())
-                .profileImage(requestMember.getProfileImage())
-                .gender(requestMember.getGender())
-                .role(requestMember.getRole())
+                .profileSkin(requestMember.getProfileSkin())
+                .adult(requestMember.getAdult())
                 .creatorNickname(requestMember.getCreatorNickname())
+                .profileImage(profileImage)
                 .build();
         }
-
     }
 }
