@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.adaptor.web.view;
 
-import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
+import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
 import com.blockpage.memberservice.application.port.out.EmotionDto;
 import com.blockpage.memberservice.application.port.out.InterestDto;
 import com.blockpage.memberservice.application.port.out.MemberDto;

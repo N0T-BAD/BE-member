@@ -24,7 +24,7 @@ public class Emotion {
 
     private Boolean emotion;
 
-    public static Emotion saveEmotion(SaveQuery saveQuery, MemberEntity memberEntity){
+    public static Emotion saveEmotion(SaveQuery saveQuery, MemberEntity memberEntity) {
         return Emotion.builder()
             .memberEntity(memberEntity)
             .episodeId(saveQuery.getEpisodeId())
@@ -33,11 +33,11 @@ public class Emotion {
             .build();
     }
 
-    public Emotion(FindQuery findQuery){
+    public Emotion(FindQuery findQuery) {
         this.episodeId = findQuery.getEpisodeId();
     }
 
-    public static Emotion findEmotion(EmotionDto emotionDto){
+    public static Emotion findEmotion(EmotionDto emotionDto) {
         return Emotion.builder()
             .id(emotionDto.getId())
             .commentId(emotionDto.getCommentId())
@@ -45,7 +45,7 @@ public class Emotion {
             .build();
     }
 
-    public static Emotion deleteEmotion(DeleteQuery deleteQuery){
+    public static Emotion deleteEmotion(DeleteQuery deleteQuery) {
         return Emotion.builder().id(deleteQuery.getId()).build();
     }
 

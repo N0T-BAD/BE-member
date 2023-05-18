@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.adaptor.infrastructure.entity;
 
-import com.blockpage.memberservice.adaptor.infrastructure.view.Role;
+import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
 import com.blockpage.memberservice.domain.Member;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -59,8 +59,26 @@ public class MemberEntity extends BaseEntity {
             .kakaoId(member.getKakaoId())
             .email(member.getEmail())
             .nickname(member.getNickname())
-            .profileImage(member.getProfileImage() != null ? member.getProfileImage() : "프로필 이미지를 선택하지 않았습니다.")
-            .gender(member.getGender() != null ? member.getGender() : "성별이 입력되지 않았습니다.")
+            .profileImage(member.getProfileImage() != null ? member.getProfileImage() : "디폴트이미지 주소")
+            .profileSkin(member.getProfileSkin() != null ? member.getProfileSkin() : "디폴트 스킨")
+            .role(member.getRole())
+            .gender(member.getGender())
+            .adult(member.getAdult())
+            .build();
+    }
+
+    public static MemberEntity updateMember(MemberEntity memberEntity, Member member) {
+        return MemberEntity.builder()
+            .id(memberEntity.getId())
+            .kakaoId(memberEntity.getKakaoId())
+            .email(memberEntity.getEmail())
+            .nickname(member.getNickname() != null ? member.getNickname() : memberEntity.getNickname())
+            .profileImage(member.getProfileImage() != null ? member.getProfileImage() : memberEntity.getProfileImage())
+            .profileSkin(member.getProfileSkin() != null ? member.getProfileSkin() : memberEntity.getProfileSkin())
+            .gender(member.getGender() != null ? member.getGender() : memberEntity.getGender())
+            .role(member.getRole() != null ? member.getRole() : memberEntity.getRole())
+            .creatorNickname(member.getCreatorNickname() != null ? member.getCreatorNickname() : memberEntity.getCreatorNickname())
+            .adult(member.getAdult() != null ? member.getAdult() : memberEntity.getAdult())
             .build();
     }
 
