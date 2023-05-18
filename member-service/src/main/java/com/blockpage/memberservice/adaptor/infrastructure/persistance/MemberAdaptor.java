@@ -4,22 +4,29 @@ import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.repository.MemberRepository;
 import com.blockpage.memberservice.application.port.out.MemberPort;
 import com.blockpage.memberservice.domain.Member;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
+import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Component
 @RequiredArgsConstructor
 public class MemberAdaptor implements MemberPort {
 
     private final MemberRepository memberRepository;
+    private final Storage storage;
+    private String bucketName = "blockpage-bucket";
 
     @Override
     public Member findMember(Member member) {
         Optional<MemberEntity> memberEntity = memberRepository.findByKakaoId(member.getKakaoId());
         if (memberEntity.isPresent()) {
-            Member member1 = Member.fromMemberEntity(memberEntity.get());
-            return member1;
+            return Member.fromMemberEntity(memberEntity.get());
         }
         return null;
     }
@@ -40,14 +47,36 @@ public class MemberAdaptor implements MemberPort {
     }
 
     @Override
-    public void updateMemberInfo(Member member) {
+    public void updateMemberInfo(@RequestBody Member member) throws IOException {
+        String profileImageUUID = UUID.randomUUID().toString();
+        BlobId blobId = BlobId.of(bucketName,profileImageUUID);
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId)
+            .setContentType(member.getNewProfileImage().getContentType())
+            .build();
+        storage.create(blobInfo,member.getNewProfileImage().getBytes());
+        Member updateMember = Member.builder()
+            .id(member.getId())
+            .nickname(member.getNickname())
+            .profileImage(profileImageUUID)
+            .adult(member.getAdult())
+            .build();
         Optional<MemberEntity> memberEntity = memberRepository.findById(member.getId());
-        if (memberEntity.get().getProfileImage().equals(member.getProfileImage())) {
-            MemberEntity updateMemberEntity = MemberEntity.updateMember(memberEntity.get(), member);
-            memberRepository.save(updateMemberEntity);
+        memberRepository.save(MemberEntity.updateMember(memberEntity.get(), updateMember));
+    }
 
+    @Override
+    public Member updateCreatorNickname(Member member) {
+        Optional<MemberEntity> memberEntity = memberRepository.findByCreatorNickname(member.getCreatorNickname());
+        if (memberEntity.isPresent()) {
+            throw new RuntimeException("중복된 닉네임입니다.");
         } else {
-            //TODO 프로필이미지 변경시 S3 이미지 저장 및 주소 가져오기 생성
+            return member;
         }
+    }
+
+    @Override
+    public void updateMemberRole(Member member) {
+        Optional<MemberEntity> memberEntity = memberRepository.findById(member.getId());
+        memberRepository.save(MemberEntity.updateMember(memberEntity.get(), member));
     }
 }

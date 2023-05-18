@@ -1,6 +1,7 @@
 package com.blockpage.memberservice.application.port.out;
 
 import com.blockpage.memberservice.domain.Member;
+import java.io.IOException;
 
 public interface MemberPort {
 
@@ -10,5 +11,9 @@ public interface MemberPort {
 
     Member findMemberInfo(Member member);
 
-    void updateMemberInfo(Member member);
+    void updateMemberInfo(Member member) throws IOException;
+
+    Member updateCreatorNickname(Member member);
+
+    void updateMemberRole(Member member);
 }
