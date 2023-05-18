@@ -20,7 +20,7 @@ public class MemberAdaptor implements MemberPort {
 
     private final MemberRepository memberRepository;
     private final Storage storage;
-    private String bucketName = "blockpage-bucket";
+    private final String bucketName = "blockpage-bucket";
 
     @Override
     public Member findMember(Member member) {
@@ -40,8 +40,7 @@ public class MemberAdaptor implements MemberPort {
     public Member findMemberInfo(Member member) {
         Optional<MemberEntity> memberEntity = memberRepository.findById(member.getId());
         if (memberEntity.isPresent()) {
-            Member member1 = Member.fromMemberEntity(memberEntity.get());
-            return member1;
+            return Member.fromMemberEntity(memberEntity.get());
         }
         return null;
     }
