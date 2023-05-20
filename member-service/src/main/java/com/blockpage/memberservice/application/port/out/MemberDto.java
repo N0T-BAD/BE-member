@@ -2,15 +2,17 @@ package com.blockpage.memberservice.application.port.out;
 
 import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
 import com.blockpage.memberservice.domain.Member;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 
 @Getter
 @Builder
+@AllArgsConstructor
 public class MemberDto {
 
-    private Long kakaoId;
+    private String uuid;
 
     private String email;
 
@@ -28,9 +30,20 @@ public class MemberDto {
 
     private Boolean adult;
 
+    public MemberDto(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public static MemberDto joinMember(Member member) {
+        return MemberDto.builder()
+            .uuid(member.getUuid())
+            .email(member.getEmail())
+            .build();
+    }
+
     public static MemberDto fromMember(Member member) {
         return MemberDto.builder()
-            .kakaoId(member.getKakaoId())
+            .uuid(member.getUuid())
             .email(member.getEmail())
             .nickname(member.getNickname())
             .profileImage(member.getProfileImage())

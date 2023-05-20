@@ -2,6 +2,7 @@ package com.blockpage.memberservice.adaptor.infrastructure.entity;
 
 import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
 import com.blockpage.memberservice.domain.Member;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -28,7 +29,7 @@ public class MemberEntity extends BaseEntity {
     private Long id;
 
     @Column
-    private Long kakaoId;
+    private String uuid;
 
     @Column
     private String email;
@@ -56,7 +57,7 @@ public class MemberEntity extends BaseEntity {
 
     public static MemberEntity fromMember(Member member) {
         return MemberEntity.builder()
-            .kakaoId(member.getKakaoId())
+            .uuid(UUID.randomUUID().toString())
             .email(member.getEmail())
             .nickname(member.getNickname())
             .profileImage(member.getProfileImage() != null ? member.getProfileImage() : "디폴트이미지 주소")
@@ -70,7 +71,7 @@ public class MemberEntity extends BaseEntity {
     public static MemberEntity updateMember(MemberEntity memberEntity, Member member) {
         return MemberEntity.builder()
             .id(memberEntity.getId())
-            .kakaoId(memberEntity.getKakaoId())
+            .uuid(memberEntity.getUuid())
             .email(memberEntity.getEmail())
             .nickname(member.getNickname() != null ? member.getNickname() : memberEntity.getNickname())
             .profileImage(member.getProfileImage() != null ? member.getProfileImage() : memberEntity.getProfileImage())
