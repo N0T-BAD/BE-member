@@ -7,7 +7,7 @@ public interface MemberPort {
 
     Member findMember(Member member);
 
-    void saveMember(Member member);
+    Member saveMember(Member member);
 
     Member findMemberInfo(Member member);
 
