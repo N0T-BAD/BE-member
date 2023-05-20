@@ -1,9 +1,9 @@
 package com.blockpage.memberservice.domain;
 
-import com.blockpage.memberservice.adaptor.external.kakao.responseBody.KakaoUserInfoResponse;
 import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.FindMemberQuery;
+import com.blockpage.memberservice.application.port.in.MemberUseCase.FindQuery;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.UpdateQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +18,7 @@ public class Member {
 
     private Long id;
 
-    private Long kakaoId;
+    private String uuid;
 
     private String email;
 
@@ -38,31 +38,32 @@ public class Member {
 
     private Boolean adult;
 
-    public Member(Long kakaoId) {
-        this.kakaoId = kakaoId;
+    public static Member signInMember(FindQuery findQuery) {
+        return Member.builder()
+            .email(findQuery.getEmail())
+            .build();
     }
 
-    public static Member findMember(FindMemberQuery findMemberQuery) {
+    public static Member findNickname(FindMemberQuery findMemberQuery) {
         return Member.builder()
-            .id(findMemberQuery.getId())
+            .email(findMemberQuery.getEmail())
             .creatorNickname(findMemberQuery.getCreatorNickname())
             .build();
     }
 
-    public static Member saveMember(KakaoUserInfoResponse kakaoUserInfoResponse) {
+    public static Member saveMember(FindQuery findQuery) {
         return Member.builder()
-            .kakaoId(Long.parseLong(kakaoUserInfoResponse.getId()))
-            .email(kakaoUserInfoResponse.getKakao_account().getEmail())
-            .nickname(kakaoUserInfoResponse.getProperties().getNickname())
-            .profileImage(kakaoUserInfoResponse.getProperties().getProfile_image_url())
-            .gender(kakaoUserInfoResponse.getKakao_account().getGender())
+            .email(findQuery.getEmail())
+            .nickname(findQuery.getNickname())
+            .profileImage(findQuery.getProfileImage())
+            .gender(findQuery.getGender())
             .role(Role.MEMBER)
             .build();
     }
 
     public static Member fromMemberEntity(MemberEntity memberEntity) {
         return Member.builder()
-            .kakaoId(memberEntity.getKakaoId())
+            .uuid(memberEntity.getUuid())
             .email(memberEntity.getEmail())
             .nickname(memberEntity.getNickname())
             .profileImage(memberEntity.getProfileImage())
@@ -76,7 +77,7 @@ public class Member {
 
     public static Member fromUpdateQuery(@RequestBody UpdateQuery updateQuery) {
         return Member.builder()
-            .id(updateQuery.getId())
+            .email(updateQuery.getEmail())
             .nickname(updateQuery.getNickname())
             .newProfileImage(updateQuery.getProfileImage())
             .adult(updateQuery.getAdult())
@@ -85,7 +86,7 @@ public class Member {
 
     public static Member updateCreator(UpdateQuery updateQuery) {
         return Member.builder()
-            .id(updateQuery.getId())
+            .email(updateQuery.getEmail())
             .role(Role.AUTHOR)
             .creatorNickname(updateQuery.getCreatorNickname())
             .build();
