@@ -17,17 +17,21 @@ public class MemberService implements MemberUseCase {
     private final MemberPort memberPort;
 
     @Override
-    public MemberDto findMemberKakao(FindQuery findQuery) {
-        Member member = new Member(findQuery.getKakaoId());
-        MemberDto memberDto = MemberDto.fromMember(memberPort.findMember(member));
-        return memberDto;
+    public MemberDto signInMember(FindQuery findQuery) {
+        Member member = memberPort.findMember(Member.signInMember(findQuery));
+        if (member != null) {
+            return new MemberDto(member.getUuid());
+        } else {
+            Member joinMember = memberPort.saveMember(Member.saveMember(findQuery));
+            return MemberDto.joinMember(joinMember);
+        }
     }
 
     @Override
     public MemberDto findMemberinfo(FindMemberQuery findMemberQuery) {
-        Member member = Member.findMember(findMemberQuery);
+        Member member = Member.findNickname(findMemberQuery);
         if (findMemberQuery.getType().equals("detail")) {
-            if (findMemberQuery.getId() != null) {
+            if (findMemberQuery.getEmail() != null) {
                 return MemberDto.fromMember(memberPort.findMemberInfo(member));
             } else {
                 throw new RuntimeException("id 값이 필수로 필요 합니다.");
@@ -40,7 +44,7 @@ public class MemberService implements MemberUseCase {
     }
 
     @Override
-    public void updateMemberInfo(UpdateQuery updateQuery) throws IOException{
+    public void updateMemberInfo(UpdateQuery updateQuery) throws IOException {
         if (updateQuery.getType().equals("member")) {
             Member member = Member.fromUpdateQuery(updateQuery);
             memberPort.updateMemberInfo(member);

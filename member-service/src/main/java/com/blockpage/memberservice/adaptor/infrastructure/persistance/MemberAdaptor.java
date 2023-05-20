@@ -24,7 +24,7 @@ public class MemberAdaptor implements MemberPort {
 
     @Override
     public Member findMember(Member member) {
-        Optional<MemberEntity> memberEntity = memberRepository.findByKakaoId(member.getKakaoId());
+        Optional<MemberEntity> memberEntity = memberRepository.findByEmail(member.getEmail());
         if (memberEntity.isPresent()) {
             return Member.fromMemberEntity(memberEntity.get());
         }
@@ -32,13 +32,13 @@ public class MemberAdaptor implements MemberPort {
     }
 
     @Override
-    public void saveMember(Member member) {
-        memberRepository.save(MemberEntity.fromMember(member));
+    public Member saveMember(Member member) {
+        return Member.fromMemberEntity(memberRepository.save(MemberEntity.fromMember(member)));
     }
 
     @Override
     public Member findMemberInfo(Member member) {
-        Optional<MemberEntity> memberEntity = memberRepository.findById(member.getId());
+        Optional<MemberEntity> memberEntity = memberRepository.findByEmail(member.getEmail());
         if (memberEntity.isPresent()) {
             return Member.fromMemberEntity(memberEntity.get());
         }
@@ -48,18 +48,18 @@ public class MemberAdaptor implements MemberPort {
     @Override
     public void updateMemberInfo(@RequestBody Member member) throws IOException {
         String profileImageUUID = UUID.randomUUID().toString();
-        BlobId blobId = BlobId.of(bucketName,profileImageUUID);
+        BlobId blobId = BlobId.of(bucketName, profileImageUUID);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId)
             .setContentType(member.getNewProfileImage().getContentType())
             .build();
-        storage.create(blobInfo,member.getNewProfileImage().getBytes());
+        storage.create(blobInfo, member.getNewProfileImage().getBytes());
         Member updateMember = Member.builder()
-            .id(member.getId())
+            .email(member.getEmail())
             .nickname(member.getNickname())
             .profileImage(profileImageUUID)
             .adult(member.getAdult())
             .build();
-        Optional<MemberEntity> memberEntity = memberRepository.findById(member.getId());
+        Optional<MemberEntity> memberEntity = memberRepository.findByEmail(updateMember.getEmail());
         memberRepository.save(MemberEntity.updateMember(memberEntity.get(), updateMember));
     }
 
@@ -75,7 +75,7 @@ public class MemberAdaptor implements MemberPort {
 
     @Override
     public void updateMemberRole(Member member) {
-        Optional<MemberEntity> memberEntity = memberRepository.findById(member.getId());
+        Optional<MemberEntity> memberEntity = memberRepository.findByEmail(member.getEmail());
         memberRepository.save(MemberEntity.updateMember(memberEntity.get(), member));
     }
 }
