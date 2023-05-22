@@ -3,7 +3,7 @@ package com.blockpage.memberservice.domain;
 import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.FindMemberQuery;
-import com.blockpage.memberservice.application.port.in.MemberUseCase.FindQuery;
+import com.blockpage.memberservice.application.port.in.MemberUseCase.SignInQuery;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.UpdateQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,8 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class Member {
 
     private Long id;
-
-    private String uuid;
 
     private String email;
 
@@ -38,32 +36,28 @@ public class Member {
 
     private Boolean adult;
 
-    public static Member signInMember(FindQuery findQuery) {
-        return Member.builder()
-            .email(findQuery.getEmail())
-            .build();
-    }
+    private Boolean signUp;
 
-    public static Member findNickname(FindMemberQuery findMemberQuery) {
+    public static Member findMemberInfo(FindMemberQuery findMemberQuery) {
         return Member.builder()
             .email(findMemberQuery.getEmail())
-            .creatorNickname(findMemberQuery.getCreatorNickname())
+            .creatorNickname(findMemberQuery.getCreatorNickname() != null ? findMemberQuery.getCreatorNickname() : null)
             .build();
     }
 
-    public static Member saveMember(FindQuery findQuery) {
+    public static Member signInMember(SignInQuery signInQuery) {
         return Member.builder()
-            .email(findQuery.getEmail())
-            .nickname(findQuery.getNickname())
-            .profileImage(findQuery.getProfileImage())
-            .gender(findQuery.getGender())
+            .email(signInQuery.getEmail())
+            .nickname(signInQuery.getNickname())
+            .profileImage(signInQuery.getProfileImage())
+            .gender(signInQuery.getGender())
             .role(Role.MEMBER)
             .build();
     }
 
     public static Member fromMemberEntity(MemberEntity memberEntity) {
         return Member.builder()
-            .uuid(memberEntity.getUuid())
+            .id(memberEntity.getId())
             .email(memberEntity.getEmail())
             .nickname(memberEntity.getNickname())
             .profileImage(memberEntity.getProfileImage())
@@ -89,6 +83,13 @@ public class Member {
             .email(updateQuery.getEmail())
             .role(Role.AUTHOR)
             .creatorNickname(updateQuery.getCreatorNickname())
+            .build();
+    }
+
+    public static Member afterSignIn(Boolean signUp, Role role) {
+        return Member.builder()
+            .role(role)
+            .signUp(signUp)
             .build();
     }
 }

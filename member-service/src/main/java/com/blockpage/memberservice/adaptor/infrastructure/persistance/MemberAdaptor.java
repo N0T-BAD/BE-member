@@ -2,6 +2,7 @@ package com.blockpage.memberservice.adaptor.infrastructure.persistance;
 
 import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.repository.MemberRepository;
+import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
 import com.blockpage.memberservice.application.port.out.MemberPort;
 import com.blockpage.memberservice.domain.Member;
 import com.google.cloud.storage.BlobId;
@@ -23,26 +24,28 @@ public class MemberAdaptor implements MemberPort {
     private final String bucketName = "blockpage-bucket";
 
     @Override
-    public Member findMember(Member member) {
+    public Member signInMember(Member member) {
         Optional<MemberEntity> memberEntity = memberRepository.findByEmail(member.getEmail());
         if (memberEntity.isPresent()) {
-            return Member.fromMemberEntity(memberEntity.get());
+            return Member.afterSignIn(false, memberEntity.get().getRole());
+        } else {
+            memberRepository.save(MemberEntity.fromMember(member));
+            return Member.afterSignIn(true, Role.MEMBER);
         }
-        return null;
-    }
-
-    @Override
-    public Member saveMember(Member member) {
-        return Member.fromMemberEntity(memberRepository.save(MemberEntity.fromMember(member)));
     }
 
     @Override
     public Member findMemberInfo(Member member) {
-        Optional<MemberEntity> memberEntity = memberRepository.findByEmail(member.getEmail());
-        if (memberEntity.isPresent()) {
-            return Member.fromMemberEntity(memberEntity.get());
+        if (member.getCreatorNickname() != null) {
+            Optional<MemberEntity> memberEntity = memberRepository.findByCreatorNickname(member.getCreatorNickname());
+            if (memberEntity.isPresent()) {
+                throw new RuntimeException("중복된 닉네임입니다.");
+            } else {
+                return member;
+            }
+        } else {
+            return Member.fromMemberEntity(memberRepository.findByEmail(member.getEmail()).get());
         }
-        return null;
     }
 
     @Override
@@ -61,16 +64,6 @@ public class MemberAdaptor implements MemberPort {
             .build();
         Optional<MemberEntity> memberEntity = memberRepository.findByEmail(updateMember.getEmail());
         memberRepository.save(MemberEntity.updateMember(memberEntity.get(), updateMember));
-    }
-
-    @Override
-    public Member updateCreatorNickname(Member member) {
-        Optional<MemberEntity> memberEntity = memberRepository.findByCreatorNickname(member.getCreatorNickname());
-        if (memberEntity.isPresent()) {
-            throw new RuntimeException("중복된 닉네임입니다.");
-        } else {
-            return member;
-        }
     }
 
     @Override

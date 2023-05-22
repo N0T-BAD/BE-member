@@ -1,8 +1,10 @@
 package com.blockpage.memberservice.application.service;
 
+import com.blockpage.memberservice.adaptor.infrastructure.external.purchase.requestbody.RequestPurchase;
 import com.blockpage.memberservice.application.port.in.MemberUseCase;
 import com.blockpage.memberservice.application.port.out.MemberDto;
 import com.blockpage.memberservice.application.port.out.MemberPort;
+import com.blockpage.memberservice.application.port.out.PurchasePort;
 import com.blockpage.memberservice.domain.Member;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
@@ -15,32 +17,20 @@ import org.springframework.stereotype.Service;
 public class MemberService implements MemberUseCase {
 
     private final MemberPort memberPort;
+    private final PurchasePort purchasePort;
 
     @Override
-    public MemberDto signInMember(FindQuery findQuery) {
-        Member member = memberPort.findMember(Member.signInMember(findQuery));
-        if (member != null) {
-            return new MemberDto(member.getUuid());
-        } else {
-            Member joinMember = memberPort.saveMember(Member.saveMember(findQuery));
-            return MemberDto.joinMember(joinMember);
+    public MemberDto signInMember(SignInQuery signInQuery) {
+        Member member = memberPort.signInMember(Member.signInMember(signInQuery));
+        if (member.getSignUp()) {
+            purchasePort.postProfileSkin(new RequestPurchase(signInQuery.getEmail()));
         }
+        return MemberDto.signIn(member);
     }
 
     @Override
-    public MemberDto findMemberinfo(FindMemberQuery findMemberQuery) {
-        Member member = Member.findNickname(findMemberQuery);
-        if (findMemberQuery.getType().equals("detail")) {
-            if (findMemberQuery.getEmail() != null) {
-                return MemberDto.fromMember(memberPort.findMemberInfo(member));
-            } else {
-                throw new RuntimeException("id 값이 필수로 필요 합니다.");
-            }
-        } else if (findMemberQuery.getType().equals("nickname")) {
-            return MemberDto.fromMember(memberPort.updateCreatorNickname(member));
-        } else {
-            throw new RuntimeException("잘못된 접근입니다.");
-        }
+    public MemberDto findMemberInfo(FindMemberQuery findMemberQuery) {
+        return MemberDto.fromMember(memberPort.findMemberInfo(Member.findMemberInfo(findMemberQuery)));
     }
 
     @Override
