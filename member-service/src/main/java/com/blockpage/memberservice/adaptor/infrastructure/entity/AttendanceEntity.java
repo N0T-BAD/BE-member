@@ -1,5 +1,6 @@
 package com.blockpage.memberservice.adaptor.infrastructure.entity;
 
+import com.blockpage.memberservice.domain.Attendance;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,4 +29,11 @@ public class AttendanceEntity extends BaseEntity {
 
     @Column
     private Boolean checks;
+
+    public static AttendanceEntity postAttendance(Attendance attendance) {
+        return AttendanceEntity.builder()
+            .memberEmail(attendance.getMemberEmail())
+            .checks(true)
+            .build();
+    }
 }
