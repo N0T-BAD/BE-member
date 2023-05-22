@@ -12,8 +12,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class MemberDto {
 
-    private String uuid;
-
     private String email;
 
     private String nickname;
@@ -30,20 +28,18 @@ public class MemberDto {
 
     private Boolean adult;
 
-    public MemberDto(String uuid) {
-        this.uuid = uuid;
-    }
+    private Boolean signUp;
+    //true 일시 최초로그인(회원가입)
 
-    public static MemberDto joinMember(Member member) {
+    public static MemberDto signIn(Member member) {
         return MemberDto.builder()
-            .uuid(member.getUuid())
-            .email(member.getEmail())
+            .signUp(member.getSignUp())
+            .role(member.getRole())
             .build();
     }
 
     public static MemberDto fromMember(Member member) {
         return MemberDto.builder()
-            .uuid(member.getUuid())
             .email(member.getEmail())
             .nickname(member.getNickname())
             .profileImage(member.getProfileImage())

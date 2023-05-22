@@ -18,7 +18,6 @@ public class MemberView {
     private String message;
 
     //MemberView
-    private String uuid;
 
     private String nickname;
 
