@@ -3,6 +3,7 @@ package com.blockpage.memberservice.adaptor.infrastructure.external.block.contro
 import com.blockpage.memberservice.adaptor.infrastructure.external.block.requestbody.RequestBlock;
 import com.blockpage.memberservice.application.port.out.BlockPort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,6 @@ public class BlockServiceController implements BlockPort {
     public ResponseEntity postBlock(RequestBlock requestBlock) {
         String type = "attendance";
         blockServiceOpenFeign.postBlock(type, requestBlock);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
