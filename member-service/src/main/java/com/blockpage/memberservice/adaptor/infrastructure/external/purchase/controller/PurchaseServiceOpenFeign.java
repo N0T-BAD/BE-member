@@ -5,12 +5,12 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "purchase-service", url = "${purchase.root}")
 public interface PurchaseServiceOpenFeign {
 
     @PostMapping(value = "${purchase.post}")
-    ResponseEntity postProfileSkin(@RequestHeader("type") String type, @RequestBody RequestPurchase requestPurchase);
+    ResponseEntity postProfileSkin(@RequestParam("type") String type, @RequestBody RequestPurchase requestPurchase);
 
 }

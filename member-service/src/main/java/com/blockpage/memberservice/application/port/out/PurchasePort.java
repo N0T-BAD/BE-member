@@ -5,5 +5,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface PurchasePort {
 
-    ResponseEntity postProfileSkin(String type, RequestPurchase requestPurchase);
+    ResponseEntity postProfileSkin(RequestPurchase requestPurchase);
 }
