@@ -1,0 +1,21 @@
+package com.blockpage.memberservice.adaptor.infrastructure.external.block.controller;
+
+import com.blockpage.memberservice.adaptor.infrastructure.external.block.requestbody.RequestBlock;
+import com.blockpage.memberservice.application.port.out.BlockPort;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+
+@Component
+@RequiredArgsConstructor
+public class BlockServiceController implements BlockPort {
+
+    private final BlockServiceOpenFeign blockServiceOpenFeign;
+
+    @Override
+    public ResponseEntity postBlock(RequestBlock requestBlock) {
+        String type = "attendance";
+        blockServiceOpenFeign.postBlock(type, requestBlock);
+        return ResponseEntity.ok().build();
+    }
+}
