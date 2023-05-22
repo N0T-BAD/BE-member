@@ -9,15 +9,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface MemberUseCase {
 
-    MemberDto signInMember(FindQuery findQuery);
+    MemberDto signInMember(SignInQuery signInQuery);
 
-    MemberDto findMemberinfo(FindMemberQuery findMemberQuery);
+    MemberDto findMemberInfo(FindMemberQuery findMemberQuery);
 
     void updateMemberInfo(UpdateQuery updateQuery) throws IOException;
 
     @Getter
     @Builder
-    class FindQuery {
+    class SignInQuery {
 
         private String email;
 
@@ -27,8 +27,8 @@ public interface MemberUseCase {
 
         private String gender;
 
-        public static FindQuery toQuery(RequestMember requestMember) {
-            return FindQuery.builder()
+        public static SignInQuery toQuery(RequestMember requestMember) {
+            return SignInQuery.builder()
                 .email(requestMember.getEmail())
                 .nickname(requestMember.getNickname())
                 .profileImage(requestMember.getProfileImage() != null ? requestMember.getProfileImage() : null)
@@ -46,6 +46,7 @@ public interface MemberUseCase {
         private String creatorNickname;
 
         public static FindMemberQuery toQuery(String type, RequestMember requestMember, HttpSession session) {
+//            String email = (String) session.getAttribute("id"); 추후 세션 확인 가능시 적용
             String emailTest = "test@naver.com";
             return FindMemberQuery.builder()
                 .email(emailTest)
