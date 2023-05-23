@@ -1,12 +1,14 @@
 package com.blockpage.memberservice.application.port.out;
 
 import com.blockpage.memberservice.adaptor.infrastructure.entity.EmotionEntity;
-import com.blockpage.memberservice.application.port.in.EmotionUseCase.SaveQuery;
+import com.blockpage.memberservice.domain.Emotion;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
+@AllArgsConstructor
 public class EmotionDto {
 
     private Long id;
@@ -17,6 +19,10 @@ public class EmotionDto {
 
     private Boolean emotion;
 
+    public EmotionDto(Boolean emotion) {
+        this.emotion = emotion;
+    }
+
     public static EmotionDto fromEmotionEntity(EmotionEntity emotionEntity) {
         return EmotionDto.builder()
             .id(emotionEntity.getId())
@@ -26,11 +32,11 @@ public class EmotionDto {
             .build();
     }
 
-    public static EmotionDto toQuery(SaveQuery saveQuery) {
+    public static EmotionDto fromEmotion(Emotion emotion) {
         return EmotionDto.builder()
-            .episodeId(saveQuery.getEpisodeId())
-            .commentId(saveQuery.getCommentId())
-            .emotion(saveQuery.getEmotion())
+            .id(emotion.getId())
+            .commentId(emotion.getCommentId())
+            .emotion(emotion.getEmotion())
             .build();
     }
 }

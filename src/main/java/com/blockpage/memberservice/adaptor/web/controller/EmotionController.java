@@ -1,12 +1,11 @@
 package com.blockpage.memberservice.adaptor.web.controller;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.web.view.ApiResponse;
 import com.blockpage.memberservice.adaptor.web.view.MemberView;
 import com.blockpage.memberservice.application.port.in.EmotionUseCase;
 import com.blockpage.memberservice.application.port.in.EmotionUseCase.DeleteQuery;
 import com.blockpage.memberservice.application.port.in.EmotionUseCase.FindQuery;
-import com.blockpage.memberservice.application.port.in.EmotionUseCase.SaveQuery;
+import com.blockpage.memberservice.application.port.in.EmotionUseCase.PostQuery;
 import com.blockpage.memberservice.application.port.in.RequestEmotion;
 import com.blockpage.memberservice.application.port.out.EmotionDto;
 import java.util.List;
@@ -32,19 +31,20 @@ public class EmotionController {
     private final EmotionUseCase emotionUseCase;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<MemberView>> addEmotion(@RequestHeader("accessToken") String token,
+    public ResponseEntity<ApiResponse<MemberView>> addEmotion(@RequestHeader String email,
         @RequestBody RequestEmotion requestEmotion) {
-        MemberEntity memberEntity = MemberEntity.builder().id(1L).build();
-        SaveQuery saveQuery = SaveQuery.toQuery(requestEmotion);
-        return ResponseEntity.status(HttpStatus.CREATED)
-            .body(new ApiResponse<MemberView>(new MemberView(emotionUseCase.saveEmotionQuery(saveQuery, memberEntity))));
+        EmotionDto emotionDto = emotionUseCase.postEmotionQuery(PostQuery.toQuery(email, requestEmotion));
+        if (emotionDto.getEmotion() != null) {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ApiResponse<MemberView>(new MemberView("댓글 반응이 생성되엇습니다.", emotionDto.getEmotion())));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<MemberView>(new MemberView("댓글이 삭제 되었습니다.")));
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<MemberView>>> getEmotion(@RequestHeader("accessToken") String token,
+    public ResponseEntity<ApiResponse<List<MemberView>>> getEmotion(@RequestHeader String email,
         @Param("episodeId") Long episodeId) {
-        MemberEntity memberEntity = MemberEntity.builder().id(1L).build();
-        List<EmotionDto> emotionDtoList = emotionUseCase.findAllEmotionQuery(new FindQuery(episodeId), memberEntity);
+        List<EmotionDto> emotionDtoList = emotionUseCase.findAllEmotionQuery(new FindQuery(email, episodeId));
         List<MemberView> memberViewList = emotionDtoList.stream()
             .map(emotionDto -> new MemberView(emotionDto))
             .collect(Collectors.toList());
