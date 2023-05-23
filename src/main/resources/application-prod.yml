@@ -30,10 +30,8 @@ spring:
           enabled: false
     gcp:
       storage:
-        run: |
-            echo $CREDENTIALS >> credentials.json
         credentials:
-          location: ${spring.gcp.storage.credentials.location}
+          location: file:/home/404notbad404/envfile/gcpstorage.json
         project-id: ${spring.gcp.storage.credentials.project-id}
 
   main:
