@@ -10,7 +10,7 @@ public class RequestPurchase {
     private Integer blockQuantity;
 
     public RequestPurchase(String email) {
-        this.profileSkinId = 0L;
+        this.profileSkinId = 1L;
         this.persistType = "permanent";
         this.blockQuantity = 0;
     }
