@@ -3,12 +3,9 @@ package com.blockpage.memberservice.adaptor.infrastructure.entity;
 import com.blockpage.memberservice.domain.Emotion;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,9 +24,8 @@ public class EmotionEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "memberEntityId")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private MemberEntity memberEntity;
+    @Column
+    private String memberEmail;
 
     @Column
     private Long episodeId;
@@ -43,7 +39,7 @@ public class EmotionEntity extends BaseEntity {
 
     public static EmotionEntity fromEmotion(Emotion emotion) {
         return EmotionEntity.builder()
-            .memberEntity(emotion.getMemberEntity())
+            .memberEmail(emotion.getMemberEmail())
             .episodeId(emotion.getEpisodeId())
             .commentId(emotion.getCommentId())
             .emotion(emotion.getEmotion())

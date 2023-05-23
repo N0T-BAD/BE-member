@@ -1,10 +1,9 @@
 package com.blockpage.memberservice.domain;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.entity.EmotionEntity;
 import com.blockpage.memberservice.application.port.in.EmotionUseCase.DeleteQuery;
-import com.blockpage.memberservice.application.port.in.EmotionUseCase.SaveQuery;
 import com.blockpage.memberservice.application.port.in.EmotionUseCase.FindQuery;
-import com.blockpage.memberservice.application.port.out.EmotionDto;
+import com.blockpage.memberservice.application.port.in.EmotionUseCase.PostQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +15,7 @@ public class Emotion {
 
     private Long id;
 
-    private MemberEntity memberEntity;
+    private String memberEmail;
 
     private Long episodeId;
 
@@ -24,24 +23,31 @@ public class Emotion {
 
     private Boolean emotion;
 
-    public static Emotion saveEmotion(SaveQuery saveQuery, MemberEntity memberEntity) {
+    public Emotion(Boolean emotion) {
+        this.emotion = emotion;
+    }
+
+    public static Emotion postEmotion(PostQuery postQuery) {
         return Emotion.builder()
-            .memberEntity(memberEntity)
-            .episodeId(saveQuery.getEpisodeId())
-            .commentId(saveQuery.getCommentId())
-            .emotion(saveQuery.getEmotion())
+            .memberEmail(postQuery.getMemberEmail())
+            .episodeId(postQuery.getEpisodeId())
+            .commentId(postQuery.getCommentId())
+            .emotion(postQuery.getEmotion())
             .build();
     }
 
-    public Emotion(FindQuery findQuery) {
-        this.episodeId = findQuery.getEpisodeId();
+    public static Emotion findEmotion(FindQuery findQuery) {
+        return Emotion.builder()
+            .memberEmail(findQuery.getMemberEmail())
+            .episodeId(findQuery.getEpisodeId())
+            .build();
     }
 
-    public static Emotion findEmotion(EmotionDto emotionDto) {
+    public static Emotion fromEntity(EmotionEntity emotionEntity) {
         return Emotion.builder()
-            .id(emotionDto.getId())
-            .commentId(emotionDto.getCommentId())
-            .emotion(emotionDto.getEmotion())
+            .id(emotionEntity.getId())
+            .commentId(emotionEntity.getCommentId())
+            .emotion(emotionEntity.getEmotion())
             .build();
     }
 

@@ -1,8 +1,8 @@
 HELP.md
 .gradle
-build/
+build/*
 !gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
+!**/src/main/**/build/2
 !**/src/test/**/build/
 
 ### STS ###
@@ -36,3 +36,7 @@ out/
 
 ### VS Code ###
 .vscode/
+*.class
+build/classes/java/main/com/blockpage/memberservice/adaptor/infrastructure/entity/EmotionEntity.class
+build/classes/java/main/com/blockpage/memberservice/adaptor/infrastructure/entity/EmotionEntity$EmotionEntityBuilder.class
+/build/
