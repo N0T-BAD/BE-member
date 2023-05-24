@@ -21,23 +21,32 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-      
-    - name: create json
-      run: |
-        echo "GCP_LOCATE=$GCP_LOCATION">> | base64 -d >  gcp_location.json 
-      env:
-        GCP_LOCATION: ${{secrets.GCP_LOCATION}}
         
+    - name: Set Gcp Json
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: './gcpkey.json'
+      env:
+        type: ${{ secrets.GCP_KEY_TYPE }}
+        project_id: ${{ secrets.GCP_KEY_PROJECT_ID }}
+        private_key_id: ${{ secrets.GCP_KEY_PRIVATE_KEY_ID }}
+        private_key: ${{ secrets.GCP_KEY_PRIVATE_KEY }}
+        client_email: ${{ secrets.GCP_KEY_CLIENT_EMAIL }}
+        client_id: ${{ secrets.GCP_KEY_CLIENT_ID }}
+        auth_uri: ${{ secrets.GCP_KEY_AUTH_URL }}
+        token_uri: ${{ secrets.GCP_KEY_TOKEN_URL }}
+        auth_provider_x509_cert_url: ${{ secrets.9.GCP_KEY_AUTH_PROVIDER_X509_CERT_URL }}
+        client_x509_cert_url: ${{ secrets.GCP_KEY_CLIENT_X509_CERT_URL }}
+      
     - name: Set Yaml
       uses: microsoft/variable-substitution@v1
       with:
-        files: './src/main/resources/application-prod.yml' 
+        files: './src/main/resources/application-prod.yml'
       env:
         spring.datasource.url: ${{ secrets.DB_URL }} 
         spring.datasource.username: ${{ secrets.DB_USERNAME }}
         spring.datasource.password: ${{ secrets.DB_PASSWORD }}
         spring.gcp.storage.credentials.project-id: ${{ secrets.GCP_PROJECT_ID }}
-        spring.gcp.storage.credentials.location: gcp_location.json
         
     # Gradlew 실행 허용
     - name: Run chmod to make gradlew executable
