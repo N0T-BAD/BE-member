@@ -30,7 +30,7 @@ spring:
           enabled: false
     gcp:
       credentials:
-        location: classpath:gcpkey.json
+        location: file:/home/g404notbad404/gcp.json
       project-id: ${spring.gcp.storage.credentials.project-id}
 
   main:
