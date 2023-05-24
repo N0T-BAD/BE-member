@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EmotionRepository extends JpaRepository<EmotionEntity, Long> {
 
-    Optional<EmotionEntity> findByMemberEntityIdAndEpisodeIdAndCommentId(Long memberId, Long episodeId, Long commentId);
+    Optional<EmotionEntity> findByMemberEmailAndEpisodeIdAndCommentId(String memberEmail, Long episodeId, Long commentId);
 
-    List<EmotionEntity> findAllByMemberEntityIdAndEpisodeId(Long memberId, Long episodeId);
+    List<EmotionEntity> findAllByMemberEmailAndEpisodeId(String memberEmail, Long episodeId);
 }

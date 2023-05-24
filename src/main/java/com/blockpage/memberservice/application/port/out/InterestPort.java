@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface InterestPort {
 
-    void saveInterest(Interest interest);
+    void postInterest(Interest interest);
 
-    List<Interest> findInterest(Long memberId);
+    List<Interest> findInterest(String memberEmail);
 
     void deleteInterest(Long id);
 }

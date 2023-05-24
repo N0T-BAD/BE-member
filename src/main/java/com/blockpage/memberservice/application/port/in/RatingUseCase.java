@@ -1,6 +1,5 @@
 package com.blockpage.memberservice.application.port.in;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.application.port.out.RatingDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,19 +7,21 @@ import lombok.Setter;
 
 public interface RatingUseCase {
 
-    RatingDto saveRatingQuery(SaveQuery query, MemberEntity memberEntity);
+    RatingDto postRatingQuery(PostQuery postQuery);
 
-    RatingDto findRatingQuery(FindQuery findQuery, Long memberId);
+    RatingDto findRatingQuery(FindQuery findQuery);
 
     @Getter
     @Builder
-    class SaveQuery {
+    class PostQuery {
 
+        private String memberEmail;
         private Long episodeId;
         private Integer ratings;
 
-        public static SaveQuery toQuery(RequestRating requestRating) {
-            return SaveQuery.builder()
+        public static PostQuery toQuery(String memberEmail, RequestRating requestRating) {
+            return PostQuery.builder()
+                .memberEmail(memberEmail)
                 .episodeId(requestRating.getEpisodeId())
                 .ratings(requestRating.getRatings())
                 .build();
@@ -31,9 +32,11 @@ public interface RatingUseCase {
     @Setter
     class FindQuery {
 
+        private String memberEmail;
         private Long episodeId;
 
-        public FindQuery(Long episodeId) {
+        public FindQuery(String memberEmail, Long episodeId) {
+            this.memberEmail = memberEmail;
             this.episodeId = episodeId;
         }
     }

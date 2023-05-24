@@ -7,22 +7,21 @@ import com.blockpage.memberservice.domain.Attendance;
 import java.time.LocalDate;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
-@Slf4j
 public class AttendanceAdaptor implements AttendancePort {
 
     private final AttendanceRepository attendanceRepository;
 
     @Override
+    @Transactional
     public void postAttendance(Attendance attendance) {
         Optional<AttendanceEntity> attendanceEntity = attendanceRepository.findByMemberEmailAndRegisterTimeAfter(
             attendance.getMemberEmail(),
             LocalDate.now().minusDays(1).atTime(11, 59, 59));
-        log.info(attendanceEntity.toString());
         if (attendanceEntity.isEmpty()) {
             attendanceRepository.save(AttendanceEntity.postAttendance(attendance));
         } else {

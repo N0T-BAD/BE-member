@@ -1,6 +1,5 @@
 package com.blockpage.memberservice.application.port.in;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.application.port.out.InterestDto;
 import java.util.List;
 import lombok.Builder;
@@ -8,7 +7,7 @@ import lombok.Getter;
 
 public interface InterestUseCase {
 
-    InterestDto saveInterestQuery(SaveQuery query, MemberEntity memberEntity);
+    InterestDto postInterestQuery(PostQuery postQuery);
 
     List<InterestDto> findInterestQuery(FindQuery query);
 
@@ -16,8 +15,9 @@ public interface InterestUseCase {
 
     @Getter
     @Builder
-    class SaveQuery {
+    class PostQuery {
 
+        private String memberEmail;
         private Long webtoonId;
         private String webtoonTitle;
         private String webtoonThumbnail;
@@ -25,8 +25,9 @@ public interface InterestUseCase {
         private String illustrator;
         private String genre;
 
-        public static SaveQuery toQuery(RequestInterest requestInterest) {
-            return SaveQuery.builder()
+        public static PostQuery toQuery(String memberEmail, RequestInterest requestInterest) {
+            return PostQuery.builder()
+                .memberEmail(memberEmail)
                 .webtoonId(requestInterest.getWebtoonId())
                 .webtoonTitle(requestInterest.getWebtoonTitle())
                 .webtoonThumbnail(requestInterest.getWebtoonThumbnail())
@@ -38,16 +39,12 @@ public interface InterestUseCase {
     }
 
     @Getter
-    @Builder
     class FindQuery {
 
-        private Long memberId;
+        private String memberEmail;
 
-        public static FindQuery toQuery(Long id) {
-
-            return FindQuery.builder()
-                .memberId(id)
-                .build();
+        public FindQuery(String memberEmail) {
+            this.memberEmail = memberEmail;
         }
     }
 

@@ -1,8 +1,7 @@
 package com.blockpage.memberservice.domain;
 
 import com.blockpage.memberservice.adaptor.infrastructure.entity.InterestEntity;
-import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
-import com.blockpage.memberservice.application.port.in.InterestUseCase.SaveQuery;
+import com.blockpage.memberservice.application.port.in.InterestUseCase.PostQuery;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,7 +11,7 @@ public class Interest {
 
     private Long id;
 
-    private MemberEntity memberEntity;
+    private String memberEmail;
 
     private Long webtoonId;
 
@@ -26,15 +25,15 @@ public class Interest {
 
     private String genre;
 
-    public static Interest addInterest(SaveQuery saveQuery, MemberEntity memberEntity) {
+    public static Interest postInterest(PostQuery postQuery) {
         return Interest.builder()
-            .memberEntity(memberEntity)
-            .webtoonId(saveQuery.getWebtoonId())
-            .webtoonTitle(saveQuery.getWebtoonTitle())
-            .webtoonThumbnail(saveQuery.getWebtoonThumbnail())
-            .creator(saveQuery.getCreator())
-            .illustrator(saveQuery.getIllustrator())
-            .genre(saveQuery.getGenre())
+            .memberEmail(postQuery.getMemberEmail())
+            .webtoonId(postQuery.getWebtoonId())
+            .webtoonTitle(postQuery.getWebtoonTitle())
+            .webtoonThumbnail(postQuery.getWebtoonThumbnail())
+            .creator(postQuery.getCreator())
+            .illustrator(postQuery.getIllustrator())
+            .genre(postQuery.getGenre())
             .build();
     }
 

@@ -1,12 +1,11 @@
 package com.blockpage.memberservice.adaptor.web.controller;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.web.view.ApiResponse;
 import com.blockpage.memberservice.adaptor.web.view.MemberView;
 import com.blockpage.memberservice.application.port.in.InterestUseCase;
 import com.blockpage.memberservice.application.port.in.InterestUseCase.DeleteQuery;
 import com.blockpage.memberservice.application.port.in.InterestUseCase.FindQuery;
-import com.blockpage.memberservice.application.port.in.InterestUseCase.SaveQuery;
+import com.blockpage.memberservice.application.port.in.InterestUseCase.PostQuery;
 import com.blockpage.memberservice.application.port.in.RequestInterest;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,30 +31,24 @@ public class InterestController {
     private final InterestUseCase interestUseCase;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<MemberView>> addInterst(@RequestBody RequestInterest requestInterest,
-        @RequestHeader("accessToken") String token) {
-        //TODO 헤더 토큰으로 멤버 가져오기 구현예정(토큰>카카오토큰정보조회>카카오아이디받아오기>멤버가져오기)
-        MemberEntity memberEntity = MemberEntity.builder()
-            .id(1L)
-            .build();
-        SaveQuery saveQuery = SaveQuery.toQuery(requestInterest);
-        interestUseCase.saveInterestQuery(saveQuery, memberEntity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<MemberView>(new MemberView("찜생성 되었습니다.")));
+    public ResponseEntity<ApiResponse<MemberView>> postInterest(@RequestHeader String email,
+        @RequestBody RequestInterest requestInterest) {
+        interestUseCase.postInterestQuery(PostQuery.toQuery(email, requestInterest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(new MemberView("찜생성 되었습니다.")));
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<MemberView>>> getIngerest(@RequestHeader("accessToken") String token) {
-        FindQuery findQuery = FindQuery.toQuery(1L);
-        List<MemberView> memberViewList = interestUseCase.findInterestQuery(findQuery).stream()
+    public ResponseEntity<ApiResponse<List<MemberView>>> getInterest(@RequestHeader String email) {
+        List<MemberView> memberViewList = interestUseCase.findInterestQuery(new FindQuery(email)).stream()
             .map(interestDto -> new MemberView(interestDto))
             .collect(Collectors.toList());
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<List<MemberView>>(memberViewList));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(memberViewList));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<MemberView>> deleteInterest(@PathVariable Long id) {
         DeleteQuery deleteQuery = DeleteQuery.toQuery(id);
         interestUseCase.deleteInterestQuery(deleteQuery);
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<MemberView>(new MemberView("찜삭제 되었습니다.")));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new MemberView("찜삭제 되었습니다.")));
     }
 }

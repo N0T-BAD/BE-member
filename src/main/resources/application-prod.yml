@@ -1,5 +1,12 @@
 server:
-  port: 8082
+  port: 0
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${eureka.client.service-url.defaultZone}
 
 spring:
   datasource:
@@ -47,15 +54,8 @@ feign:
     enabled: true
 
 purchase:
-  root: http://localhost:8081
-  post: /v1/purchases
+  post: /purchase-service/v1/purchases
 
-
-game:
-  root: http://localhost:8083
-  post: /v1/games
 
 block:
-  root: http://localhost:8080
-  post: /v1/blocks
-
+  post: /block-service/v1/blocks

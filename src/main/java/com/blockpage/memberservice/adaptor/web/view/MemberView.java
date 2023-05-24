@@ -111,4 +111,9 @@ public class MemberView {
         this.creatorNickname = memberDto.getCreatorNickname();
 
     }
+
+    public MemberView(String message, Boolean emotion) {
+        this.message = message;
+        this.emotion = emotion;
+    }
 }

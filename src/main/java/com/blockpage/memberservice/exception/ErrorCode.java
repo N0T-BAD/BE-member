@@ -16,6 +16,12 @@ public enum ErrorCode {
     BLOCK_SERVER_BAD_REQUEST("블럭 서비스에 잘못된 요청을 보냈습니다.", HttpStatus.BAD_REQUEST),
     BLOCK_SERVER_UNAVAILABLE("블럭 서비스 이용이 불가능합니다.", HttpStatus.GATEWAY_TIMEOUT),
 
+    //Emotion
+    EMOTION_ALREADY_POST("이미 반응한 댓글입니다.", HttpStatus.CONFLICT),
+
+    //Ratings
+    RATINGS_NOT_EXIST("평점이 등록되지 않았습니다.", HttpStatus.NO_CONTENT),
+
     //global
     UNKNOWN_ERROR("알수 없는 에러가 발생했습니다.", HttpStatus.NO_CONTENT);
     private final String message;

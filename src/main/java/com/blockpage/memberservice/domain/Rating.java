@@ -1,8 +1,7 @@
 package com.blockpage.memberservice.domain;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.application.port.in.RatingUseCase.FindQuery;
-import com.blockpage.memberservice.application.port.in.RatingUseCase.SaveQuery;
+import com.blockpage.memberservice.application.port.in.RatingUseCase.PostQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,24 +13,28 @@ public class Rating {
 
     private Long id;
 
-    private MemberEntity memberEntity;
+    private String memberEmail;
 
     private Long episodeId;
 
     private Integer ratings;
 
+    public Rating(Integer ratings) {
+        this.ratings = ratings;
+    }
 
-    public static Rating addRating(SaveQuery saveQuery, MemberEntity memberEntity) {
+
+    public static Rating postRating(PostQuery postQuery) {
         return Rating.builder()
-            .memberEntity(memberEntity)
-            .episodeId(saveQuery.getEpisodeId())
-            .ratings(saveQuery.getRatings())
+            .memberEmail(postQuery.getMemberEmail())
+            .episodeId(postQuery.getEpisodeId())
+            .ratings(postQuery.getRatings())
             .build();
     }
 
     public Rating(FindQuery findQuery) {
+        this.memberEmail = findQuery.getMemberEmail();
         this.episodeId = findQuery.getEpisodeId();
     }
-
 
 }

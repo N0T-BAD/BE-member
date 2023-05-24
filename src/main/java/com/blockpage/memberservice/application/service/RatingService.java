@@ -1,6 +1,5 @@
 package com.blockpage.memberservice.application.service;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.application.port.in.RatingUseCase;
 import com.blockpage.memberservice.application.port.out.RatingDto;
 import com.blockpage.memberservice.application.port.out.RatingPort;
@@ -15,15 +14,13 @@ public class RatingService implements RatingUseCase {
     private final RatingPort ratingPort;
 
     @Override
-    public RatingDto saveRatingQuery(SaveQuery saveQuery, MemberEntity memberEntity) {
-        Rating rating = Rating.addRating(saveQuery, memberEntity);
-        ratingPort.saveRating(rating);
-        return RatingDto.toQuery(saveQuery);
+    public RatingDto postRatingQuery(PostQuery postQuery) {
+        ratingPort.postRating(Rating.postRating(postQuery));
+        return new RatingDto(postQuery.getRatings());
     }
 
     @Override
-    public RatingDto findRatingQuery(FindQuery findQuery, Long memberId) {
-        Rating rating = new Rating(findQuery);
-        return ratingPort.findRating(rating, memberId);
+    public RatingDto findRatingQuery(FindQuery findQuery) {
+        return new RatingDto(ratingPort.findRating(new Rating(findQuery)).getRatings());
     }
 }
