@@ -35,7 +35,7 @@ jobs:
         client_id: ${{ secrets.GCP_KEY_CLIENT_ID }}
         auth_uri: ${{ secrets.GCP_KEY_AUTH_URL }}
         token_uri: ${{ secrets.GCP_KEY_TOKEN_URL }}
-        auth_provider_x509_cert_url: ${{ secrets.9.GCP_KEY_AUTH_PROVIDER_X509_CERT_URL }}
+        auth_provider_x509_cert_url: ${{ secrets.GCP_KEY_AUTH_PROVIDER_X509_CERT_URL }}
         client_x509_cert_url: ${{ secrets.GCP_KEY_CLIENT_X509_CERT_URL }}
       
     - name: Set Yaml
