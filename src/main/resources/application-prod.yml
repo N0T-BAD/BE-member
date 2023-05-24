@@ -29,10 +29,9 @@ spring:
         jackson:
           enabled: false
     gcp:
-      storage:
-        credentials:
-          location: classpath:gcpkey.json
-        project-id: ${spring.gcp.storage.credentials.project-id}
+      credentials:
+        location: classpath:gcpkey.json
+      project-id: ${spring.gcp.storage.credentials.project-id}
 
   main:
     allow-bean-definition-overriding: true
