@@ -21,7 +21,11 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        
+
+    - name: get Json
+      run: |
+        cat gcp.json >> gcp_locate.json
+
     - name: Set Gcp Json
       uses: microsoft/variable-substitution@v1
       with:
@@ -46,6 +50,7 @@ jobs:
         spring.datasource.url: ${{ secrets.DB_URL }} 
         spring.datasource.username: ${{ secrets.DB_USERNAME }}
         spring.datasource.password: ${{ secrets.DB_PASSWORD }}
+        spring.gcp.storage.credentials.location: gcp_location.json
         spring.gcp.storage.credentials.project-id: ${{ secrets.GCP_PROJECT_ID }}
         eureka.client.service-url.defaultZone: ${{secrets.VM_EUREKA_DEFAULTZONE}}
         
