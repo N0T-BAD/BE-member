@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -16,11 +17,13 @@ public class InterestAdaptor implements InterestPort {
     private final InterestRepository interestRepository;
 
     @Override
+    @Transactional
     public void postInterest(Interest interest) {
         interestRepository.save(InterestEntity.fromInterest(interest));
     }
 
     @Override
+    @Transactional
     public List<Interest> findInterest(String memberEmail) {
         List<InterestEntity> interestEntityList = interestRepository.findAllByMemberEmail(memberEmail);
         List<Interest> interestList = interestEntityList.stream()
@@ -30,6 +33,7 @@ public class InterestAdaptor implements InterestPort {
     }
 
     @Override
+    @Transactional
     public void deleteInterest(Long id) {
         interestRepository.deleteById(id);
     }
