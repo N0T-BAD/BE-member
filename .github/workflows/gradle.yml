@@ -24,8 +24,7 @@ jobs:
 
     - name: get Json
       run: |
-        cd /home/g404notbad404/
-        cat gcp.json >> gcp_locate.json
+        cat /envfile/gcp.json >> gcp_locate.json
 
     - name: Set Gcp Json
       uses: microsoft/variable-substitution@v1
