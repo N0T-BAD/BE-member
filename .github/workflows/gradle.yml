@@ -22,10 +22,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: get Json
-      run: |
-        cat /envfile/gcp.json >> gcp_locate.json
-
     - name: Set Gcp Json
       uses: microsoft/variable-substitution@v1
       with:
