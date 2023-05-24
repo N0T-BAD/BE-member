@@ -24,7 +24,9 @@ jobs:
       
     - name: create json
       run: |
-        echo ${{ secrets.GCP_LOCATION }} | base64 -d > gcp_location.json
+        echo "GCP_LOCATE=$GCP_LOCATION">> gcp_location.json
+      env:
+        GCP_LOCATION: ${{secrets.GCP_LOCATION}}
         
     - name: Set Yaml
       uses: microsoft/variable-substitution@v1
