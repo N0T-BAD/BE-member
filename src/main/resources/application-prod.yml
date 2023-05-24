@@ -31,7 +31,7 @@ spring:
     gcp:
       storage:
         credentials:
-          location: file:/home/404notbad404/envfile/gcpstorage.json
+          location: gcp_location.json
         project-id: ${spring.gcp.storage.credentials.project-id}
 
   main:

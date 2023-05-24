@@ -23,10 +23,8 @@ jobs:
         distribution: 'temurin'
       
     - name: create json
-      uses: jsdaniell/create-json@v1.2.2 
-      with:
-        name: "gcp_location.json"
-        json: ${{ secrets.GCP_LOCATION }}
+      run: |
+        echo ${{ secrets.GCP_LOCATION }} | base64 -d > gcp_location.json
         
     - name: Set Yaml
       uses: microsoft/variable-substitution@v1
@@ -37,7 +35,7 @@ jobs:
         spring.datasource.username: ${{ secrets.DB_USERNAME }}
         spring.datasource.password: ${{ secrets.DB_PASSWORD }}
         spring.gcp.storage.credentials.project-id: ${{ secrets.GCP_PROJECT_ID }}
-        spring.gcp.storage.credentials.location: "gcp_location.json"
+        spring.gcp.storage.credentials.location: gcp_location.json
         
     # Gradlew 실행 허용
     - name: Run chmod to make gradlew executable
