@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.application.port.out;
 
-import com.blockpage.memberservice.application.port.in.InterestUseCase.SaveQuery;
+import com.blockpage.memberservice.application.port.in.InterestUseCase.PostQuery;
 import com.blockpage.memberservice.domain.Interest;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,13 +23,13 @@ public class InterestDto {
 
     private String genre;
 
-    public static InterestDto toQuery(SaveQuery saveQuery) {
+    public static InterestDto toQuery(PostQuery postQuery) {
         return InterestDto.builder()
-            .webtoonId(saveQuery.getWebtoonId())
-            .webtoonTitle(saveQuery.getWebtoonTitle())
-            .webtoonThumbnail(saveQuery.getWebtoonThumbnail())
-            .creator(saveQuery.getCreator())
-            .genre(saveQuery.getGenre())
+            .webtoonId(postQuery.getWebtoonId())
+            .webtoonTitle(postQuery.getWebtoonTitle())
+            .webtoonThumbnail(postQuery.getWebtoonThumbnail())
+            .creator(postQuery.getCreator())
+            .genre(postQuery.getGenre())
             .build();
     }
 

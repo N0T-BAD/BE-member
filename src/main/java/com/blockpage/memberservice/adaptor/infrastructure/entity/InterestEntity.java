@@ -1,13 +1,11 @@
 package com.blockpage.memberservice.adaptor.infrastructure.entity;
 
+import com.blockpage.memberservice.domain.Interest;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,9 +24,8 @@ public class InterestEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "memberEntityId")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private MemberEntity memberEntity;
+    @Column
+    private String memberEmail;
 
     @Column
     private Long webtoonId;
@@ -47,5 +44,17 @@ public class InterestEntity extends BaseEntity {
 
     @Column
     private String genre;
+
+    public static InterestEntity fromInterest(Interest interest) {
+        return InterestEntity.builder()
+            .memberEmail(interest.getMemberEmail())
+            .webtoonId(interest.getWebtoonId())
+            .webtoonTitle(interest.getWebtoonTitle())
+            .creator(interest.getCreator())
+            .illustrator(interest.getIllustrator())
+            .webtoonThumbnail(interest.getWebtoonThumbnail())
+            .genre(interest.getGenre())
+            .build();
+    }
 
 }

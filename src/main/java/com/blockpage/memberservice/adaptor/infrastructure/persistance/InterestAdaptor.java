@@ -16,22 +16,13 @@ public class InterestAdaptor implements InterestPort {
     private final InterestRepository interestRepository;
 
     @Override
-    public void saveInterest(Interest interest) {
-        interestRepository.save(InterestEntity.builder()
-            .memberEntity(interest.getMemberEntity())
-            .webtoonId(interest.getWebtoonId())
-            .webtoonTitle(interest.getWebtoonTitle())
-            .creator(interest.getCreator())
-            .illustrator(interest.getIllustrator())
-            .webtoonThumbnail(interest.getWebtoonThumbnail())
-            .genre(interest.getGenre())
-            .build());
+    public void postInterest(Interest interest) {
+        interestRepository.save(InterestEntity.fromInterest(interest));
     }
 
     @Override
-    public List<Interest> findInterest(Long memberId) {
-        List<InterestEntity> interestEntityList = interestRepository.findAllByMemberEntityId(memberId);
-        System.out.println(interestEntityList.toString());
+    public List<Interest> findInterest(String memberEmail) {
+        List<InterestEntity> interestEntityList = interestRepository.findAllByMemberEmail(memberEmail);
         List<Interest> interestList = interestEntityList.stream()
             .map(interestEntity -> Interest.findInterest(interestEntity))
             .collect(Collectors.toList());
