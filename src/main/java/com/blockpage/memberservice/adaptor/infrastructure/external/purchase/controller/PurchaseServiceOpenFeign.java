@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "purchase-service",
-    url = "${purchase.root}",
     configuration = PurchaseServiceFeignConfig.class,
     fallback = PurchaseServiceOpenFeign.Fallback.class)
 public interface PurchaseServiceOpenFeign {
