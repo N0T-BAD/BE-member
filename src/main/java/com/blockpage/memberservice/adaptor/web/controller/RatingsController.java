@@ -1,11 +1,10 @@
 package com.blockpage.memberservice.adaptor.web.controller;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.web.view.ApiResponse;
 import com.blockpage.memberservice.adaptor.web.view.MemberView;
 import com.blockpage.memberservice.application.port.in.RatingUseCase;
 import com.blockpage.memberservice.application.port.in.RatingUseCase.FindQuery;
-import com.blockpage.memberservice.application.port.in.RatingUseCase.SaveQuery;
+import com.blockpage.memberservice.application.port.in.RatingUseCase.PostQuery;
 import com.blockpage.memberservice.application.port.in.RequestRating;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,19 +27,17 @@ public class RatingsController {
     private final RatingUseCase ratingUseCase;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<MemberView>> addRating(@RequestHeader("accessToken") String token,
+    public ResponseEntity<ApiResponse<MemberView>> addRating(@RequestHeader String email,
         @RequestBody RequestRating requestRating) {
-        MemberEntity memberEntity = MemberEntity.builder().id(1L).build();
-        ratingUseCase.saveRatingQuery(SaveQuery.toQuery(requestRating), memberEntity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<MemberView>(new MemberView("평점 등록 되었습니다.")));
+        ratingUseCase.postRatingQuery(PostQuery.toQuery(email, requestRating));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(new MemberView("평점 등록 되었습니다.")));
     }
 
     @GetMapping("/{episodeId}")
-    public ResponseEntity<ApiResponse<MemberView>> getInterest(@RequestHeader("accessToken") String token,
+    public ResponseEntity<ApiResponse<MemberView>> getInterest(@RequestHeader String email,
         @PathVariable Long episodeId) {
-        Long memberId = 1L;
-        Integer ratings = ratingUseCase.findRatingQuery(new FindQuery(episodeId), memberId).getRatings();
-        return ResponseEntity.ok().body(new ApiResponse(new MemberView(ratings)));
+        Integer ratings = ratingUseCase.findRatingQuery(new FindQuery(email, episodeId)).getRatings();
+        return ResponseEntity.ok().body(new ApiResponse<>(new MemberView(ratings)));
     }
 
 }

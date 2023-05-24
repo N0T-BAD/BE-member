@@ -4,7 +4,7 @@ import com.blockpage.memberservice.domain.Rating;
 
 public interface RatingPort {
 
-    void saveRating(Rating rating);
+    void postRating(Rating rating);
 
-    RatingDto findRating(Rating rating, Long memberId);
+    Rating findRating(Rating rating);
 }
