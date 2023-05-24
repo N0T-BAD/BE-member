@@ -22,6 +22,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - name: create_json
+      run: |
+        echo ${{ secrets.GCP_LOCATION }} | base64 -d > gcp_location.json
+
     - name: Set Gcp Json
       uses: microsoft/variable-substitution@v1
       with:
@@ -46,7 +50,8 @@ jobs:
         spring.datasource.url: ${{ secrets.DB_URL }} 
         spring.datasource.username: ${{ secrets.DB_USERNAME }}
         spring.datasource.password: ${{ secrets.DB_PASSWORD }}
-        spring.gcp.storage.credentials.project-id: ${{ secrets.GCP_PROJECT_ID }}
+        spring.gcp.storage.credentials.location: gcp_location.json
+        spring.gcp.storage.project-id: ${{ secrets.GCP_PROJECT_ID }}
         eureka.client.service-url.defaultZone: ${{secrets.VM_EUREKA_DEFAULTZONE}}
         
     # Gradlew 실행 허용
