@@ -11,7 +11,7 @@ public class ExceptionAdvice {
 
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<?> customException(CustomException customException) {
-        log.error(customException.getMessage());
+        log.error("에러코드: " +customException.getHttpstatus().toString()+", "+customException.getMessage());
         return ResponseEntity.status(customException.getHttpstatus()).body(customException.getMessage());
     }
 }
