@@ -43,6 +43,9 @@ jobs:
         token_uri: ${{ secrets.GCP_KEY_TOKEN_URL }}
         auth_provider_x509_cert_url: ${{ secrets.GCP_KEY_AUTH_PROVIDER_X509_CERT_URL }}
         client_x509_cert_url: ${{ secrets.GCP_KEY_CLIENT_X509_CERT_URL }}
+        
+    - name: check json file
+      run: cat ./src/main/resources/gcpkey.json
       
     - name: Set Yaml
       uses: microsoft/variable-substitution@v1
@@ -55,6 +58,7 @@ jobs:
         spring.gcp.storage.credentials.location: gcp_location.json
         spring.gcp.storage.project-id: ${{ secrets.GCP_PROJECT_ID }}
         eureka.client.service-url.defaultZone: ${{secrets.VM_EUREKA_DEFAULTZONE}}
+      
         
     # Gradlew 실행 허용
     - name: Run chmod to make gradlew executable
