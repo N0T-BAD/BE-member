@@ -9,12 +9,14 @@ eureka:
       defaultZone: ${eureka.client.service-url.defaultZone}
 
 spring:
+  application:
+    name: purchase-service
+    
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${spring.datasource.url}
     username: ${spring.datasource.username}
     password: ${spring.datasource.password}
-
 
   jpa:
     properties:
@@ -55,7 +57,6 @@ feign:
 
 purchase:
   post: /purchase-service/v1/purchases
-
 
 block:
   post: /block-service/v1/blocks
