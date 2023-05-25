@@ -10,7 +10,7 @@ eureka:
 
 spring:
   application:
-    name: purchase-service
+    name: member-service
     
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
