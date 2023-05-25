@@ -24,7 +24,7 @@ jobs:
 
     - name: create_json
       run: |
-        echo ${{ secrets.GCP_LOCATION }} | base64 -d > gcp_location.json
+        echo ${{ secrets.GCP_LOCATION }} | base64 -d >> gcp_location.json
 
     - name: Set Gcp Json
       uses: microsoft/variable-substitution@v1
