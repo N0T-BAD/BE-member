@@ -13,9 +13,10 @@ public class PurchaseServiceController implements PurchasePort {
     private final PurchaseServiceOpenFeign purchaseServiceOpenFeign;
 
     @Override
-    public ResponseEntity postProfileSkin(RequestPurchase requestPurchase) {
+    public ResponseEntity postProfileSkin(String email, RequestPurchase requestPurchase) {
         String type = "profileSkin";
-        purchaseServiceOpenFeign.postProfileSkin(type, requestPurchase);
+        purchaseServiceOpenFeign.postProfileSkin(email,type, requestPurchase);
+
         return ResponseEntity.ok().build();
     }
 }

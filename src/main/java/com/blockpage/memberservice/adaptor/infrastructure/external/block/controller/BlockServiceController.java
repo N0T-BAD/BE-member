@@ -14,9 +14,9 @@ public class BlockServiceController implements BlockPort {
     private final BlockServiceOpenFeign blockServiceOpenFeign;
 
     @Override
-    public ResponseEntity postBlock(RequestBlock requestBlock) {
+    public ResponseEntity postBlock(String email,RequestBlock requestBlock) {
         String type = "attendance";
-        blockServiceOpenFeign.postBlock(type, requestBlock);
+        blockServiceOpenFeign.postBlock(email,type, requestBlock);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
