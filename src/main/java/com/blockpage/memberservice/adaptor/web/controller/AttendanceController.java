@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/attendance")
+@RequestMapping("/member-service/v1/attendance")
 public class AttendanceController {
 
     private final AttendanceUseCase attendanceUseCase;

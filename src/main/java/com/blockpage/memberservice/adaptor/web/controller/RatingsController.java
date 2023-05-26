@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/ratings")
+@RequestMapping("/member-service/v1/ratings")
 @Slf4j
 public class RatingsController {
 

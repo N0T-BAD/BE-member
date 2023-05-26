@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/emotions")
+@RequestMapping("/member-service/v1/emotions")
 public class EmotionController {
 
     private final EmotionUseCase emotionUseCase;
