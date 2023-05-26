@@ -18,6 +18,6 @@ public class AttendanceService implements AttendanceUseCase {
     @Override
     public void postAttendance(PostQuery postQuery) {
         attendancePort.postAttendance(new Attendance(postQuery.getMemberEmail()));
-        blockPort.postBlock(new RequestBlock(postQuery.getMemberEmail()));
+        blockPort.postBlock(postQuery.getMemberEmail(), new RequestBlock());
     }
 }

@@ -23,7 +23,7 @@ public class MemberService implements MemberUseCase {
     public MemberDto signInMember(SignInQuery signInQuery) {
         Member member = memberPort.signInMember(Member.signInMember(signInQuery));
         if (member.getSignUp()) {
-            purchasePort.postProfileSkin(new RequestPurchase(signInQuery.getEmail()));
+            purchasePort.postProfileSkin(signInQuery.getEmail(), new RequestPurchase());
         }
         return MemberDto.signIn(member);
     }
