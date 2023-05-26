@@ -1,10 +1,13 @@
 package com.blockpage.memberservice.adaptor.infrastructure.persistance;
 
+import static com.blockpage.memberservice.exception.ErrorCode.NICKNAME_ALREADY_EXIST;
+
 import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.repository.MemberRepository;
 import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
 import com.blockpage.memberservice.application.port.out.MemberPort;
 import com.blockpage.memberservice.domain.Member;
+import com.blockpage.memberservice.exception.CustomException;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
@@ -39,7 +42,7 @@ public class MemberAdaptor implements MemberPort {
         if (member.getCreatorNickname() != null) {
             Optional<MemberEntity> memberEntity = memberRepository.findByCreatorNickname(member.getCreatorNickname());
             if (memberEntity.isPresent()) {
-                throw new RuntimeException("중복된 닉네임입니다.");
+                throw new CustomException(NICKNAME_ALREADY_EXIST.getMessage(),NICKNAME_ALREADY_EXIST.getHttpStatus());
             } else {
                 return member;
             }

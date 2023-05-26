@@ -1,9 +1,12 @@
 package com.blockpage.memberservice.adaptor.infrastructure.persistance;
 
+import static com.blockpage.memberservice.exception.ErrorCode.ATTENDANCE_ALREADY_POST;
+
 import com.blockpage.memberservice.adaptor.infrastructure.entity.AttendanceEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.repository.AttendanceRepository;
 import com.blockpage.memberservice.application.port.out.AttendancePort;
 import com.blockpage.memberservice.domain.Attendance;
+import com.blockpage.memberservice.exception.CustomException;
 import java.time.LocalDate;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +28,7 @@ public class AttendanceAdaptor implements AttendancePort {
         if (attendanceEntity.isEmpty()) {
             attendanceRepository.save(AttendanceEntity.postAttendance(attendance));
         } else {
-            throw new RuntimeException("이미 출석체크 하셨습니다.");
+            throw new CustomException(ATTENDANCE_ALREADY_POST.getMessage(), ATTENDANCE_ALREADY_POST.getHttpStatus());
         }
     }
 }

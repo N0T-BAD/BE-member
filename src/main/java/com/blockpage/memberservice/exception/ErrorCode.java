@@ -9,21 +9,27 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
     //purchase-service
     PURCHASE_SERVER_BAD_REQUEST("구매 서비스에 잘못된 요청을 보냈습니다.", HttpStatus.BAD_REQUEST),
-    PURCHASE_SERVER_UNAVAILABLE("구매 서비스 이용이 불가능합니다.", HttpStatus.GATEWAY_TIMEOUT),
+    PURCHASE_SERVER_UNAVAILABLE("구매 서비스 이용이 불가능합니다.", HttpStatus.BAD_REQUEST),
+
+    //member-service
+    NICKNAME_ALREADY_EXIST("이미 등록된 닉네임 입니다.",HttpStatus.CONFLICT),
 
 
     //block-service
     BLOCK_SERVER_BAD_REQUEST("블럭 서비스에 잘못된 요청을 보냈습니다.", HttpStatus.BAD_REQUEST),
-    BLOCK_SERVER_UNAVAILABLE("블럭 서비스 이용이 불가능합니다.", HttpStatus.GATEWAY_TIMEOUT),
+    BLOCK_SERVER_UNAVAILABLE("블럭 서비스 이용이 불가능합니다.", HttpStatus.BAD_REQUEST),
 
     //Emotion
     EMOTION_ALREADY_POST("이미 반응한 댓글입니다.", HttpStatus.CONFLICT),
 
+    //attendance
+    ATTENDANCE_ALREADY_POST("이미 출석체크 하셨습니다.", HttpStatus.CONFLICT),
+
     //Ratings
-    RATINGS_NOT_EXIST("평점이 등록되지 않았습니다.", HttpStatus.NO_CONTENT),
+    RATINGS_NOT_EXIST("평점이 등록되지 않았습니다.", HttpStatus.BAD_REQUEST),
 
     //global
-    UNKNOWN_ERROR("알수 없는 에러가 발생했습니다.", HttpStatus.NO_CONTENT);
+    UNKNOWN_ERROR("알수 없는 에러가 발생했습니다.", HttpStatus.BAD_REQUEST);
     private final String message;
     private final HttpStatus httpStatus;
 }
