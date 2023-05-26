@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/interests")
+@RequestMapping("/member-service/v1/interests")
 @Slf4j
 public class InterestController {
 

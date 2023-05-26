@@ -2,7 +2,6 @@ package com.blockpage.memberservice.application.port.in;
 
 import com.blockpage.memberservice.application.port.out.MemberDto;
 import java.io.IOException;
-import javax.servlet.http.HttpSession;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,11 +44,9 @@ public interface MemberUseCase {
         private String type;
         private String creatorNickname;
 
-        public static FindMemberQuery toQuery(String type, RequestMember requestMember, HttpSession session) {
-//            String email = (String) session.getAttribute("id"); 추후 세션 확인 가능시 적용
-            String emailTest = "test@naver.com";
+        public static FindMemberQuery toQuery(String email,String type, RequestMember requestMember) {
             return FindMemberQuery.builder()
-                .email(emailTest)
+                .email(email)
                 .type(type)
                 .creatorNickname(requestMember != null ? requestMember.getCreatorNickname() : null)
                 .build();
@@ -74,11 +71,10 @@ public interface MemberUseCase {
 
         private MultipartFile profileImage;
 
-        public static UpdateQuery toQuery(String type, RequestMember requestMember, MultipartFile profileImage, HttpSession session) {
-            String emailTest = "test@naver.com";
+        public static UpdateQuery toQuery(String email,String type, RequestMember requestMember, MultipartFile profileImage) {
             return UpdateQuery.builder()
                 .type(type)
-                .email(emailTest)
+                .email(email)
                 .nickname(requestMember.getNickname())
                 .profileSkin(requestMember.getProfileSkin())
                 .adult(requestMember.getAdult())

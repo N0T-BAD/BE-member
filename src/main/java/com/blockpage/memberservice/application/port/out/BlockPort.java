@@ -5,5 +5,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface BlockPort {
 
-    ResponseEntity postBlock(RequestBlock requestBlock);
+    ResponseEntity postBlock(String email,RequestBlock requestBlock);
 }
