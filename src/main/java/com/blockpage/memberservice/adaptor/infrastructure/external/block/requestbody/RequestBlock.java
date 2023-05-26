@@ -7,7 +7,7 @@ public class RequestBlock {
 
     private Integer blockQuantity;
 
-    public RequestBlock(String email) {
+    public RequestBlock() {
         this.blockQuantity = 4;
     }
 }
