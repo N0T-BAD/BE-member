@@ -42,7 +42,7 @@ public class MemberAdaptor implements MemberPort {
         if (member.getCreatorNickname() != null) {
             Optional<MemberEntity> memberEntity = memberRepository.findByCreatorNickname(member.getCreatorNickname());
             if (memberEntity.isPresent()) {
-                throw new CustomException(NICKNAME_ALREADY_EXIST.getMessage(),NICKNAME_ALREADY_EXIST.getHttpStatus());
+                throw new CustomException(NICKNAME_ALREADY_EXIST.getMessage(), NICKNAME_ALREADY_EXIST.getHttpStatus());
             } else {
                 return member;
             }
@@ -62,7 +62,7 @@ public class MemberAdaptor implements MemberPort {
         Member updateMember = Member.builder()
             .email(member.getEmail())
             .nickname(member.getNickname())
-            .profileImage(profileImageUUID)
+            .profileImage("https://storage.googleapis.com/blockpage-bucket/" + profileImageUUID)
             .adult(member.getAdult())
             .build();
         Optional<MemberEntity> memberEntity = memberRepository.findByEmail(updateMember.getEmail());
