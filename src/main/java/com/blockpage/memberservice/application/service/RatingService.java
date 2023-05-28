@@ -1,8 +1,8 @@
 package com.blockpage.memberservice.application.service;
 
 import com.blockpage.memberservice.application.port.in.RatingUseCase;
-import com.blockpage.memberservice.application.port.out.RatingDto;
-import com.blockpage.memberservice.application.port.out.RatingPort;
+import com.blockpage.memberservice.application.port.out.dto.RatingDto;
+import com.blockpage.memberservice.application.port.out.port.RatingPort;
 import com.blockpage.memberservice.domain.Rating;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

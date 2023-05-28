@@ -1,6 +1,7 @@
 package com.blockpage.memberservice.application.port.in;
 
-import com.blockpage.memberservice.application.port.out.RatingDto;
+import com.blockpage.memberservice.adaptor.web.requestBody.RequestRating;
+import com.blockpage.memberservice.application.port.out.dto.RatingDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

@@ -2,9 +2,9 @@ package com.blockpage.memberservice.application.service;
 
 import com.blockpage.memberservice.adaptor.infrastructure.external.purchase.requestbody.RequestPurchase;
 import com.blockpage.memberservice.application.port.in.MemberUseCase;
-import com.blockpage.memberservice.application.port.out.MemberDto;
-import com.blockpage.memberservice.application.port.out.MemberPort;
-import com.blockpage.memberservice.application.port.out.PurchasePort;
+import com.blockpage.memberservice.application.port.out.dto.MemberDto;
+import com.blockpage.memberservice.application.port.out.port.MemberPort;
+import com.blockpage.memberservice.application.port.out.port.PurchasePort;
 import com.blockpage.memberservice.domain.Member;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;

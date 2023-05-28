@@ -2,7 +2,7 @@ package com.blockpage.memberservice.adaptor.infrastructure.persistance;
 
 import com.blockpage.memberservice.adaptor.infrastructure.entity.InterestEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.repository.InterestRepository;
-import com.blockpage.memberservice.application.port.out.InterestPort;
+import com.blockpage.memberservice.application.port.out.port.InterestPort;
 import com.blockpage.memberservice.domain.Interest;
 import java.util.List;
 import java.util.Optional;

@@ -1,8 +1,8 @@
 package com.blockpage.memberservice.application.service;
 
 import com.blockpage.memberservice.application.port.in.EmotionUseCase;
-import com.blockpage.memberservice.application.port.out.EmotionDto;
-import com.blockpage.memberservice.application.port.out.EmotionPort;
+import com.blockpage.memberservice.application.port.out.dto.EmotionDto;
+import com.blockpage.memberservice.application.port.out.port.EmotionPort;
 import com.blockpage.memberservice.domain.Emotion;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,9 +20,9 @@ public class EmotionService implements EmotionUseCase {
     @Override
     public EmotionDto postEmotionQuery(PostQuery postQuery) {
         Emotion emotion = emotionPort.postEmotion(Emotion.postEmotion(postQuery));
-        if(emotion.getEmotion() != null){
+        if (emotion.getEmotion() != null) {
             return new EmotionDto(emotion.getEmotion());
-        }else{
+        } else {
             return new EmotionDto(null);
         }
     }

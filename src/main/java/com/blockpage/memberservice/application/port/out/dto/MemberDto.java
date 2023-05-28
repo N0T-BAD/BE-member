@@ -1,4 +1,4 @@
-package com.blockpage.memberservice.application.port.out;
+package com.blockpage.memberservice.application.port.out.dto;
 
 import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
 import com.blockpage.memberservice.domain.Member;

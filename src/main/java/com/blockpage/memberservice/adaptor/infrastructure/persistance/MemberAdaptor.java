@@ -5,7 +5,7 @@ import static com.blockpage.memberservice.exception.ErrorCode.NICKNAME_ALREADY_E
 import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.repository.MemberRepository;
 import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
-import com.blockpage.memberservice.application.port.out.MemberPort;
+import com.blockpage.memberservice.application.port.out.port.MemberPort;
 import com.blockpage.memberservice.domain.Member;
 import com.blockpage.memberservice.exception.CustomException;
 import com.google.cloud.storage.BlobId;

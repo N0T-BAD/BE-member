@@ -1,4 +1,4 @@
-package com.blockpage.memberservice.application.port.in;
+package com.blockpage.memberservice.adaptor.web.requestBody;
 
 import lombok.Getter;
 

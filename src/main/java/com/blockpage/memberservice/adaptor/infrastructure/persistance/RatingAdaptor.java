@@ -1,10 +1,10 @@
 package com.blockpage.memberservice.adaptor.infrastructure.persistance;
 
-import static com.blockpage.memberservice.exception.ErrorCode.RATINGS_NOT_EXIST;
+import static com.blockpage.memberservice.exception.ErrorCode.*;
 
 import com.blockpage.memberservice.adaptor.infrastructure.entity.RatingEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.repository.RatingRepository;
-import com.blockpage.memberservice.application.port.out.RatingPort;
+import com.blockpage.memberservice.application.port.out.port.RatingPort;
 import com.blockpage.memberservice.domain.Rating;
 import com.blockpage.memberservice.exception.CustomException;
 import java.util.Optional;

@@ -1,8 +1,8 @@
 package com.blockpage.memberservice.application.service;
 
 import com.blockpage.memberservice.application.port.in.InterestUseCase;
-import com.blockpage.memberservice.application.port.out.InterestDto;
-import com.blockpage.memberservice.application.port.out.InterestPort;
+import com.blockpage.memberservice.application.port.out.dto.InterestDto;
+import com.blockpage.memberservice.application.port.out.port.InterestPort;
 import com.blockpage.memberservice.domain.Interest;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,9 +31,13 @@ public class InterestService implements InterestUseCase {
     }
 
     @Override
+    public InterestDto findInterestWebtoonQuery(FindWebtoonQuery query) {
+        return new InterestDto(interestPort.findWebtoonInterest(Interest.findEpisodeInterest(query)).getChoice());
+    }
+
+    @Override
     public void deleteInterestQuery(DeleteQuery query) {
         interestPort.deleteInterest(query.getId());
-
     }
 
 }

@@ -1,4 +1,4 @@
-package com.blockpage.memberservice.application.port.out;
+package com.blockpage.memberservice.application.port.out.port;
 
 import com.blockpage.memberservice.domain.Interest;
 import java.util.List;

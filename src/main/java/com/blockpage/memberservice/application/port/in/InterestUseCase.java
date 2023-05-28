@@ -1,6 +1,7 @@
 package com.blockpage.memberservice.application.port.in;
 
-import com.blockpage.memberservice.application.port.out.InterestDto;
+import com.blockpage.memberservice.adaptor.web.requestBody.RequestInterest;
+import com.blockpage.memberservice.application.port.out.dto.InterestDto;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;

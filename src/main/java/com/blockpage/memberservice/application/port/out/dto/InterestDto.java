@@ -1,4 +1,4 @@
-package com.blockpage.memberservice.application.port.out;
+package com.blockpage.memberservice.application.port.out.dto;
 
 import com.blockpage.memberservice.application.port.in.InterestUseCase.PostQuery;
 import com.blockpage.memberservice.domain.Interest;

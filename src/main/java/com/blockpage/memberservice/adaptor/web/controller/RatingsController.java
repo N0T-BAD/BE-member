@@ -5,7 +5,7 @@ import com.blockpage.memberservice.adaptor.web.view.MemberView;
 import com.blockpage.memberservice.application.port.in.RatingUseCase;
 import com.blockpage.memberservice.application.port.in.RatingUseCase.FindQuery;
 import com.blockpage.memberservice.application.port.in.RatingUseCase.PostQuery;
-import com.blockpage.memberservice.application.port.in.RequestRating;
+import com.blockpage.memberservice.adaptor.web.requestBody.RequestRating;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

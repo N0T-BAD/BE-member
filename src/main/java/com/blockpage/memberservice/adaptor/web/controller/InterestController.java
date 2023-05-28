@@ -6,7 +6,7 @@ import com.blockpage.memberservice.application.port.in.InterestUseCase;
 import com.blockpage.memberservice.application.port.in.InterestUseCase.DeleteQuery;
 import com.blockpage.memberservice.application.port.in.InterestUseCase.FindQuery;
 import com.blockpage.memberservice.application.port.in.InterestUseCase.PostQuery;
-import com.blockpage.memberservice.application.port.in.RequestInterest;
+import com.blockpage.memberservice.adaptor.web.requestBody.RequestInterest;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
