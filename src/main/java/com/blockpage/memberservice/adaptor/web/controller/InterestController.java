@@ -38,7 +38,7 @@ public class InterestController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<MemberView>>> getInterest(@RequestHeader String email) {
+    public ResponseEntity<ApiResponse<List<MemberView>>> getInterestAll(@RequestHeader String email) {
         List<MemberView> memberViewList = interestUseCase.findInterestQuery(new FindQuery(email)).stream()
             .map(interestDto -> new MemberView(interestDto))
             .collect(Collectors.toList());

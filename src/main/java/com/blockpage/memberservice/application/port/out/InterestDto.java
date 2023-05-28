@@ -2,11 +2,13 @@ package com.blockpage.memberservice.application.port.out;
 
 import com.blockpage.memberservice.application.port.in.InterestUseCase.PostQuery;
 import com.blockpage.memberservice.domain.Interest;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
+@AllArgsConstructor
 public class InterestDto {
 
     private Long id;
@@ -22,6 +24,12 @@ public class InterestDto {
     private String illustrator;
 
     private String genre;
+
+    private Boolean choice;
+
+    public InterestDto(Boolean choice) {
+        this.choice = choice;
+    }
 
     public static InterestDto toQuery(PostQuery postQuery) {
         return InterestDto.builder()

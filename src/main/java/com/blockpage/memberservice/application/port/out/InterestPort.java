@@ -9,5 +9,7 @@ public interface InterestPort {
 
     List<Interest> findInterest(String memberEmail);
 
+    Interest findWebtoonInterest(Interest interest);
+
     void deleteInterest(Long id);
 }

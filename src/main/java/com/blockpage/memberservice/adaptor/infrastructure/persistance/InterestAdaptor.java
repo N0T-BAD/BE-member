@@ -5,6 +5,7 @@ import com.blockpage.memberservice.adaptor.infrastructure.repository.InterestRep
 import com.blockpage.memberservice.application.port.out.InterestPort;
 import com.blockpage.memberservice.domain.Interest;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -30,6 +31,17 @@ public class InterestAdaptor implements InterestPort {
             .map(interestEntity -> Interest.findInterest(interestEntity))
             .collect(Collectors.toList());
         return interestList;
+    }
+
+    @Override
+    public Interest findWebtoonInterest(Interest interest) {
+        Optional<InterestEntity> interestEntity = interestRepository.findByMemberEmailAndWebtoonId(interest.getMemberEmail(),
+            interest.getWebtoonId());
+        if (interestEntity.isPresent()) {
+            return new Interest(true);
+        } else {
+            return new Interest(false);
+        }
     }
 
     @Override

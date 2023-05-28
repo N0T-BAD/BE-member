@@ -11,6 +11,8 @@ public interface InterestUseCase {
 
     List<InterestDto> findInterestQuery(FindQuery query);
 
+    InterestDto findInterestWebtoonQuery(FindWebtoonQuery query);
+
     void deleteInterestQuery(DeleteQuery query);
 
     @Getter
@@ -61,4 +63,15 @@ public interface InterestUseCase {
         }
     }
 
+    @Getter
+    class FindWebtoonQuery {
+
+        private String email;
+        private Long webtoonId;
+
+        public FindWebtoonQuery(String email, Long webtoonId) {
+            this.email = email;
+            this.webtoonId = webtoonId;
+        }
+    }
 }
