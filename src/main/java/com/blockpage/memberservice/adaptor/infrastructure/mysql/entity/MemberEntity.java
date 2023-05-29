@@ -77,4 +77,15 @@ public class MemberEntity extends BaseEntity {
             .build();
     }
 
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setCreatorNickname(String creatorNickname) {
+        this.creatorNickname = creatorNickname;
+    }
+
+    public void setProfileSkin(String profileSkin) {
+        this.profileSkin = profileSkin;
+    }
 }
