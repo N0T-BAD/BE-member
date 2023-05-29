@@ -11,5 +11,5 @@ public interface InterestPort {
 
     Interest findWebtoonInterest(Interest interest);
 
-    void deleteInterest(Long id);
+    Interest deleteInterest(Long id);
 }
