@@ -7,7 +7,10 @@ import com.blockpage.memberservice.adaptor.infrastructure.mysql.repository.Ratin
 import com.blockpage.memberservice.application.port.out.port.RatingPort;
 import com.blockpage.memberservice.domain.Rating;
 import com.blockpage.memberservice.exception.CustomException;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -32,5 +35,13 @@ public class RatingAdaptor implements RatingPort {
             throw new CustomException(RATINGS_NOT_EXIST.getMessage(), RATINGS_NOT_EXIST.getHttpStatus());
         }
 
+    }
+
+    @Override
+    public List<Rating> findRatingByCreateDate(LocalDateTime start, LocalDateTime end) {
+        List<Rating> ratingList = ratingRepository.findAllByRegisterTimeBetween(start, end).stream()
+            .map(Rating::fromEntity)
+            .collect(Collectors.toList());
+        return ratingList;
     }
 }

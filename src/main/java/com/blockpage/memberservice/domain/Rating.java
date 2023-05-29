@@ -1,5 +1,6 @@
 package com.blockpage.memberservice.domain;
 
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.RatingEntity;
 import com.blockpage.memberservice.application.port.in.RatingUseCase.FindQuery;
 import com.blockpage.memberservice.application.port.in.RatingUseCase.PostQuery;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,13 @@ public class Rating {
     public Rating(FindQuery findQuery) {
         this.memberEmail = findQuery.getMemberEmail();
         this.episodeId = findQuery.getEpisodeId();
+    }
+
+    public static Rating fromEntity(RatingEntity ratingEntity){
+        return Rating.builder()
+            .episodeId(ratingEntity.getEpisodeId())
+            .ratings(ratingEntity.getRatings())
+            .build();
     }
 
 }
