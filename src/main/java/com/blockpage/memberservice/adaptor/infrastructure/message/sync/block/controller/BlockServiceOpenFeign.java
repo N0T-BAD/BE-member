@@ -1,7 +1,7 @@
-package com.blockpage.memberservice.adaptor.infrastructure.external.block.controller;
+package com.blockpage.memberservice.adaptor.infrastructure.message.sync.block.controller;
 
-import com.blockpage.memberservice.adaptor.infrastructure.external.block.configuration.BlockServiceFeignConfig;
-import com.blockpage.memberservice.adaptor.infrastructure.external.block.requestbody.RequestBlock;
+import com.blockpage.memberservice.adaptor.infrastructure.message.sync.block.configuration.BlockServiceFeignConfig;
+import com.blockpage.memberservice.adaptor.infrastructure.message.sync.block.requestbody.RequestBlock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;

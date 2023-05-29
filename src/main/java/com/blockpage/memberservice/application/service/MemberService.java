@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.application.service;
 
-import com.blockpage.memberservice.adaptor.infrastructure.external.purchase.requestbody.RequestPurchase;
+import com.blockpage.memberservice.adaptor.infrastructure.message.sync.purchase.requestbody.RequestPurchase;
 import com.blockpage.memberservice.application.port.in.MemberUseCase;
 import com.blockpage.memberservice.application.port.out.dto.MemberDto;
 import com.blockpage.memberservice.application.port.out.port.MemberPort;

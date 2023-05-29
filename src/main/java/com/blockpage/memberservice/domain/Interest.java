@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.domain;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.InterestEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.InterestEntity;
 import com.blockpage.memberservice.application.port.in.InterestUseCase.FindWebtoonQuery;
 import com.blockpage.memberservice.application.port.in.InterestUseCase.PostQuery;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.blockpage.memberservice.adaptor.infrastructure.external.purchase.configuration;
+package com.blockpage.memberservice.adaptor.infrastructure.message.sync.purchase.configuration;
 
 import com.blockpage.memberservice.exception.PurchaseOpenFeignErrorDecoder;
 import feign.Logger.Level;

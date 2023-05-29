@@ -1,7 +1,7 @@
-package com.blockpage.memberservice.adaptor.infrastructure.external.purchase.controller;
+package com.blockpage.memberservice.adaptor.infrastructure.message.sync.purchase.controller;
 
-import com.blockpage.memberservice.adaptor.infrastructure.external.purchase.configuration.PurchaseServiceFeignConfig;
-import com.blockpage.memberservice.adaptor.infrastructure.external.purchase.requestbody.RequestPurchase;
+import com.blockpage.memberservice.adaptor.infrastructure.message.sync.purchase.configuration.PurchaseServiceFeignConfig;
+import com.blockpage.memberservice.adaptor.infrastructure.message.sync.purchase.requestbody.RequestPurchase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;

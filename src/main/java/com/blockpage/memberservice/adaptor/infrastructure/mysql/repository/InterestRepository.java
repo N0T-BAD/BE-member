@@ -1,6 +1,6 @@
-package com.blockpage.memberservice.adaptor.infrastructure.repository;
+package com.blockpage.memberservice.adaptor.infrastructure.mysql.repository;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.InterestEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.InterestEntity;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;

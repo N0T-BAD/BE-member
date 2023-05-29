@@ -1,9 +1,9 @@
-package com.blockpage.memberservice.adaptor.infrastructure.persistance;
+package com.blockpage.memberservice.adaptor.infrastructure.mysql.persistance;
 
 import static com.blockpage.memberservice.exception.ErrorCode.*;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.RatingEntity;
-import com.blockpage.memberservice.adaptor.infrastructure.repository.RatingRepository;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.RatingEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.repository.RatingRepository;
 import com.blockpage.memberservice.application.port.out.port.RatingPort;
 import com.blockpage.memberservice.domain.Rating;
 import com.blockpage.memberservice.exception.CustomException;

@@ -1,4 +1,4 @@
-package com.blockpage.memberservice.adaptor.infrastructure.entity;
+package com.blockpage.memberservice.adaptor.infrastructure.mysql.entity;
 
 import com.blockpage.memberservice.domain.Emotion;
 import javax.persistence.Column;

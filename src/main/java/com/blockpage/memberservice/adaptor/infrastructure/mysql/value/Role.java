@@ -1,4 +1,4 @@
-package com.blockpage.memberservice.adaptor.infrastructure.value;
+package com.blockpage.memberservice.adaptor.infrastructure.mysql.value;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

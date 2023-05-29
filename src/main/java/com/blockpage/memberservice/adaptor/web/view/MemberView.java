@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.adaptor.web.view;
 
-import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.value.Role;
 import com.blockpage.memberservice.application.port.out.dto.EmotionDto;
 import com.blockpage.memberservice.application.port.out.dto.InterestDto;
 import com.blockpage.memberservice.application.port.out.dto.MemberDto;

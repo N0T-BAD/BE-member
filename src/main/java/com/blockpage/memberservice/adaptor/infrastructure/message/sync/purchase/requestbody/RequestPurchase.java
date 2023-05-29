@@ -1,4 +1,4 @@
-package com.blockpage.memberservice.adaptor.infrastructure.external.purchase.requestbody;
+package com.blockpage.memberservice.adaptor.infrastructure.message.sync.purchase.requestbody;
 
 import lombok.Getter;
 

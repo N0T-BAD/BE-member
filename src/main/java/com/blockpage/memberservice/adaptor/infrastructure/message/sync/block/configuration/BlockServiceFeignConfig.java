@@ -1,4 +1,4 @@
-package com.blockpage.memberservice.adaptor.infrastructure.external.block.configuration;
+package com.blockpage.memberservice.adaptor.infrastructure.message.sync.block.configuration;
 
 import com.blockpage.memberservice.exception.BlockOpenFeignErrorDecoder;
 import feign.Logger.Level;

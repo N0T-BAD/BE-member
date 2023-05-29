@@ -1,7 +1,7 @@
-package com.blockpage.memberservice.adaptor.infrastructure.persistance;
+package com.blockpage.memberservice.adaptor.infrastructure.mysql.persistance;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.InterestEntity;
-import com.blockpage.memberservice.adaptor.infrastructure.repository.InterestRepository;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.InterestEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.repository.InterestRepository;
 import com.blockpage.memberservice.application.port.out.port.InterestPort;
 import com.blockpage.memberservice.domain.Interest;
 import java.util.List;

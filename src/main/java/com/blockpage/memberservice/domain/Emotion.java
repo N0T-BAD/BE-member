@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.domain;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.EmotionEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.EmotionEntity;
 import com.blockpage.memberservice.application.port.in.EmotionUseCase.DeleteQuery;
 import com.blockpage.memberservice.application.port.in.EmotionUseCase.FindQuery;
 import com.blockpage.memberservice.application.port.in.EmotionUseCase.PostQuery;

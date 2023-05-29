@@ -1,6 +1,6 @@
-package com.blockpage.memberservice.adaptor.infrastructure.entity;
+package com.blockpage.memberservice.adaptor.infrastructure.mysql.entity;
 
-import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.value.Role;
 import com.blockpage.memberservice.domain.Member;
 import javax.persistence.Column;
 import javax.persistence.Entity;

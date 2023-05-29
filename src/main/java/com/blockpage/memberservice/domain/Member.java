@@ -1,7 +1,7 @@
 package com.blockpage.memberservice.domain;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
-import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.MemberEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.value.Role;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.FindMemberQuery;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.SignInQuery;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.UpdateQuery;

@@ -1,9 +1,9 @@
-package com.blockpage.memberservice.adaptor.infrastructure.persistance;
+package com.blockpage.memberservice.adaptor.infrastructure.mysql.persistance;
 
 import static com.blockpage.memberservice.exception.ErrorCode.*;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.EmotionEntity;
-import com.blockpage.memberservice.adaptor.infrastructure.repository.EmotionRepository;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.EmotionEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.repository.EmotionRepository;
 import com.blockpage.memberservice.application.port.out.port.EmotionPort;
 import com.blockpage.memberservice.domain.Emotion;
 import com.blockpage.memberservice.exception.CustomException;

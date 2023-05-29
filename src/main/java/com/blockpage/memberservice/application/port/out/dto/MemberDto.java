@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.application.port.out.dto;
 
-import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.value.Role;
 import com.blockpage.memberservice.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
