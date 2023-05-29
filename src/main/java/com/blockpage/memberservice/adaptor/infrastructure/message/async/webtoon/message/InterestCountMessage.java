@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class InterestCount {
+public class InterestCountMessage {
 
     private Long webtoonId;
     private Integer interestCount;
 
-    public static InterestCount initMessage(Long webtoonId, Integer interestCount) {
-        return InterestCount.builder()
+    public static InterestCountMessage initMessage(Long webtoonId, Integer interestCount) {
+        return InterestCountMessage.builder()
             .webtoonId(webtoonId)
             .interestCount(interestCount)
             .build();
