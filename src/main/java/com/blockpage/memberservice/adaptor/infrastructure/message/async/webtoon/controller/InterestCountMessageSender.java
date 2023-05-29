@@ -19,7 +19,7 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 @RequiredArgsConstructor
 public class InterestCountMessageSender {
 
-    @Value("${spring.kafka.topicName}")
+    @Value("${spring.kafka.interestTopic}")
     private String topicName;
 
     private final KafkaTemplate kafkaTemplate;
