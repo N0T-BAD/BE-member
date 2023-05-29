@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.application.service;
 
-import com.blockpage.memberservice.adaptor.infrastructure.external.block.requestbody.RequestBlock;
+import com.blockpage.memberservice.adaptor.infrastructure.message.sync.block.requestbody.RequestBlock;
 import com.blockpage.memberservice.application.port.in.AttendanceUseCase;
 import com.blockpage.memberservice.application.port.out.port.AttendancePort;
 import com.blockpage.memberservice.application.port.out.port.BlockPort;

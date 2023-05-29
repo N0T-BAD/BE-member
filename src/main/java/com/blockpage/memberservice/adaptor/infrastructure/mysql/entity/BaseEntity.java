@@ -1,4 +1,4 @@
-package com.blockpage.memberservice.adaptor.infrastructure.entity;
+package com.blockpage.memberservice.adaptor.infrastructure.mysql.entity;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;

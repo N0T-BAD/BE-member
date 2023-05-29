@@ -1,6 +1,6 @@
-package com.blockpage.memberservice.adaptor.infrastructure.external.block.controller;
+package com.blockpage.memberservice.adaptor.infrastructure.message.sync.block.controller;
 
-import com.blockpage.memberservice.adaptor.infrastructure.external.block.requestbody.RequestBlock;
+import com.blockpage.memberservice.adaptor.infrastructure.message.sync.block.requestbody.RequestBlock;
 import com.blockpage.memberservice.application.port.out.port.BlockPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,9 +1,9 @@
-package com.blockpage.memberservice.adaptor.infrastructure.persistance;
+package com.blockpage.memberservice.adaptor.infrastructure.mysql.persistance;
 
 import static com.blockpage.memberservice.exception.ErrorCode.*;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.AttendanceEntity;
-import com.blockpage.memberservice.adaptor.infrastructure.repository.AttendanceRepository;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.AttendanceEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.repository.AttendanceRepository;
 import com.blockpage.memberservice.application.port.out.port.AttendancePort;
 import com.blockpage.memberservice.domain.Attendance;
 import com.blockpage.memberservice.exception.CustomException;
