@@ -35,14 +35,6 @@ public class MemberService implements MemberUseCase {
 
     @Override
     public void updateMemberInfo(UpdateQuery updateQuery) throws IOException {
-        if (updateQuery.getType().equals("member")) {
-            Member member = Member.fromUpdateQuery(updateQuery);
-            memberPort.updateMemberInfo(member);
-        } else if (updateQuery.getType().equals("author")) {
-            Member member = Member.updateCreator(updateQuery);
-            memberPort.updateMemberRole(member);
-        } else {
-            throw new RuntimeException("잘못된 접근입니다.");
-        }
+        memberPort.updateMemberInfo(Member.fromUpdateQuery(updateQuery));
     }
 }

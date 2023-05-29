@@ -1,6 +1,7 @@
 package com.blockpage.memberservice.adaptor.infrastructure.mysql.persistance;
 
 import static com.blockpage.memberservice.exception.ErrorCode.NICKNAME_ALREADY_EXIST;
+import static com.blockpage.memberservice.exception.ErrorCode.UNKNOWN_ERROR;
 
 import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.mysql.value.Role;
@@ -53,25 +54,30 @@ public class MemberAdaptor implements MemberPort {
 
     @Override
     public void updateMemberInfo(@RequestBody Member member) throws IOException {
-        String profileImageUUID = UUID.randomUUID().toString();
-        BlobId blobId = BlobId.of(bucketName, profileImageUUID);
-        BlobInfo blobInfo = BlobInfo.newBuilder(blobId)
-            .setContentType(member.getNewProfileImage().getContentType())
-            .build();
-        storage.create(blobInfo, member.getNewProfileImage().getBytes());
-        Member updateMember = Member.builder()
-            .email(member.getEmail())
-            .nickname(member.getNickname())
-            .profileImage("https://storage.googleapis.com/blockpage-bucket/" + profileImageUUID)
-            .adult(member.getAdult())
-            .build();
-        Optional<MemberEntity> memberEntity = memberRepository.findByEmail(updateMember.getEmail());
-        memberRepository.save(MemberEntity.updateMember(memberEntity.get(), updateMember));
-    }
-
-    @Override
-    public void updateMemberRole(Member member) {
-        Optional<MemberEntity> memberEntity = memberRepository.findByEmail(member.getEmail());
-        memberRepository.save(MemberEntity.updateMember(memberEntity.get(), member));
+        MemberEntity memberEntity = memberRepository.findByEmail(member.getEmail()).get();
+        if (member.getType().equals("member")) {
+            String profileImageUUID = UUID.randomUUID().toString();
+            BlobId blobId = BlobId.of(bucketName, profileImageUUID);
+            BlobInfo blobInfo = BlobInfo.newBuilder(blobId)
+                .setContentType(member.getNewProfileImage().getContentType())
+                .build();
+            storage.create(blobInfo, member.getNewProfileImage().getBytes());
+            Member updateMember = Member.builder()
+                .email(member.getEmail())
+                .nickname(member.getNickname())
+                .profileImage("https://storage.googleapis.com/blockpage-bucket/" + profileImageUUID)
+                .adult(member.getAdult())
+                .build();
+            memberRepository.save(MemberEntity.updateMember(memberEntity, updateMember));
+        } else if (member.getType().equals("author")) {
+            memberEntity.setRole(Role.AUTHOR);
+            memberEntity.setCreatorNickname(member.getCreatorNickname());
+            memberRepository.save(memberEntity);
+        } else if (member.getType().equals("profileSkin")) {
+            memberEntity.setProfileSkin(member.getProfileSkin());
+            memberRepository.save(memberEntity);
+        } else {
+            throw new CustomException(UNKNOWN_ERROR.getMessage(), UNKNOWN_ERROR.getHttpStatus());
+        }
     }
 }
