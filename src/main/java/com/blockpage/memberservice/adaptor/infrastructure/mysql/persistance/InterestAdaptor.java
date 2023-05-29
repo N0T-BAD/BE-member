@@ -46,7 +46,10 @@ public class InterestAdaptor implements InterestPort {
 
     @Override
     @Transactional
-    public void deleteInterest(Long id) {
+    public Interest deleteInterest(Long id) {
+        InterestEntity findInterest = interestRepository.findById(id).get();
+        Interest interest = Interest.messageInterest(findInterest);
         interestRepository.deleteById(id);
+        return interest;
     }
 }
