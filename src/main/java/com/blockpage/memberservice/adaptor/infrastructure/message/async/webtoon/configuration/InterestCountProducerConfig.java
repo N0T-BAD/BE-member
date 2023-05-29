@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.adaptor.infrastructure.message.async.webtoon.configuration;
 
-import com.blockpage.memberservice.adaptor.infrastructure.message.async.webtoon.message.InterestCount;
+import com.blockpage.memberservice.adaptor.infrastructure.message.async.webtoon.message.InterestCountMessage;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -20,7 +20,7 @@ public class InterestCountProducerConfig {
     private String bootStrapServer;
 
     @Bean
-    public ProducerFactory<String, InterestCount> producerFactory() {
+    public ProducerFactory<String, InterestCountMessage> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootStrapServer);
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -29,7 +29,7 @@ public class InterestCountProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, InterestCount> KafkaTemplate() {
+    public KafkaTemplate<String, InterestCountMessage> KafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 }
