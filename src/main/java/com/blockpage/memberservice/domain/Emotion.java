@@ -23,7 +23,8 @@ public class Emotion {
 
     private Boolean emotion;
 
-    public Emotion(Boolean emotion) {
+    public Emotion(Long commentId, Boolean emotion) {
+        this.commentId = commentId;
         this.emotion = emotion;
     }
 

@@ -9,6 +9,6 @@ public interface EmotionPort {
 
     List<Emotion> findAllEmotion(Emotion emotion); //에피소드 조회시 댓글 리스트
 
-    void deleteEmotion(Emotion emotion);//댓글삭제
+    Emotion deleteEmotion(Emotion emotion);//댓글삭제
 
 }

@@ -27,10 +27,10 @@ public class EmotionAdaptor implements EmotionPort {
             emotion.getMemberEmail(), emotion.getEpisodeId(), emotion.getCommentId());
         if (emotionEntity.isEmpty()) {
             emotionRepository.save(EmotionEntity.fromEmotion(emotion));
-            return new Emotion(emotion.getEmotion());
+            return new Emotion(emotion.getCommentId(), emotion.getEmotion());
         } else if (emotionEntity.get().getEmotion() == emotion.getEmotion()) {
             emotionRepository.deleteById(emotionEntity.get().getId());
-            return new Emotion(null);
+            return new Emotion(emotion.getCommentId(), null);
         } else {
             throw new CustomException(EMOTION_ALREADY_POST.getMessage(), EMOTION_ALREADY_POST.getHttpStatus());
         }
@@ -49,7 +49,9 @@ public class EmotionAdaptor implements EmotionPort {
 
     @Override
     @Transactional
-    public void deleteEmotion(Emotion emotion) {
+    public Emotion deleteEmotion(Emotion emotion) {
+        EmotionEntity emotionEntity = emotionRepository.findById(emotion.getId()).get();
         emotionRepository.deleteById(emotion.getId());
+        return new Emotion(emotionEntity.getCommentId(), emotionEntity.getEmotion());
     }
 }
