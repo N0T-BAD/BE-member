@@ -34,6 +34,12 @@ public class Interest {
         this.choice = choice;
     }
 
+    public static Interest messageInterest(InterestEntity entity) {
+        return Interest.builder()
+            .webtoonId(entity.getWebtoonId())
+            .build();
+    }
+
     public static Interest postInterest(PostQuery postQuery) {
         return Interest.builder()
             .memberEmail(postQuery.getMemberEmail())
