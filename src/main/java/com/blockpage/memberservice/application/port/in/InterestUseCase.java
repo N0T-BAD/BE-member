@@ -1,6 +1,7 @@
 package com.blockpage.memberservice.application.port.in;
 
-import com.blockpage.memberservice.application.port.out.InterestDto;
+import com.blockpage.memberservice.adaptor.web.requestBody.RequestInterest;
+import com.blockpage.memberservice.application.port.out.dto.InterestDto;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +11,8 @@ public interface InterestUseCase {
     InterestDto postInterestQuery(PostQuery postQuery);
 
     List<InterestDto> findInterestQuery(FindQuery query);
+
+    InterestDto findInterestWebtoonQuery(FindWebtoonQuery query);
 
     void deleteInterestQuery(DeleteQuery query);
 
@@ -61,4 +64,15 @@ public interface InterestUseCase {
         }
     }
 
+    @Getter
+    class FindWebtoonQuery {
+
+        private String email;
+        private Long webtoonId;
+
+        public FindWebtoonQuery(String email, Long webtoonId) {
+            this.email = email;
+            this.webtoonId = webtoonId;
+        }
+    }
 }

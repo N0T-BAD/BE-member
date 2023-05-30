@@ -1,13 +1,13 @@
 package com.blockpage.memberservice.adaptor.web.controller;
 
+import com.blockpage.memberservice.adaptor.web.requestBody.RequestMember;
 import com.blockpage.memberservice.adaptor.web.view.ApiResponse;
 import com.blockpage.memberservice.adaptor.web.view.MemberView;
 import com.blockpage.memberservice.application.port.in.MemberUseCase;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.FindMemberQuery;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.SignInQuery;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.UpdateQuery;
-import com.blockpage.memberservice.application.port.in.RequestMember;
-import com.blockpage.memberservice.application.port.out.MemberDto;
+import com.blockpage.memberservice.application.port.out.dto.MemberDto;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

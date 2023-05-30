@@ -1,7 +1,7 @@
 package com.blockpage.memberservice.domain;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.MemberEntity;
-import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.MemberEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.value.Role;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.FindMemberQuery;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.SignInQuery;
 import com.blockpage.memberservice.application.port.in.MemberUseCase.UpdateQuery;
@@ -38,6 +38,8 @@ public class Member {
 
     private Boolean signUp;
 
+    private String type;
+
     public static Member findMemberInfo(FindMemberQuery findMemberQuery) {
         return Member.builder()
             .email(findMemberQuery.getEmail())
@@ -71,18 +73,13 @@ public class Member {
 
     public static Member fromUpdateQuery(@RequestBody UpdateQuery updateQuery) {
         return Member.builder()
+            .type(updateQuery.getType())
             .email(updateQuery.getEmail())
             .nickname(updateQuery.getNickname())
             .newProfileImage(updateQuery.getProfileImage())
-            .adult(updateQuery.getAdult())
-            .build();
-    }
-
-    public static Member updateCreator(UpdateQuery updateQuery) {
-        return Member.builder()
-            .email(updateQuery.getEmail())
-            .role(Role.AUTHOR)
+            .profileSkin(updateQuery.getProfileSkin())
             .creatorNickname(updateQuery.getCreatorNickname())
+            .adult(updateQuery.getAdult())
             .build();
     }
 

@@ -11,7 +11,7 @@ eureka:
 spring:
   application:
     name: member-service
-    
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${spring.datasource.url}
@@ -41,6 +41,12 @@ spring:
       credentials:
         location: classpath:gcpkey.json
       project-id: ${spring.gcp.storage.credentials.project-id}
+
+  kafka:
+    bootstrapAddress: ${spring.kafka.bootstrapAddress}
+    interestTopic: interestCount
+    ratingTopic: ratingAverage
+    commentTopic: commentCount
 
   main:
     allow-bean-definition-overriding: true

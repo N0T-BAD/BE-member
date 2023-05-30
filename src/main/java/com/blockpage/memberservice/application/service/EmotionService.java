@@ -1,8 +1,10 @@
 package com.blockpage.memberservice.application.service;
 
+import com.blockpage.memberservice.adaptor.infrastructure.message.async.comment.message.CommentCountMessage;
 import com.blockpage.memberservice.application.port.in.EmotionUseCase;
-import com.blockpage.memberservice.application.port.out.EmotionDto;
-import com.blockpage.memberservice.application.port.out.EmotionPort;
+import com.blockpage.memberservice.application.port.out.dto.EmotionDto;
+import com.blockpage.memberservice.application.port.out.port.CommentMessagePort;
+import com.blockpage.memberservice.application.port.out.port.EmotionPort;
 import com.blockpage.memberservice.domain.Emotion;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,13 +18,25 @@ import org.springframework.stereotype.Service;
 public class EmotionService implements EmotionUseCase {
 
     private final EmotionPort emotionPort;
+    private final CommentMessagePort commentMessagePort;
+    private final Integer COUNT_UP = 1;
+    private final Integer COUNT_DOWN = -1;
+    private final Integer ZERO = 0;
 
     @Override
     public EmotionDto postEmotionQuery(PostQuery postQuery) {
         Emotion emotion = emotionPort.postEmotion(Emotion.postEmotion(postQuery));
-        if(emotion.getEmotion() != null){
+        if (emotion.getEmotion() == (Boolean) true) {
+            commentMessagePort.sendCommentCount(CommentCountMessage.sendMessage(emotion.getCommentId(), COUNT_UP, ZERO));
             return new EmotionDto(emotion.getEmotion());
-        }else{
+        } else if (emotion.getEmotion() == (Boolean) false) {
+            commentMessagePort.sendCommentCount(CommentCountMessage.sendMessage(emotion.getCommentId(), ZERO, COUNT_UP));
+            return new EmotionDto(emotion.getEmotion());
+        } else if (emotion.getEmotion() == null && postQuery.getEmotion() == (Boolean) true) {
+            commentMessagePort.sendCommentCount(CommentCountMessage.sendMessage(emotion.getCommentId(), COUNT_DOWN, ZERO));
+            return new EmotionDto(null);
+        } else {
+            commentMessagePort.sendCommentCount(CommentCountMessage.sendMessage(emotion.getCommentId(), ZERO, COUNT_DOWN));
             return new EmotionDto(null);
         }
     }
@@ -37,6 +51,11 @@ public class EmotionService implements EmotionUseCase {
 
     @Override
     public void deleteEmotionQuery(DeleteQuery deleteQuery) {
-        emotionPort.deleteEmotion(Emotion.deleteEmotion(deleteQuery));
+        Emotion emotion = emotionPort.deleteEmotion(Emotion.deleteEmotion(deleteQuery));
+        if (emotion.getEmotion() == (Boolean) true) {
+            commentMessagePort.sendCommentCount(CommentCountMessage.sendMessage(emotion.getCommentId(), COUNT_DOWN, ZERO));
+        } else {
+            commentMessagePort.sendCommentCount(CommentCountMessage.sendMessage(emotion.getCommentId(), ZERO, COUNT_DOWN));
+        }
     }
 }

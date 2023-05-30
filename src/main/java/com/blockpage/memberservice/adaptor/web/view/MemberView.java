@@ -1,9 +1,9 @@
 package com.blockpage.memberservice.adaptor.web.view;
 
-import com.blockpage.memberservice.adaptor.infrastructure.value.Role;
-import com.blockpage.memberservice.application.port.out.EmotionDto;
-import com.blockpage.memberservice.application.port.out.InterestDto;
-import com.blockpage.memberservice.application.port.out.MemberDto;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.value.Role;
+import com.blockpage.memberservice.application.port.out.dto.EmotionDto;
+import com.blockpage.memberservice.application.port.out.dto.InterestDto;
+import com.blockpage.memberservice.application.port.out.dto.MemberDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.ToString;
@@ -114,6 +114,10 @@ public class MemberView {
 
     public MemberView(String message, Boolean emotion) {
         this.message = message;
+        this.emotion = emotion;
+    }
+
+    public MemberView(Boolean emotion) {
         this.emotion = emotion;
     }
 }

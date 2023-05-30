@@ -1,6 +1,7 @@
 package com.blockpage.memberservice.application.port.in;
 
-import com.blockpage.memberservice.application.port.out.MemberDto;
+import com.blockpage.memberservice.adaptor.web.requestBody.RequestMember;
+import com.blockpage.memberservice.application.port.out.dto.MemberDto;
 import java.io.IOException;
 import lombok.Builder;
 import lombok.Getter;
@@ -71,7 +72,7 @@ public interface MemberUseCase {
 
         private MultipartFile profileImage;
 
-        public static UpdateQuery toQuery(String email,String type, RequestMember requestMember, MultipartFile profileImage) {
+        public static UpdateQuery toQuery(String email, String type, RequestMember requestMember, MultipartFile profileImage) {
             return UpdateQuery.builder()
                 .type(type)
                 .email(email)

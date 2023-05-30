@@ -6,8 +6,8 @@ import com.blockpage.memberservice.application.port.in.EmotionUseCase;
 import com.blockpage.memberservice.application.port.in.EmotionUseCase.DeleteQuery;
 import com.blockpage.memberservice.application.port.in.EmotionUseCase.FindQuery;
 import com.blockpage.memberservice.application.port.in.EmotionUseCase.PostQuery;
-import com.blockpage.memberservice.application.port.in.RequestEmotion;
-import com.blockpage.memberservice.application.port.out.EmotionDto;
+import com.blockpage.memberservice.adaptor.web.requestBody.RequestEmotion;
+import com.blockpage.memberservice.application.port.out.dto.EmotionDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class EmotionController {
     private final EmotionUseCase emotionUseCase;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<MemberView>> addEmotion(@RequestHeader String email,
+    public ResponseEntity<ApiResponse<MemberView>> addEmotion(@RequestHeader("memberId") String email,
         @RequestBody RequestEmotion requestEmotion) {
         EmotionDto emotionDto = emotionUseCase.postEmotionQuery(PostQuery.toQuery(email, requestEmotion));
         if (emotionDto.getEmotion() != null) {
@@ -42,7 +42,7 @@ public class EmotionController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<MemberView>>> getEmotion(@RequestHeader String email,
+    public ResponseEntity<ApiResponse<List<MemberView>>> getEmotion(@RequestHeader("memberId") String email,
         @Param("episodeId") Long episodeId) {
         List<EmotionDto> emotionDtoList = emotionUseCase.findAllEmotionQuery(new FindQuery(email, episodeId));
         List<MemberView> memberViewList = emotionDtoList.stream()

@@ -1,12 +1,15 @@
 package com.blockpage.memberservice.domain;
 
-import com.blockpage.memberservice.adaptor.infrastructure.entity.InterestEntity;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.InterestEntity;
+import com.blockpage.memberservice.application.port.in.InterestUseCase.FindWebtoonQuery;
 import com.blockpage.memberservice.application.port.in.InterestUseCase.PostQuery;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
+@AllArgsConstructor
 public class Interest {
 
     private Long id;
@@ -24,6 +27,18 @@ public class Interest {
     private String illustrator;
 
     private String genre;
+
+    private Boolean choice;
+
+    public Interest(Boolean choice) {
+        this.choice = choice;
+    }
+
+    public static Interest messageInterest(InterestEntity entity) {
+        return Interest.builder()
+            .webtoonId(entity.getWebtoonId())
+            .build();
+    }
 
     public static Interest postInterest(PostQuery postQuery) {
         return Interest.builder()
@@ -46,6 +61,13 @@ public class Interest {
             .creator(interestEntity.getCreator())
             .illustrator(interestEntity.getIllustrator())
             .genre(interestEntity.getGenre())
+            .build();
+    }
+
+    public static Interest findEpisodeInterest(FindWebtoonQuery findWebtoonQuery) {
+        return Interest.builder()
+            .memberEmail(findWebtoonQuery.getEmail())
+            .webtoonId(findWebtoonQuery.getWebtoonId())
             .build();
     }
 

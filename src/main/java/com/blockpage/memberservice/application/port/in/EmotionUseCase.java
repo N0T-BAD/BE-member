@@ -1,6 +1,7 @@
 package com.blockpage.memberservice.application.port.in;
 
-import com.blockpage.memberservice.application.port.out.EmotionDto;
+import com.blockpage.memberservice.adaptor.web.requestBody.RequestEmotion;
+import com.blockpage.memberservice.application.port.out.dto.EmotionDto;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
