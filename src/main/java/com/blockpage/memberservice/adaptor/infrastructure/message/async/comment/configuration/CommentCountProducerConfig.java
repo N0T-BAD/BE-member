@@ -29,7 +29,7 @@ public class CommentCountProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, CommentCountMessage> CommentKafkaTemplate() {
+    public KafkaTemplate<String, CommentCountMessage> commentKafkaTemplate() {
         return new KafkaTemplate<>(commentProducerFactory());
     }
 }
