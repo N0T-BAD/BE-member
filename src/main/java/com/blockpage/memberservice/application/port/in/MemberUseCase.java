@@ -72,14 +72,14 @@ public interface MemberUseCase {
 
         private MultipartFile profileImage;
 
-        public static UpdateQuery toQuery(String email, String type, RequestMember requestMember, MultipartFile profileImage) {
+        public static UpdateQuery toQuery(String email, String type, String requestMember, MultipartFile profileImage) {
             return UpdateQuery.builder()
                 .type(type)
                 .email(email)
-                .nickname(requestMember.getNickname())
-                .profileSkin(requestMember.getProfileSkin())
-                .adult(requestMember.getAdult())
-                .creatorNickname(requestMember.getCreatorNickname())
+//                .nickname(requestMember.getNickname())
+//                .profileSkin(requestMember.getProfileSkin())
+//                .adult(requestMember.getAdult())
+                .creatorNickname(requestMember)
                 .profileImage(profileImage)
                 .build();
         }
