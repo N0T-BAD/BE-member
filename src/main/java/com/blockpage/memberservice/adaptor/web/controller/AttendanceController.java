@@ -20,7 +20,7 @@ public class AttendanceController {
     private final AttendanceUseCase attendanceUseCase;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<MemberView>> postAttendance(@RequestHeader String email) {
+    public ResponseEntity<ApiResponse<MemberView>> postAttendance(@RequestHeader("memberId") String email) {
         attendanceUseCase.postAttendance(new PostQuery(email));
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(new MemberView("출석체크 되었습니다.")));
     }

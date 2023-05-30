@@ -31,14 +31,14 @@ public class InterestController {
     private final InterestUseCase interestUseCase;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<MemberView>> postInterest(@RequestHeader String email,
+    public ResponseEntity<ApiResponse<MemberView>> postInterest(@RequestHeader("memberId") String email,
         @RequestBody RequestInterest requestInterest) {
         interestUseCase.postInterestQuery(PostQuery.toQuery(email, requestInterest));
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(new MemberView("찜생성 되었습니다.")));
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<MemberView>>> getInterestAll(@RequestHeader String email) {
+    public ResponseEntity<ApiResponse<List<MemberView>>> getInterestAll(@RequestHeader("memberId") String email) {
         List<MemberView> memberViewList = interestUseCase.findInterestQuery(new FindQuery(email)).stream()
             .map(interestDto -> new MemberView(interestDto))
             .collect(Collectors.toList());

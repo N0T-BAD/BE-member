@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface PurchaseServiceOpenFeign {
 
     @PostMapping(value = "/purchase-service/v1/purchases")
-    ResponseEntity postProfileSkin(@RequestHeader String email,
+    ResponseEntity postProfileSkin(@RequestHeader("memberId") String email,
         @RequestParam("type") String type,
         @RequestBody RequestPurchase requestPurchase);
 
