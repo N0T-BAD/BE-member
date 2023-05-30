@@ -44,7 +44,7 @@ public class MemberController {
     }
 
     @PutMapping
-    public ResponseEntity<ApiResponse<MemberView>> updateMember(@RequestHeader String email,
+    public ResponseEntity<ApiResponse<MemberView>> updateMember(@RequestHeader("memberId") String email,
         @RequestParam("type") String type,
         @RequestPart RequestMember requestMember,
         @RequestPart(required = false) MultipartFile profileImage) throws IOException {
@@ -52,11 +52,11 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new MemberView("회원정보가 변경되었습니다.")));
     }
 
-    @GetMapping()
-    public ResponseEntity<ApiResponse<MemberView>> findMember(@RequestHeader String email,
+    @GetMapping
+    public ResponseEntity<ApiResponse<MemberView>> findMember(@RequestHeader(value = "memberId",required = false) String email,
         @RequestParam("type") String type,
-        @RequestBody(required = false) RequestMember requestMember) {
-        MemberDto memberDto = memberUseCase.findMemberInfo(FindMemberQuery.toQuery(email, type, requestMember));
+        @RequestParam(value = "creatorNickname",required = false) String nickName)  {
+        MemberDto memberDto = memberUseCase.findMemberInfo(FindMemberQuery.toQuery(email, type, nickName));
         if (memberDto.getRole() != null) {
             MemberView memberView = new MemberView(memberDto);
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(memberView));
