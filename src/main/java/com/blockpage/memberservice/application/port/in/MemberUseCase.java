@@ -44,11 +44,11 @@ public interface MemberUseCase {
         private String type;
         private String creatorNickname;
 
-        public static FindMemberQuery toQuery(String email,String type, RequestMember requestMember) {
+        public static FindMemberQuery toQuery(String email,String type, String nickName) {
             return FindMemberQuery.builder()
                 .email(email)
                 .type(type)
-                .creatorNickname(requestMember != null ? requestMember.getCreatorNickname() : null)
+                .creatorNickname(nickName != null ? nickName : null)
                 .build();
         }
     }

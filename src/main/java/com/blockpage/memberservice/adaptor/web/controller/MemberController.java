@@ -52,11 +52,11 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new MemberView("회원정보가 변경되었습니다.")));
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<ApiResponse<MemberView>> findMember(@RequestHeader(value = "memberId",required = false) String email,
         @RequestParam("type") String type,
-        @RequestBody(required = false) RequestMember requestMember) {
-        MemberDto memberDto = memberUseCase.findMemberInfo(FindMemberQuery.toQuery(email, type, requestMember));
+        @RequestParam(value = "creatorNickname",required = false) String nickName)  {
+        MemberDto memberDto = memberUseCase.findMemberInfo(FindMemberQuery.toQuery(email, type, nickName));
         if (memberDto.getRole() != null) {
             MemberView memberView = new MemberView(memberDto);
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(memberView));
