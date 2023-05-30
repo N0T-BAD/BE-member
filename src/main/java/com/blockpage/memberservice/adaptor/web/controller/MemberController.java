@@ -53,7 +53,7 @@ public class MemberController {
     }
 
     @GetMapping()
-    public ResponseEntity<ApiResponse<MemberView>> findMember(@RequestHeader("memberId") String email,
+    public ResponseEntity<ApiResponse<MemberView>> findMember(@RequestHeader(value = "memberId",required = false) String email,
         @RequestParam("type") String type,
         @RequestBody(required = false) RequestMember requestMember) {
         MemberDto memberDto = memberUseCase.findMemberInfo(FindMemberQuery.toQuery(email, type, requestMember));
