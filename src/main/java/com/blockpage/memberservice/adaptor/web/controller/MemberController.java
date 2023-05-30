@@ -44,7 +44,7 @@ public class MemberController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.PUT,headers = ("content-type=multipart/*"))
+    @PostMapping("/test")
     public ResponseEntity<ApiResponse<MemberView>> updateMember(@RequestHeader("memberId") String email,
         @RequestParam("type") String type,
         @RequestPart RequestMember requestMember,
