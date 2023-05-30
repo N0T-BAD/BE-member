@@ -21,8 +21,8 @@ public class RatingMessageService {
     private final RatingMessagePort ratingMessagePort;
     private final RatingPort ratingPort;
 
-    private final long FIXED_RATE_SECONDS = 300l;
-    private final long FIXED_RATE_MILLISECOND = 300 * 1000; //5분
+    private final long FIXED_RATE_SECONDS = 5 * 60l;
+    private final long FIXED_RATE_MILLISECOND = 5 * 60 * 1000; //5분
     private final long INITIAL_DELAY_MILLISECONDS = 3 * 1000;
 
     @Scheduled(fixedRate = FIXED_RATE_MILLISECOND, initialDelay = INITIAL_DELAY_MILLISECONDS)
@@ -35,11 +35,10 @@ public class RatingMessageService {
                 rating -> new RatingAverageMessage(rating.getEpisodeId(), rating.getRatings(), 1),
                 RatingAverageMessage::sum
             ));
-        RatingAverageMessage ratingAverageMessage = (RatingAverageMessage) ratingAverageMessageMap;
-        log.info(ratingAverageMessage.toString());
-        ratingMessagePort.sendRatingAverage((RatingAverageMessage) ratingAverageMessageMap);
+
         for (Long episodeId : ratingAverageMessageMap.keySet()) {
             System.out.println("id = " + ratingAverageMessageMap.get(episodeId));
+            ratingMessagePort.sendRatingAverage(ratingAverageMessageMap.get(episodeId));
         }
     }
 }
