@@ -29,7 +29,7 @@ public class RatingAverageProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, CommentCountMessage> RatingKafkaTemplate() {
+    public KafkaTemplate<String, CommentCountMessage> ratingKafkaTemplate() {
         return new KafkaTemplate<>(ratingProducerFactory());
     }
 }

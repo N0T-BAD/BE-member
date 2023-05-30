@@ -29,7 +29,7 @@ public class InterestCountProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, InterestCountMessage> InterestKafkaTemplate() {
+    public KafkaTemplate<String, InterestCountMessage> interestKafkaTemplate() {
         return new KafkaTemplate<>(interestProducerFactory());
     }
 }
