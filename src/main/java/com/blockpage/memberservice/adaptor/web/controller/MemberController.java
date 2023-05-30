@@ -44,7 +44,7 @@ public class MemberController {
     }
 
     @PutMapping
-    public ResponseEntity<ApiResponse<MemberView>> updateMember(@RequestHeader String email,
+    public ResponseEntity<ApiResponse<MemberView>> updateMember(@RequestHeader("memberId") String email,
         @RequestParam("type") String type,
         @RequestPart RequestMember requestMember,
         @RequestPart(required = false) MultipartFile profileImage) throws IOException {
@@ -53,7 +53,7 @@ public class MemberController {
     }
 
     @GetMapping()
-    public ResponseEntity<ApiResponse<MemberView>> findMember(@RequestHeader String email,
+    public ResponseEntity<ApiResponse<MemberView>> findMember(@RequestHeader("memberId") String email,
         @RequestParam("type") String type,
         @RequestBody(required = false) RequestMember requestMember) {
         MemberDto memberDto = memberUseCase.findMemberInfo(FindMemberQuery.toQuery(email, type, requestMember));
