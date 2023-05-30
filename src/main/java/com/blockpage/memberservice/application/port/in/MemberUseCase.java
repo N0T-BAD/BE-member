@@ -45,7 +45,7 @@ public interface MemberUseCase {
         private String type;
         private String creatorNickname;
 
-        public static FindMemberQuery toQuery(String email,String type, String nickName) {
+        public static FindMemberQuery toQuery(String email, String type, String nickName) {
             return FindMemberQuery.builder()
                 .email(email)
                 .type(type)
@@ -72,14 +72,14 @@ public interface MemberUseCase {
 
         private MultipartFile profileImage;
 
-        public static UpdateQuery toQuery(String email, String type, String requestMember, MultipartFile profileImage) {
+        public static UpdateQuery toQuery(String email, String type, RequestMember requestMember, MultipartFile profileImage) {
             return UpdateQuery.builder()
                 .type(type)
                 .email(email)
-//                .nickname(requestMember.getNickname())
-//                .profileSkin(requestMember.getProfileSkin())
-//                .adult(requestMember.getAdult())
-                .creatorNickname(requestMember)
+                .nickname(requestMember.getNickname())
+                .profileSkin(requestMember.getProfileSkin())
+                .adult(requestMember.getAdult())
+                .creatorNickname(requestMember.getCreatorNickname())
                 .profileImage(profileImage)
                 .build();
         }

@@ -47,7 +47,7 @@ public class MemberController {
     @RequestMapping(method = RequestMethod.PUT,headers = ("content-type=multipart/*"))
     public ResponseEntity<ApiResponse<MemberView>> updateMember(@RequestHeader("memberId") String email,
         @RequestParam("type") String type,
-        @RequestPart String requestMember,
+        @RequestPart RequestMember requestMember,
         @RequestPart(required = false) MultipartFile profileImage) throws IOException {
         memberUseCase.updateMemberInfo(UpdateQuery.toQuery(email, type, requestMember, profileImage));
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new MemberView("회원정보가 변경되었습니다.")));
