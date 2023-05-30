@@ -21,14 +21,14 @@ public class CommentCountMessageSender {
     @Value("${spring.kafka.commentTopic}")
     private String topicName;
 
-    private final KafkaTemplate kafkaTemplate;
+    private final KafkaTemplate commentKafkaTemplate;
 
     public void sendCommentCount(CommentCountMessage commentCountMessage) {
         Message<CommentCountMessage> message = MessageBuilder.withPayload(commentCountMessage)
             .setHeader(KafkaHeaders.TOPIC, topicName)
             .build();
 
-        ListenableFuture<SendResult<String, CommentCountMessage>> future = kafkaTemplate.send(message);
+        ListenableFuture<SendResult<String, CommentCountMessage>> future = commentKafkaTemplate.send(message);
 
         future.addCallback(new ListenableFutureCallback<SendResult<String, CommentCountMessage>>() {
             @Override

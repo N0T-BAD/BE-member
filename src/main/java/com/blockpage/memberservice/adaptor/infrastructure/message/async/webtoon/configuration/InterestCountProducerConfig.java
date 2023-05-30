@@ -20,7 +20,7 @@ public class InterestCountProducerConfig {
     private String bootStrapServer;
 
     @Bean
-    public ProducerFactory<String, InterestCountMessage> producerFactory() {
+    public ProducerFactory<String, InterestCountMessage> interestProducerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootStrapServer);
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -29,7 +29,7 @@ public class InterestCountProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, InterestCountMessage> KafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
+    public KafkaTemplate<String, InterestCountMessage> InterestKafkaTemplate() {
+        return new KafkaTemplate<>(interestProducerFactory());
     }
 }

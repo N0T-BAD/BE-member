@@ -21,14 +21,14 @@ public class RatingAverageMessageSender {
     @Value("${spring.kafka.ratingTopic}")
     private String topicName;
 
-    private final KafkaTemplate kafkaTemplate;
+    private final KafkaTemplate ratingKafkaTemplate;
 
     public void sendRatingAverage(RatingAverageMessage ratingAverageMessage){
         Message<RatingAverageMessage> message = MessageBuilder.withPayload(ratingAverageMessage)
             .setHeader(KafkaHeaders.TOPIC,topicName)
             .build();
 
-        ListenableFuture<SendResult<String, RatingAverageMessage>> future = kafkaTemplate.send(message);
+        ListenableFuture<SendResult<String, RatingAverageMessage>> future = ratingKafkaTemplate.send(message);
 
         future.addCallback(new ListenableFutureCallback<SendResult<String, RatingAverageMessage>>() {
             @Override

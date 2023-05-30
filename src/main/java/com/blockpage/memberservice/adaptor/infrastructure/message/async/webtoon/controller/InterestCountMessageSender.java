@@ -22,14 +22,14 @@ public class InterestCountMessageSender {
     @Value("${spring.kafka.interestTopic}")
     private String topicName;
 
-    private final KafkaTemplate kafkaTemplate;
+    private final KafkaTemplate interestKafkaTemplate;
 
     public void sendInterestCount(InterestCountMessage interestCountMessage) {
         Message<InterestCountMessage> message = MessageBuilder.withPayload(interestCountMessage)
             .setHeader(KafkaHeaders.TOPIC, topicName)
             .build();
 
-        ListenableFuture<SendResult<String, InterestCountMessage>> future = kafkaTemplate.send(message);
+        ListenableFuture<SendResult<String, InterestCountMessage>> future = interestKafkaTemplate.send(message);
 
         future.addCallback(new ListenableFutureCallback<SendResult<String, InterestCountMessage>>() {
             @Override

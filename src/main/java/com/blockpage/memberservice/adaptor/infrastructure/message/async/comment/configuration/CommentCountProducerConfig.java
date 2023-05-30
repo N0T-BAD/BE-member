@@ -20,7 +20,7 @@ public class CommentCountProducerConfig {
     private String bootStrapServer;
 
     @Bean
-    public ProducerFactory<String, CommentCountMessage> producerFactory() {
+    public ProducerFactory<String, CommentCountMessage> commentProducerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootStrapServer);
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -29,7 +29,7 @@ public class CommentCountProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, CommentCountMessage> KafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
+    public KafkaTemplate<String, CommentCountMessage> CommentKafkaTemplate() {
+        return new KafkaTemplate<>(commentProducerFactory());
     }
 }
