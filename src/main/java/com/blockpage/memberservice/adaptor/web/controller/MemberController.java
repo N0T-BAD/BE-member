@@ -45,7 +45,7 @@ public class MemberController {
     }
 
     @PostMapping("/test")
-    public ResponseEntity<ApiResponse<MemberView>> updateMember(@RequestHeader("memberId") String email,
+    public ResponseEntity<ApiResponse<MemberView>> updateMember(@RequestHeader("Memberid") String email,
         @RequestParam("type") String type,
         @RequestPart RequestMember requestMember,
         @RequestPart(required = false) MultipartFile profileImage) throws IOException {
