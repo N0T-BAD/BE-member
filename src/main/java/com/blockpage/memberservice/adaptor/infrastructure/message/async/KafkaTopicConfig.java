@@ -22,7 +22,7 @@ public class KafkaTopicConfig {
     private String ratingTopic;
 
     @Value("${spring.kafka.commentTopic}")
-    private String commentCount;
+    private String commentTopic;
 
     @Bean
     public KafkaAdmin kafkaAdmin() {
@@ -42,7 +42,7 @@ public class KafkaTopicConfig {
     }
 
     @Bean
-    public NewTopic newCommentCount() {
-        return new NewTopic(commentCount, 1, (short) 1);
+    public NewTopic newCommentTopic() {
+        return new NewTopic(commentTopic, 1, (short) 1);
     }
 }
