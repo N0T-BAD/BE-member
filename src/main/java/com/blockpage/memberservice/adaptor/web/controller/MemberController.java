@@ -49,7 +49,7 @@ public class MemberController {
     public ResponseEntity<ApiResponse<MemberView>> updateMember(@RequestHeader("Memberid") String email,
         @RequestParam("type") String type,
         @ModelAttribute  RequestMember requestMember,
-        @ModelAttribute (required = false) MultipartFile profileImage) throws IOException {
+        @ModelAttribute  MultipartFile profileImage) throws IOException {
         memberUseCase.updateMemberInfo(UpdateQuery.toQuery(email, type, requestMember, profileImage));
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new MemberView("회원정보가 변경되었습니다.")));
     }
