@@ -16,6 +16,8 @@ public class Rating {
 
     private String memberEmail;
 
+    private Long webtoonId;
+
     private Long episodeId;
 
     private Integer ratings;
@@ -28,6 +30,7 @@ public class Rating {
     public static Rating postRating(PostQuery postQuery) {
         return Rating.builder()
             .memberEmail(postQuery.getMemberEmail())
+            .webtoonId(postQuery.getWebtoonId())
             .episodeId(postQuery.getEpisodeId())
             .ratings(postQuery.getRatings())
             .build();
@@ -40,6 +43,7 @@ public class Rating {
 
     public static Rating fromEntity(RatingEntity ratingEntity){
         return Rating.builder()
+            .webtoonId(ratingEntity.getWebtoonId())
             .episodeId(ratingEntity.getEpisodeId())
             .ratings(ratingEntity.getRatings())
             .build();

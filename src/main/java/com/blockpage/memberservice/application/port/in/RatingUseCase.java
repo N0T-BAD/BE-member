@@ -17,12 +17,14 @@ public interface RatingUseCase {
     class PostQuery {
 
         private String memberEmail;
+        private Long webtoonId;
         private Long episodeId;
         private Integer ratings;
 
         public static PostQuery toQuery(String memberEmail, RequestRating requestRating) {
             return PostQuery.builder()
                 .memberEmail(memberEmail)
+                .webtoonId(requestRating.getWebtoonId())
                 .episodeId(requestRating.getEpisodeId())
                 .ratings(requestRating.getRatings())
                 .build();

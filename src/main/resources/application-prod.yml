@@ -45,7 +45,7 @@ spring:
   kafka:
     bootstrapAddress: ${spring.kafka.bootstrapAddress}
     interestTopic: interestCount
-    ratingTopic: ratingAverage
+    ratingTopic: rating
     commentTopic: commentCount
 
   main:

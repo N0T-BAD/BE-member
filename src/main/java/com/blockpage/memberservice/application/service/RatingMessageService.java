@@ -32,7 +32,7 @@ public class RatingMessageService {
         Map<Long, RatingAverageMessage> ratingAverageMessageMap = ratingList.stream()
             .collect(Collectors.toMap(
                 Rating::getEpisodeId,
-                rating -> new RatingAverageMessage(rating.getEpisodeId(), rating.getRatings(), 1),
+                rating -> new RatingAverageMessage(rating.getEpisodeId(), rating.getWebtoonId(), rating.getRatings(), 1),
                 RatingAverageMessage::sum
             ));
 

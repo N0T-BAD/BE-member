@@ -28,6 +28,9 @@ public class RatingEntity extends BaseEntity {
     private String memberEmail;
 
     @Column
+    private Long webtoonId;
+
+    @Column
     private Long episodeId;
 
     @Column
@@ -36,6 +39,7 @@ public class RatingEntity extends BaseEntity {
     public static RatingEntity fromRating(Rating rating) {
         return RatingEntity.builder()
             .memberEmail(rating.getMemberEmail())
+            .webtoonId(rating.getWebtoonId())
             .episodeId(rating.getEpisodeId())
             .ratings(rating.getRatings())
             .build();
