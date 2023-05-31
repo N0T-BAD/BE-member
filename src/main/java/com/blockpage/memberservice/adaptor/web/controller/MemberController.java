@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,11 +45,11 @@ public class MemberController {
         }
     }
 
-    @PostMapping("/test")
+    @PostMapping(consumes = {"multipart/form-data"}, value = "/test")
     public ResponseEntity<ApiResponse<MemberView>> updateMember(@RequestHeader("Memberid") String email,
         @RequestParam("type") String type,
-        @RequestPart RequestMember requestMember,
-        @RequestPart(required = false) MultipartFile profileImage) throws IOException {
+        @ModelAttribute  RequestMember requestMember,
+        @ModelAttribute (required = false) MultipartFile profileImage) throws IOException {
         memberUseCase.updateMemberInfo(UpdateQuery.toQuery(email, type, requestMember, profileImage));
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new MemberView("회원정보가 변경되었습니다.")));
     }
