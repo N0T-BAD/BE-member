@@ -46,14 +46,11 @@ public class MemberController {
     }
 
     @PutMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<ApiResponse<MemberView>> updateMember(@RequestHeader("Memberid") String email,
+    public ResponseEntity<ApiResponse<MemberView>> updateMember(@RequestHeader("memberId") String email,
         @RequestParam("type") String type,
         @ModelAttribute  RequestMember requestMember,
         @ModelAttribute  MultipartFile profileImage) throws IOException {
         memberUseCase.updateMemberInfo(UpdateQuery.toQuery(email, type, requestMember, profileImage));
-        log.info("email = " + email);
-        log.info("type = " + type);
-        log.info("Reqeust = " + requestMember.getCreatorNickname());
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new MemberView("회원정보가 변경되었습니다.")));
     }
 
