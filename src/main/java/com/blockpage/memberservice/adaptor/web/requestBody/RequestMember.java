@@ -1,8 +1,10 @@
 package com.blockpage.memberservice.adaptor.web.requestBody;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class RequestMember {
 
     private String email;
