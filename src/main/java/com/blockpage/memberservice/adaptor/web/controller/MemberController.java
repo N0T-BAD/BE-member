@@ -51,6 +51,8 @@ public class MemberController {
         @ModelAttribute  RequestMember requestMember,
         @ModelAttribute  MultipartFile profileImage) throws IOException {
         memberUseCase.updateMemberInfo(UpdateQuery.toQuery(email, type, requestMember, profileImage));
+        log.info("type = " + type);
+        log.info("Reqeust = " + requestMember.getEmail())
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new MemberView("회원정보가 변경되었습니다.")));
     }
 
