@@ -45,7 +45,7 @@ public class MemberController {
         }
     }
 
-    @PostMapping(consumes = {"multipart/form-data"}, value = "/test")
+    @PutMapping(consumes = {"multipart/form-data"})
     public ResponseEntity<ApiResponse<MemberView>> updateMember(@RequestHeader("Memberid") String email,
         @RequestParam("type") String type,
         @ModelAttribute  RequestMember requestMember,
