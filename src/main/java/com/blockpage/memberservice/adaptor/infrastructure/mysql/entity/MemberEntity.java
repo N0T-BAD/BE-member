@@ -23,6 +23,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "member")
 public class MemberEntity extends BaseEntity {
 
+    private final static String DEFAULT_IMAGE = "https://storage.googleapis.com/blockpage-bucket/c1ad0198-d375-4297-a7ce-e1e67a48c0a6%20.png";
+    private final static String DEFAULT_SKIN = "https://storage.googleapis.com/blockpage-bucket/4d6f32a5-c2f4-4d1e-adb6-4fe1048b6e08.png";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -56,9 +59,9 @@ public class MemberEntity extends BaseEntity {
             .email(member.getEmail())
             .nickname(member.getNickname())
             .profileImage(member.getProfileImage() != null ? member.getProfileImage()
-                : "https://storage.googleapis.com/blockpage-bucket/c1ad0198-d375-4297-a7ce-e1e67a48c0a6%20.png")
+                : DEFAULT_IMAGE)
             .profileSkin(member.getProfileSkin() != null ? member.getProfileSkin()
-                : "https://storage.googleapis.com/blockpage-bucket/4d6f32a5-c2f4-4d1e-adb6-4fe1048b6e08.png")
+                : DEFAULT_SKIN)
             .role(member.getRole())
             .gender(member.getGender())
             .adult(member.getAdult())
