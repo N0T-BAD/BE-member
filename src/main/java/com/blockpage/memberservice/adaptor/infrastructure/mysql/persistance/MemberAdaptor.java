@@ -53,7 +53,7 @@ public class MemberAdaptor implements MemberPort {
     }
 
     @Override
-    public void updateMemberInfo(@RequestBody Member member) throws IOException {
+    public void updateMemberInfo(Member member) throws IOException {
         MemberEntity memberEntity = memberRepository.findByEmail(member.getEmail()).get();
         if (member.getType().equals("member")) {
             String profileImageUUID = UUID.randomUUID().toString();
