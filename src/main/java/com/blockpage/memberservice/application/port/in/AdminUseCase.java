@@ -10,7 +10,7 @@ public interface AdminUseCase {
 
     AdminDto adminLogin(LogInQuery logInQuery);
 
-    void sessionInfo(InfoQuery infoQuery);
+    void adminLogOut(LogOutQuery logOutQuery);
 
     @Getter
     @Builder
@@ -29,12 +29,15 @@ public interface AdminUseCase {
 
 
     @Getter
-    class InfoQuery {
+    class LogOutQuery {
 
         private String adminId;
 
-        public InfoQuery(HttpSession session) {
-            this.adminId = session.getAttribute("id").toString();
+        private String sessionId;
+
+        public LogOutQuery(HttpSession session) {
+            this.adminId = session.getAttribute("memberId").toString();
+            this.sessionId = session.getId();
         }
     }
 }
