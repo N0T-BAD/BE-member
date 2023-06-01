@@ -45,7 +45,7 @@ public class RedisConfig extends AbstractHttpSessionApplicationInitializer {
     public RedisSessionRepository sessionRepository(RedisOperations<String, Object> sessionRedisOperations) {
         RedisSessionRepository redisSessionRepository = new RedisSessionRepository(sessionRedisOperations);
         redisSessionRepository.setRedisKeyNamespace("spring");
-        redisSessionRepository.setDefaultMaxInactiveInterval(Duration.ofSeconds(60));
+        redisSessionRepository.setDefaultMaxInactiveInterval(Duration.ofSeconds(1800));
         return redisSessionRepository;
     }
 }
