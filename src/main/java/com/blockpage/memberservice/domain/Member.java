@@ -71,7 +71,7 @@ public class Member {
             .build();
     }
 
-    public static Member fromUpdateQuery(@RequestBody UpdateQuery updateQuery) {
+    public static Member fromUpdateQuery( UpdateQuery updateQuery) {
         return Member.builder()
             .type(updateQuery.getType())
             .email(updateQuery.getEmail())
