@@ -70,9 +70,11 @@ public interface MemberUseCase {
 
         private String creatorNickname;
 
-        private MultipartFile profileImage;
+        private String profileImage;
 
-        public static UpdateQuery toQuery(String email, String type, RequestMember requestMember, MultipartFile profileImage) {
+        private MultipartFile newProfileImage;
+
+        public static UpdateQuery toQuery(String email, String type, RequestMember requestMember, MultipartFile newProfileImage) {
             return UpdateQuery.builder()
                 .type(type)
                 .email(email)
@@ -80,7 +82,8 @@ public interface MemberUseCase {
                 .profileSkin(requestMember.getProfileSkin())
                 .adult(requestMember.getAdult())
                 .creatorNickname(requestMember.getCreatorNickname())
-                .profileImage(profileImage)
+                .profileImage(requestMember.getProfileImage())
+                .newProfileImage(newProfileImage)
                 .build();
         }
     }
