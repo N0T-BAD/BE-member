@@ -4,8 +4,8 @@ import static com.blockpage.memberservice.exception.ErrorCode.NICKNAME_ALREADY_E
 import static com.blockpage.memberservice.exception.ErrorCode.UNKNOWN_ERROR;
 
 import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.MemberEntity;
-import com.blockpage.memberservice.adaptor.infrastructure.mysql.value.Role;
 import com.blockpage.memberservice.adaptor.infrastructure.mysql.repository.MemberRepository;
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.value.Role;
 import com.blockpage.memberservice.application.port.out.port.MemberPort;
 import com.blockpage.memberservice.domain.Member;
 import com.blockpage.memberservice.exception.CustomException;
@@ -16,10 +16,12 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Component
+@Slf4j
 @RequiredArgsConstructor
 public class MemberAdaptor implements MemberPort {
 
@@ -56,19 +58,28 @@ public class MemberAdaptor implements MemberPort {
     public void updateMemberInfo(Member member) throws IOException {
         MemberEntity memberEntity = memberRepository.findByEmail(member.getEmail()).get();
         if (member.getType().equals("member")) {
-            String profileImageUUID = UUID.randomUUID().toString();
-            BlobId blobId = BlobId.of(bucketName, profileImageUUID);
-            BlobInfo blobInfo = BlobInfo.newBuilder(blobId)
-                .setContentType(member.getNewProfileImage().getContentType())
-                .build();
-            storage.create(blobInfo, member.getNewProfileImage().getBytes());
-            Member updateMember = Member.builder()
-                .email(member.getEmail())
-                .nickname(member.getNickname())
-                .profileImage("https://storage.googleapis.com/blockpage-bucket/" + profileImageUUID)
-                .adult(member.getAdult())
-                .build();
-            memberRepository.save(MemberEntity.updateMember(memberEntity, updateMember));
+            if (member.getNewProfileImage() != null) {
+                String profileImageUUID = UUID.randomUUID().toString();
+                BlobId blobId = BlobId.of(bucketName, profileImageUUID);
+                BlobInfo blobInfo = BlobInfo.newBuilder(blobId)
+                    .setContentType(member.getNewProfileImage().getContentType())
+                    .build();
+                storage.create(blobInfo, member.getNewProfileImage().getBytes());
+                Member updateMember = Member.builder()
+                    .email(member.getEmail())
+                    .nickname(member.getNickname())
+                    .profileImage("https://storage.googleapis.com/blockpage-bucket/" + profileImageUUID)
+                    .adult(member.getAdult())
+                    .build();
+                memberRepository.save(MemberEntity.updateMember(memberEntity, updateMember));
+            } else {
+                Member updateMember = Member.builder()
+                    .email(member.getEmail())
+                    .profileImage(member.getProfileImage())
+                    .nickname(member.getNickname())
+                    .build();
+                memberRepository.save(MemberEntity.updateMember(memberEntity, updateMember));
+            }
         } else if (member.getType().equals("author")) {
             memberEntity.setRole(Role.AUTHOR);
             memberEntity.setCreatorNickname(member.getCreatorNickname());
