@@ -13,6 +13,8 @@ public enum ErrorCode {
 
     //member-service
     NICKNAME_ALREADY_EXIST("이미 등록된 닉네임 입니다.",HttpStatus.CONFLICT),
+    ID_NOT_EXIST("존재하지 않는 회원입니다..", HttpStatus.BAD_REQUEST),
+    PASSWORD_DISCORD("비밀번호가 일치하지 않습니다", HttpStatus.BAD_REQUEST),
 
 
     //block-service
@@ -27,6 +29,9 @@ public enum ErrorCode {
 
     //Ratings
     RATINGS_NOT_EXIST("평점이 등록되지 않았습니다.", HttpStatus.BAD_REQUEST),
+
+    //Admin
+    SESSION_EXPIRE("세션이 만료되었습니다.",HttpStatus.BAD_REQUEST),
 
     //global
     UNKNOWN_ERROR("알수 없는 에러가 발생했습니다.", HttpStatus.BAD_REQUEST);
