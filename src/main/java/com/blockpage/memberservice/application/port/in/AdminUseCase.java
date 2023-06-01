@@ -33,11 +33,8 @@ public interface AdminUseCase {
 
         private String adminId;
 
-        private String sessionId;
-
         public LogOutQuery(HttpSession session) {
             this.adminId = session.getAttribute("memberId").toString();
-            this.sessionId = session.getId();
         }
     }
 }

@@ -1,10 +1,7 @@
 package com.blockpage.memberservice.adaptor.infrastructure.mysql.entity;
 
-import com.blockpage.memberservice.adaptor.infrastructure.mysql.value.Role;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +28,4 @@ public class AdminEntity extends BaseEntity {
 
     @Column
     private String password;
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
 }
