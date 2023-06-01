@@ -51,6 +51,13 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+  session:
+    store-type: redis
+
+  redis:
+    host: host.docker.internal
+    port: 6379
+
 feign:
   hystrix:
     enabled: true
@@ -60,9 +67,3 @@ feign:
         logger-level: FULL
   httpclient:
     enabled: true
-
-purchase:
-  post: /purchase-service/v1/purchases
-
-block:
-  post: /block-service/v1/blocks
