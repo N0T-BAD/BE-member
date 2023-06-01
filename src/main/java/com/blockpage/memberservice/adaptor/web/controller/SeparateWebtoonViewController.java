@@ -26,7 +26,7 @@ public class SeparateWebtoonViewController {
 
     @GetMapping()
     public ResponseEntity<ApiResponse<MemberView>> getInterest(@RequestHeader("memberId") String email, @RequestParam("webtoonId") Long webtoonId) {
-        InterestDto interestDto = interestUseCase.findInterestWebtoonQuery(new FindWebtoonQuery(email, episodeId));
+        InterestDto interestDto = interestUseCase.findInterestWebtoonQuery(new FindWebtoonQuery(email, webtoonId));
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new MemberView(interestDto.getChoice())));
     }
 
