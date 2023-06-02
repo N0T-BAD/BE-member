@@ -41,7 +41,7 @@ public class AdminController {
 
     @DeleteMapping
     public ResponseEntity<ApiResponse<MemberView>> logOutMember(HttpServletRequest httpServletRequest) {
-        HttpSession session = httpServletRequest.getSession();
+        HttpSession session = httpServletRequest.getSession(false);
         if (session.getAttribute("memberId").toString() != null) {
             adminUseCase.adminLogOut(new LogOutQuery(session));
             session.invalidate();

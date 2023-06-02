@@ -14,11 +14,13 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.session.config.annotation.web.http.EnableSpringHttpSession;
 import org.springframework.session.data.redis.RedisSessionRepository;
 import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
+import org.springframework.session.web.http.CookieSerializer;
+import org.springframework.session.web.http.DefaultCookieSerializer;
 
 @Configuration
 @EnableSpringHttpSession
 @RequiredArgsConstructor
-public class RedisConfig extends AbstractHttpSessionApplicationInitializer {
+public class RedisSessionConfig extends AbstractHttpSessionApplicationInitializer {
 
     @Value("${spring.redis.host}")
     private String host;
@@ -41,11 +43,19 @@ public class RedisConfig extends AbstractHttpSessionApplicationInitializer {
         return template;
     }
 
+
     @Bean
     public RedisSessionRepository sessionRepository(RedisOperations<String, Object> sessionRedisOperations) {
         RedisSessionRepository redisSessionRepository = new RedisSessionRepository(sessionRedisOperations);
         redisSessionRepository.setRedisKeyNamespace("spring");
         redisSessionRepository.setDefaultMaxInactiveInterval(Duration.ofSeconds(1800));
         return redisSessionRepository;
+    }
+
+    @Bean
+    public CookieSerializer createDefaultCookieSerializer() {
+        DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
+        cookieSerializer.setSameSite("None");
+        return cookieSerializer;
     }
 }
