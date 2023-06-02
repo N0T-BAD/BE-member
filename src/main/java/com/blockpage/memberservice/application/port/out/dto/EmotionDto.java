@@ -16,9 +16,18 @@ public class EmotionDto {
 
     private Long commentId;
 
+    private Boolean choice;
+
     private Boolean emotion;
 
+
+
     public EmotionDto(Boolean emotion) {
+        this.emotion = emotion;
+    }
+
+    public EmotionDto(Boolean choice, Boolean emotion) {
+        this.choice = choice;
         this.emotion = emotion;
     }
 

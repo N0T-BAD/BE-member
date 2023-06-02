@@ -21,11 +21,19 @@ public class Emotion {
 
     private Long commentId;
 
+    private Boolean choice;
+
     private Boolean emotion;
 
     public Emotion(Long commentId, Boolean emotion) {
         this.commentId = commentId;
         this.emotion = emotion;
+    }
+
+    public Emotion(Boolean choice, Boolean emotion) {
+        this.choice = choice;
+        this.emotion = emotion;
+
     }
 
     public static Emotion postEmotion(PostQuery postQuery) {
@@ -40,7 +48,7 @@ public class Emotion {
     public static Emotion findEmotion(FindQuery findQuery) {
         return Emotion.builder()
             .memberEmail(findQuery.getMemberEmail())
-            .episodeId(findQuery.getEpisodeId())
+            .commentId(findQuery.getCommentId())
             .build();
     }
 

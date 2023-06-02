@@ -1,15 +1,13 @@
 package com.blockpage.memberservice.adaptor.infrastructure.mysql.persistance;
 
-import static com.blockpage.memberservice.exception.ErrorCode.*;
+import static com.blockpage.memberservice.exception.ErrorCode.EMOTION_ALREADY_POST;
 
 import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.EmotionEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.mysql.repository.EmotionRepository;
 import com.blockpage.memberservice.application.port.out.port.EmotionPort;
 import com.blockpage.memberservice.domain.Emotion;
 import com.blockpage.memberservice.exception.CustomException;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,13 +36,15 @@ public class EmotionAdaptor implements EmotionPort {
 
     @Override
     @Transactional
-    public List<Emotion> findAllEmotion(Emotion emotion) {
-        List<EmotionEntity> emotionEntityList = emotionRepository.findAllByMemberEmailAndEpisodeId(emotion.getMemberEmail(),
-            emotion.getEpisodeId());
-        List<Emotion> emotionList = emotionEntityList.stream()
-            .map(emotionEntity -> Emotion.fromEntity(emotionEntity))
-            .collect(Collectors.toList());
-        return emotionList;
+    public Emotion findEmotion(Emotion emotion) {
+        Optional<EmotionEntity>  emotionEntity = emotionRepository.findAllByMemberEmailAndCommentId(emotion.getMemberEmail(),
+            emotion.getCommentId());
+        if(emotionEntity.isPresent()){
+            Emotion returnEmotion = new Emotion(Boolean.TRUE, emotionEntity.get().getEmotion());
+            return returnEmotion;
+        }else{
+            return new Emotion(Boolean.FALSE,false);
+        }
     }
 
     @Override

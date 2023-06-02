@@ -2,7 +2,6 @@ package com.blockpage.memberservice.application.port.in;
 
 import com.blockpage.memberservice.adaptor.web.requestBody.RequestEmotion;
 import com.blockpage.memberservice.application.port.out.dto.EmotionDto;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +10,7 @@ public interface EmotionUseCase {
 
     EmotionDto postEmotionQuery(PostQuery postQuery);
 
-    List<EmotionDto> findAllEmotionQuery(FindQuery findQuery);
+    EmotionDto findEmotionQuery(FindQuery findQuery);
 
     void deleteEmotionQuery(DeleteQuery deleteQuery);
 
@@ -38,11 +37,11 @@ public interface EmotionUseCase {
     class FindQuery {
 
         private String memberEmail;
-        private Long episodeId;
+        private Long commentId;
 
-        public FindQuery(String memberEmail, Long episodeId) {
+        public FindQuery(String memberEmail, Long commentId) {
             this.memberEmail = memberEmail;
-            this.episodeId = episodeId;
+            this.commentId = commentId;
         }
     }
 
