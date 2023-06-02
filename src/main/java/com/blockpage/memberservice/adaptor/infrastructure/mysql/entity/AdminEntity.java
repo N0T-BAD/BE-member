@@ -28,4 +28,7 @@ public class AdminEntity extends BaseEntity {
 
     @Column
     private String password;
+
+    @Column
+    private String name;
 }
