@@ -30,8 +30,9 @@ public class Interest {
 
     private Boolean choice;
 
-    public Interest(Boolean choice) {
+    public Interest(Boolean choice,Long id) {
         this.choice = choice;
+        this.id = id;
     }
 
     public static Interest messageInterest(InterestEntity entity) {

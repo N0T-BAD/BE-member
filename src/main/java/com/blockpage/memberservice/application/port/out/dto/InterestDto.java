@@ -27,8 +27,9 @@ public class InterestDto {
 
     private Boolean choice;
 
-    public InterestDto(Boolean choice) {
+    public InterestDto(Boolean choice,Long id) {
         this.choice = choice;
+        this.id = id;
     }
 
     public static InterestDto toQuery(PostQuery postQuery) {

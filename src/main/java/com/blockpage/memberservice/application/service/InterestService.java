@@ -38,7 +38,8 @@ public class InterestService implements InterestUseCase {
 
     @Override
     public InterestDto findInterestWebtoonQuery(FindWebtoonQuery query) {
-        return new InterestDto(interestPort.findWebtoonInterest(Interest.findEpisodeInterest(query)).getChoice());
+        Interest interest = interestPort.findWebtoonInterest(Interest.findEpisodeInterest(query));
+        return new InterestDto(interest.getChoice(), interest.getId());
     }
 
     @Override
