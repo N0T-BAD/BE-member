@@ -73,11 +73,10 @@ public class MemberView {
         this.genre = genre;
     }
 
-    //댓글반응 조회
-    public MemberView(Long id, Long commentId, Boolean emotion) {
+    //찜 개별조회
+    public MemberView(Long id, Boolean choice) {
         this.id = id;
-        this.commentId = commentId;
-        this.emotion = emotion;
+        this.choice = choice;
     }
 
     //평점조회

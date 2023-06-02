@@ -38,9 +38,9 @@ public class InterestAdaptor implements InterestPort {
         Optional<InterestEntity> interestEntity = interestRepository.findByMemberEmailAndWebtoonId(interest.getMemberEmail(),
             interest.getWebtoonId());
         if (interestEntity.isPresent()) {
-            return new Interest(true);
+            return new Interest(true, interest.getWebtoonId());
         } else {
-            return new Interest(false);
+            return new Interest(false, 0L);
         }
     }
 
