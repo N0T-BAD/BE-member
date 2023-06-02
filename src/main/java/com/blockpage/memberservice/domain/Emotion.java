@@ -40,7 +40,7 @@ public class Emotion {
     public static Emotion findEmotion(FindQuery findQuery) {
         return Emotion.builder()
             .memberEmail(findQuery.getMemberEmail())
-            .episodeId(findQuery.getEpisodeId())
+            .commentId(findQuery.getCommentId())
             .build();
     }
 

@@ -42,11 +42,9 @@ public class EmotionService implements EmotionUseCase {
     }
 
     @Override
-    public List<EmotionDto> findAllEmotionQuery(FindQuery findQuery) {
-        List<EmotionDto> emotionDtoList = emotionPort.findAllEmotion(Emotion.findEmotion(findQuery)).stream()
-            .map(emotion -> EmotionDto.fromEmotion(emotion))
-            .collect(Collectors.toList());
-        return emotionDtoList;
+    public EmotionDto findAllEmotionQuery(FindQuery findQuery) {
+        EmotionDto emotionDto =  new EmotionDto(emotionPort.findEmotion(Emotion.findEmotion(findQuery)).getEmotion());
+        return emotionDto;
     }
 
     @Override
