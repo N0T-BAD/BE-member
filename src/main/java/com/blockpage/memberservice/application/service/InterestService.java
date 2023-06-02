@@ -9,9 +9,11 @@ import com.blockpage.memberservice.domain.Interest;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class InterestService implements InterestUseCase {
 
