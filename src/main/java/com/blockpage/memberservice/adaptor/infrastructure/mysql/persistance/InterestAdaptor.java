@@ -20,7 +20,11 @@ public class InterestAdaptor implements InterestPort {
     @Override
     @Transactional
     public void postInterest(Interest interest) {
-        interestRepository.save(InterestEntity.fromInterest(interest));
+        Optional<InterestEntity> interestEntity = interestRepository.findByMemberEmailAndWebtoonId(interest.getMemberEmail(),
+            interest.getWebtoonId());
+        if(interestEntity.isEmpty()){
+            interestRepository.save(InterestEntity.fromInterest(interest));
+        }
     }
 
     @Override

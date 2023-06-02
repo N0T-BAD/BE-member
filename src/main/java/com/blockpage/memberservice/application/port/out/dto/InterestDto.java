@@ -44,6 +44,7 @@ public class InterestDto {
 
     public static InterestDto fromInterest(Interest interest) {
         return InterestDto.builder()
+            .id(interest.getId())
             .webtoonId(interest.getWebtoonId())
             .webtoonTitle(interest.getWebtoonTitle())
             .webtoonThumbnail(interest.getWebtoonThumbnail())
