@@ -37,10 +37,14 @@ public class EmotionAdaptor implements EmotionPort {
     @Override
     @Transactional
     public Emotion findEmotion(Emotion emotion) {
-        EmotionEntity emotionEntity = emotionRepository.findAllByMemberEmailAndCommentId(emotion.getMemberEmail(),
-            emotion.getCommentId()).orElseThrow();
-        Emotion returnEmotion = new Emotion(emotionEntity.getCommentId(), emotionEntity.getEmotion());
-        return returnEmotion;
+        Optional<EmotionEntity>  emotionEntity = emotionRepository.findAllByMemberEmailAndCommentId(emotion.getMemberEmail(),
+            emotion.getCommentId());
+        if(emotionEntity.isPresent()){
+            Emotion returnEmotion = new Emotion(Boolean.TRUE, emotionEntity.get().getEmotion());
+            return returnEmotion;
+        }else{
+            return new Emotion(Boolean.FALSE,false);
+        }
     }
 
     @Override

@@ -6,8 +6,6 @@ import com.blockpage.memberservice.application.port.out.dto.EmotionDto;
 import com.blockpage.memberservice.application.port.out.port.CommentMessagePort;
 import com.blockpage.memberservice.application.port.out.port.EmotionPort;
 import com.blockpage.memberservice.domain.Emotion;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -42,9 +40,9 @@ public class EmotionService implements EmotionUseCase {
     }
 
     @Override
-    public EmotionDto findAllEmotionQuery(FindQuery findQuery) {
-        EmotionDto emotionDto =  new EmotionDto(emotionPort.findEmotion(Emotion.findEmotion(findQuery)).getEmotion());
-        return emotionDto;
+    public EmotionDto findEmotionQuery(FindQuery findQuery) {
+        Emotion emotion = emotionPort.findEmotion(Emotion.findEmotion(findQuery));
+        return new EmotionDto(emotion.getChoice(),emotion.getEmotion());
     }
 
     @Override

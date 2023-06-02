@@ -45,6 +45,8 @@ public class MemberView {
     //EmotionView
     private Long commentId;
 
+    private Boolean choice;
+
     private Boolean emotion;
 
     //RatingView
@@ -118,6 +120,11 @@ public class MemberView {
     }
 
     public MemberView(Boolean emotion) {
+        this.emotion = emotion;
+    }
+
+    public MemberView(Boolean choice, Boolean emotion) {
+        this.choice = choice;
         this.emotion = emotion;
     }
 }

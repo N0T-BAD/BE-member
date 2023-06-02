@@ -10,7 +10,7 @@ public interface EmotionUseCase {
 
     EmotionDto postEmotionQuery(PostQuery postQuery);
 
-    EmotionDto findAllEmotionQuery(FindQuery findQuery);
+    EmotionDto findEmotionQuery(FindQuery findQuery);
 
     void deleteEmotionQuery(DeleteQuery deleteQuery);
 

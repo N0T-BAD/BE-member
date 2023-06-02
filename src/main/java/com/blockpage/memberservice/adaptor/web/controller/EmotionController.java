@@ -9,7 +9,6 @@ import com.blockpage.memberservice.application.port.in.EmotionUseCase.FindQuery;
 import com.blockpage.memberservice.application.port.in.EmotionUseCase.PostQuery;
 import com.blockpage.memberservice.application.port.out.dto.EmotionDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -36,14 +36,15 @@ public class EmotionController {
             return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ApiResponse<MemberView>(new MemberView("댓글 반응이 생성되엇습니다.", emotionDto.getEmotion())));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<MemberView>(new MemberView("댓글이 삭제 되었습니다.")));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<MemberView>(new MemberView("댓글이 반응이 삭제 되었습니다.")));
     }
 
     @GetMapping
     public ResponseEntity<ApiResponse<MemberView>> getEmotion(@RequestHeader("memberId") String email,
-        @Param("commentId") Long commentId) {
-        EmotionDto emotionDto = emotionUseCase.findAllEmotionQuery(new FindQuery(email, commentId));
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new MemberView(emotionDto)));
+        @RequestParam("commentId") Long commentId) {
+        EmotionDto emotionDto = emotionUseCase.findEmotionQuery(new FindQuery(email, commentId));
+        MemberView memberView = new MemberView(emotionDto.getChoice(), emotionDto.getEmotion());
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(memberView));
     }
 
     @DeleteMapping("/{id}")
