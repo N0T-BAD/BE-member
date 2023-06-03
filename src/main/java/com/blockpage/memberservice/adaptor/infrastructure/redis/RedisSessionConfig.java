@@ -56,6 +56,7 @@ public class RedisSessionConfig extends AbstractHttpSessionApplicationInitialize
     public CookieSerializer createDefaultCookieSerializer() {
         DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
         cookieSerializer.setSameSite("None");
+        cookieSerializer.setUseSecureCookie(true);
         return cookieSerializer;
     }
 }
