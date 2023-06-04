@@ -1,7 +1,7 @@
 package com.blockpage.memberservice.adaptor.web.view;
 
 import com.blockpage.memberservice.adaptor.infrastructure.mysql.value.Role;
-import com.blockpage.memberservice.application.port.out.dto.EmotionDto;
+import com.blockpage.memberservice.application.port.out.dto.AdminDto;
 import com.blockpage.memberservice.application.port.out.dto.InterestDto;
 import com.blockpage.memberservice.application.port.out.dto.MemberDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -52,26 +52,10 @@ public class MemberView {
     //RatingView
     private Integer ratings;
 
-    //회원조회
-    public MemberView(String nickname, String profileImage, String profileSkin, Role role, String creatorNickname) {
-        this.nickname = nickname;
-        this.profileImage = profileImage;
-        this.profileSkin = profileSkin;
-        this.role = role;
-        this.creatorNickname = creatorNickname;
-    }
+    //AdminView
+    private String adminId;
 
-    //찜목록 조회
-    public MemberView(Long id, Long webtoonId, String webtoonTitle, String webtoonThumbnail, String creator, String illustrator,
-        String genre) {
-        this.id = id;
-        this.webtoonId = webtoonId;
-        this.webtoonTitle = webtoonTitle;
-        this.webtoonThumbnail = webtoonThumbnail;
-        this.creator = creator;
-        this.illustrator = illustrator;
-        this.genre = genre;
-    }
+    private String name;
 
     //찜 개별조회
     public MemberView(Long id, Boolean choice) {
@@ -94,12 +78,6 @@ public class MemberView {
         this.genre = interestDto.getGenre();
     }
 
-    public MemberView(EmotionDto emotionDto) {
-        this.id = emotionDto.getId();
-        this.commentId = emotionDto.getCommentId();
-        this.emotion = emotionDto.getEmotion();
-    }
-
     public MemberView(String message) {
         this.message = message;
     }
@@ -118,12 +96,12 @@ public class MemberView {
         this.emotion = emotion;
     }
 
-    public MemberView(Boolean emotion) {
-        this.emotion = emotion;
-    }
-
     public MemberView(Boolean choice, Boolean emotion) {
         this.choice = choice;
         this.emotion = emotion;
+    }
+
+    public MemberView(AdminDto adminDto) {
+        this.name = adminDto.getName();
     }
 }
