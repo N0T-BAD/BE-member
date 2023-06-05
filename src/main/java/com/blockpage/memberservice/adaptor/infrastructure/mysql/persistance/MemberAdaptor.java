@@ -1,7 +1,6 @@
 package com.blockpage.memberservice.adaptor.infrastructure.mysql.persistance;
 
-import static com.blockpage.memberservice.exception.ErrorCode.NICKNAME_ALREADY_EXIST;
-import static com.blockpage.memberservice.exception.ErrorCode.UNKNOWN_ERROR;
+import static com.blockpage.memberservice.exception.ErrorCode.*;
 
 import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.MemberEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.mysql.repository.MemberRepository;
@@ -18,6 +17,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Slf4j
@@ -29,6 +29,7 @@ public class MemberAdaptor implements MemberPort {
     private final String bucketName = "blockpage-bucket";
 
     @Override
+    @Transactional
     public Member signInMember(Member member) {
         Optional<MemberEntity> memberEntity = memberRepository.findByEmail(member.getEmail());
         if (memberEntity.isPresent()) {
@@ -40,6 +41,7 @@ public class MemberAdaptor implements MemberPort {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Member findMemberInfo(Member member) {
         MemberEntity memberEntity = memberRepository.findByEmail(member.getEmail())
             .orElseThrow(() -> new CustomException(UNKNOWN_ERROR.getMessage(), UNKNOWN_ERROR.getHttpStatus()));
@@ -47,6 +49,7 @@ public class MemberAdaptor implements MemberPort {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void findNickname(Member member) {
         this.memberRepository.findByCreatorNickname(member.getCreatorNickname())
             .ifPresent(memberEntity ->
@@ -56,6 +59,7 @@ public class MemberAdaptor implements MemberPort {
     }
 
     @Override
+    @Transactional
     public void updateMemberInfo(Member member) throws IOException {
         MemberEntity memberEntity = memberRepository.findByEmail(member.getEmail()).get();
         if (member.getType().equals("member")) {

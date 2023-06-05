@@ -1,6 +1,6 @@
 package com.blockpage.memberservice.adaptor.infrastructure.mysql.persistance;
 
-import static com.blockpage.memberservice.exception.ErrorCode.EMOTION_ALREADY_POST;
+import static com.blockpage.memberservice.exception.ErrorCode.*;
 
 import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.EmotionEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.mysql.repository.EmotionRepository;
@@ -35,7 +35,7 @@ public class EmotionAdaptor implements EmotionPort {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Emotion findEmotion(Emotion emotion) {
         Optional<EmotionEntity>  emotionEntity = emotionRepository.findAllByMemberEmailAndCommentId(emotion.getMemberEmail(),
             emotion.getCommentId());

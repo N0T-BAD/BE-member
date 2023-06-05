@@ -35,9 +35,12 @@ jobs:
       with:
         files: './src/main/resources/application-prod.yml'
       env:
-        spring.datasource.url: ${{ secrets.DB_URL }} 
-        spring.datasource.username: ${{ secrets.DB_USERNAME }}
-        spring.datasource.password: ${{ secrets.DB_PASSWORD }}
+        spring.datasource.master.jdbc-url: ${{ secrets.DB_MASTER_URL }}
+        spring.datasource.slave.jdbc-url: ${{ secrets.DB_SLAVE_URL }}
+        spring.datasource.master.username: ${{ secrets.DB_USERNAME }}
+        spring.datasource.slave.username: ${{ secrets.DB_USERNAME }}
+        spring.datasource.master.password: ${{ secrets.DB_PASSWORD }}
+        spring.datasource.slave.password: ${{ secrets.DB_PASSWORD }}
         spring.gcp.storage.project-id: ${{ secrets.GCP_PROJECT_ID }}
         spring.kafka.bootstrapAddress: ${{ secrets.KAFKA}}
         eureka.client.service-url.defaultZone: ${{secrets.VM_EUREKA_DEFAULTZONE}}
