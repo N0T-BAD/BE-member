@@ -36,7 +36,7 @@ public class InterestAdaptor implements InterestPort {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Interest> findInterest(String memberEmail) {
         List<InterestEntity> interestEntityList = interestRepository.findAllByMemberEmail(memberEmail);
         List<Interest> interestList = interestEntityList.stream()
@@ -48,6 +48,7 @@ public class InterestAdaptor implements InterestPort {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Interest findWebtoonInterest(Interest interest) {
         Optional<InterestEntity> interestEntity = interestRepository.findByMemberEmailAndWebtoonIdAndEraseFalse(interest.getMemberEmail(),
             interest.getWebtoonId());
@@ -70,6 +71,7 @@ public class InterestAdaptor implements InterestPort {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Interest> findInterestByUpdateDate(LocalDateTime start, LocalDateTime end) {
         List<Interest> interestList = interestRepository.findAllByUpdateTimeBetween(start, end).stream()
             .map(Interest::findInterest)

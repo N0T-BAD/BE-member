@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -21,11 +22,13 @@ public class RatingAdaptor implements RatingPort {
     private final RatingRepository ratingRepository;
 
     @Override
+    @Transactional
     public void postRating(Rating rating) {
         ratingRepository.save(RatingEntity.fromRating(rating));
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Rating findRating(Rating rating) {
         Optional<RatingEntity> ratingEntity = ratingRepository.findByMemberEmailAndEpisodeId(rating.getMemberEmail(),
             rating.getEpisodeId());
@@ -38,6 +41,7 @@ public class RatingAdaptor implements RatingPort {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Rating> findRatingByCreateDate(LocalDateTime start, LocalDateTime end) {
         List<Rating> ratingList = ratingRepository.findAllByRegisterTimeBetween(start, end).stream()
             .map(Rating::fromEntity)

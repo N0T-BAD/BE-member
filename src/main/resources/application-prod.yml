@@ -13,10 +13,16 @@ spring:
     name: member-service
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${spring.datasource.url}
-    username: ${spring.datasource.username}
-    password: ${spring.datasource.password}
+    master:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: ${spring.datasource.master.jdbc-url}
+      username: ${spring.datasource.master.username}
+      password: ${spring.datasource.master.password}
+    slave:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: ${spring.datasource.slave.jdbc-url}
+      username: ${spring.datasource.slave.username}
+      password: ${spring.datasource.slave.password}
 
   jpa:
     properties:
