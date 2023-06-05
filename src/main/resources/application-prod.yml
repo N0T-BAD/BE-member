@@ -15,12 +15,12 @@ spring:
   datasource:
     master:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: ${spring.datasource.master.jdbc-url}
+      jdbc-url: ${spring.datasource.master.jdbc-url}
       username: ${spring.datasource.master.username}
       password: ${spring.datasource.master.password}
     slave:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: ${spring.datasource.slave.jdbc-url}
+      jdbc-url: ${spring.datasource.slave.jdbc-url}
       username: ${spring.datasource.slave.username}
       password: ${spring.datasource.slave.password}
 
