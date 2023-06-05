@@ -1,9 +1,12 @@
 package com.blockpage.memberservice.adaptor.infrastructure.mysql.persistance;
 
+import static com.blockpage.memberservice.exception.ErrorCode.*;
+
 import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.InterestEntity;
 import com.blockpage.memberservice.adaptor.infrastructure.mysql.repository.InterestRepository;
 import com.blockpage.memberservice.application.port.out.port.InterestPort;
 import com.blockpage.memberservice.domain.Interest;
+import com.blockpage.memberservice.exception.CustomException;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -46,9 +49,9 @@ public class InterestAdaptor implements InterestPort {
 
     @Override
     public Interest findWebtoonInterest(Interest interest) {
-        Optional<InterestEntity> interestEntity = interestRepository.findByMemberEmailAndWebtoonId(interest.getMemberEmail(),
+        Optional<InterestEntity> interestEntity = interestRepository.findByMemberEmailAndWebtoonIdAndEraseFalse(interest.getMemberEmail(),
             interest.getWebtoonId());
-        if (interestEntity.isPresent() && (interestEntity.get().getErase() == Boolean.FALSE)) {
+        if (interestEntity.isPresent()) {
             return new Interest(true, interestEntity.get().getId());
         } else {
             return new Interest(false, 0L);
@@ -58,7 +61,8 @@ public class InterestAdaptor implements InterestPort {
     @Override
     @Transactional
     public Interest deleteInterest(Long id) {
-        InterestEntity interestEntity = interestRepository.findById(id).get();
+        InterestEntity interestEntity = interestRepository.findById(id)
+            .orElseThrow(() -> new CustomException(INTEREST_NOT_EXIST.getMessage(), INTEREST_NOT_EXIST.getHttpStatus()));
         Interest interest = Interest.messageInterest(interestEntity);
         interestEntity.setErase(Boolean.TRUE);
         interestRepository.save(interestEntity);

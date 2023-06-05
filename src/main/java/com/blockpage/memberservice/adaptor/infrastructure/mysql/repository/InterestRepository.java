@@ -10,6 +10,8 @@ public interface InterestRepository extends JpaRepository<InterestEntity, Long> 
 
     List<InterestEntity> findAllByMemberEmail(String memberEmail);
 
+    Optional<InterestEntity> findByMemberEmailAndWebtoonIdAndEraseFalse(String memberEmail, Long webtoonId);
+
     Optional<InterestEntity> findByMemberEmailAndWebtoonId(String memberEmail, Long webtoonId);
 
     List<InterestEntity> findAllByUpdateTimeBetween(LocalDateTime start, LocalDateTime end);
