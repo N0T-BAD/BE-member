@@ -24,6 +24,9 @@ public enum ErrorCode {
     //Emotion
     EMOTION_ALREADY_POST("이미 반응한 댓글입니다.", HttpStatus.CONFLICT),
 
+    //Interest
+    INTEREST_NOT_EXIST("존재하지 않는 찜 입니다.",HttpStatus.CONFLICT),
+
     //attendance
     ATTENDANCE_ALREADY_POST("이미 출석체크 하셨습니다.", HttpStatus.CONFLICT),
 
@@ -32,6 +35,9 @@ public enum ErrorCode {
 
     //Admin
     SESSION_EXPIRE("세션이 만료되었습니다.",HttpStatus.BAD_REQUEST),
+
+    //kafka
+    SERVER_ERROR("서버 에러",HttpStatus.CONFLICT),
 
     //global
     UNKNOWN_ERROR("알수 없는 에러가 발생했습니다.", HttpStatus.BAD_REQUEST);
