@@ -16,13 +16,11 @@ public class AdminService implements AdminUseCase {
     @Override
     public AdminDto adminLogin(LogInQuery logInQuery) {
         Admin admin = adminPort.findId(Admin.fromLogIn(logInQuery));
-        AdminDto adminDto = new AdminDto(adminPort.findPassword(admin).getAdminId());
-        return adminDto;
+        return AdminDto.fromAdmin(admin);
     }
 
     @Override
     public void adminLogOut(LogOutQuery logOutQuery) {
-        Admin admin = new Admin(logOutQuery.getAdminId());
         adminPort.findId(new Admin(logOutQuery.getAdminId()));
     }
 }

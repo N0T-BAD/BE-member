@@ -36,7 +36,7 @@ public class AdminController {
         HttpSession session = httpServletRequest.getSession();
         AdminDto adminDto = adminUseCase.adminLogin(LogInQuery.toQuery(requestAdmin));
         session.setAttribute("memberId", adminDto.getAdminId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(new MemberView("로그인되었습니다.")));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(new MemberView(adminDto)));
     }
 
     @DeleteMapping

@@ -21,7 +21,7 @@ public class AdminAdaptor implements AdminPort {
     public Admin findId(Admin admin) {
         AdminEntity adminEntity = adminRepository.findByAdminId(admin.getAdminId())
             .orElseThrow(() -> new CustomException(ID_NOT_EXIST.getMessage(), ID_NOT_EXIST.getHttpStatus()));
-        return admin;
+        return Admin.fromEntity(adminEntity);
     }
 
     @Override

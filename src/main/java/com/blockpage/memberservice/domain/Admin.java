@@ -1,5 +1,6 @@
 package com.blockpage.memberservice.domain;
 
+import com.blockpage.memberservice.adaptor.infrastructure.mysql.entity.AdminEntity;
 import com.blockpage.memberservice.application.port.in.AdminUseCase.LogInQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +15,8 @@ public class Admin {
 
     private String password;
 
+    private String name;
+
     public Admin(String adminId) {
         this.adminId = adminId;
     }
@@ -22,6 +25,13 @@ public class Admin {
         return Admin.builder()
             .adminId(logInQuery.getAdminId())
             .password(logInQuery.getPassword())
+            .build();
+    }
+
+    public static Admin fromEntity(AdminEntity adminEntity) {
+        return Admin.builder()
+            .adminId(adminEntity.getAdminId())
+            .name(adminEntity.getName())
             .build();
     }
 }

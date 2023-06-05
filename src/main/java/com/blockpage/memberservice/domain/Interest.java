@@ -30,7 +30,9 @@ public class Interest {
 
     private Boolean choice;
 
-    public Interest(Boolean choice,Long id) {
+    private Boolean erase;
+
+    public Interest(Boolean choice, Long id) {
         this.choice = choice;
         this.id = id;
     }
@@ -62,6 +64,7 @@ public class Interest {
             .creator(interestEntity.getCreator())
             .illustrator(interestEntity.getIllustrator())
             .genre(interestEntity.getGenre())
+            .erase(interestEntity.getErase())
             .build();
     }
 

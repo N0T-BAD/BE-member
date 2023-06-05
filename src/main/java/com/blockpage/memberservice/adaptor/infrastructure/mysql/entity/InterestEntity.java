@@ -45,6 +45,9 @@ public class InterestEntity extends BaseEntity {
     @Column
     private String genre;
 
+    @Column //삭제시 true
+    private Boolean erase;
+
     public static InterestEntity fromInterest(Interest interest) {
         return InterestEntity.builder()
             .memberEmail(interest.getMemberEmail())
@@ -54,7 +57,11 @@ public class InterestEntity extends BaseEntity {
             .illustrator(interest.getIllustrator())
             .webtoonThumbnail(interest.getWebtoonThumbnail())
             .genre(interest.getGenre())
+            .erase(Boolean.FALSE)
             .build();
     }
 
+    public void setErase(Boolean erase) {
+        this.erase = erase;
+    }
 }
