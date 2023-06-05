@@ -1,5 +1,8 @@
 package com.blockpage.memberservice.adaptor.infrastructure.message.async.webtoon.message;
 
+import static com.blockpage.memberservice.exception.ErrorCode.*;
+
+import com.blockpage.memberservice.exception.CustomException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +28,7 @@ public class InterestCountMessage {
         if (this.webtoonId.equals(message.webtoonId)) {
             return new InterestCountMessage(webtoonId, this.interestCount + message.interestCount);
         } else {
-            throw new IllegalArgumentException("서버에러");
+            throw new CustomException(SERVER_ERROR.getMessage(),SERVER_ERROR.getHttpStatus());
         }
     }
 }
