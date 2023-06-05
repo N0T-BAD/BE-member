@@ -9,7 +9,7 @@ public interface MemberPort {
 
     Member findMemberInfo(Member member);
 
-    Member findNickname(Member member);
+    void findNickname(Member member);
 
     void updateMemberInfo(Member member) throws IOException;
 }

@@ -45,9 +45,9 @@ public class Member {
             .build();
     }
 
-    public static Member findNickname(FindMemberQuery findMemberQuery) {
+    public static Member findNickname(String creatorNickname) {
         return Member.builder()
-            .creatorNickname(findMemberQuery.getCreatorNickname())
+            .creatorNickname(creatorNickname)
             .build();
     }
 

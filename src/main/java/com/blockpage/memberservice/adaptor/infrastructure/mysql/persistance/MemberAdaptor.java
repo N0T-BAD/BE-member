@@ -47,13 +47,12 @@ public class MemberAdaptor implements MemberPort {
     }
 
     @Override
-    public Member findNickname(Member member) {
-        Optional<MemberEntity> memberEntity = memberRepository.findByCreatorNickname(member.getCreatorNickname());
-        if (memberEntity.isPresent()) {
-            throw new CustomException(NICKNAME_ALREADY_EXIST.getMessage(), NICKNAME_ALREADY_EXIST.getHttpStatus());
-        } else {
-            return member;
-        }
+    public void findNickname(Member member) {
+        this.memberRepository.findByCreatorNickname(member.getCreatorNickname())
+            .ifPresent(memberEntity ->
+            {
+                throw new CustomException(NICKNAME_ALREADY_EXIST.getMessage(), NICKNAME_ALREADY_EXIST.getHttpStatus());
+            });
     }
 
     @Override
