@@ -49,7 +49,7 @@ public interface MemberUseCase {
             return FindMemberQuery.builder()
                 .email(email)
                 .type(type)
-                .creatorNickname(nickName != null ? nickName : null)
+                .creatorNickname(nickName)
                 .build();
         }
     }

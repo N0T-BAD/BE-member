@@ -8,7 +8,6 @@ import com.blockpage.memberservice.application.port.in.MemberUseCase.UpdateQuery
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Getter
@@ -43,7 +42,12 @@ public class Member {
     public static Member findMemberInfo(FindMemberQuery findMemberQuery) {
         return Member.builder()
             .email(findMemberQuery.getEmail())
-            .creatorNickname(findMemberQuery.getCreatorNickname() != null ? findMemberQuery.getCreatorNickname() : null)
+            .build();
+    }
+
+    public static Member findNickname(String creatorNickname) {
+        return Member.builder()
+            .creatorNickname(creatorNickname)
             .build();
     }
 
@@ -71,7 +75,7 @@ public class Member {
             .build();
     }
 
-    public static Member fromUpdateQuery( UpdateQuery updateQuery) {
+    public static Member fromUpdateQuery(UpdateQuery updateQuery) {
         return Member.builder()
             .type(updateQuery.getType())
             .email(updateQuery.getEmail())
