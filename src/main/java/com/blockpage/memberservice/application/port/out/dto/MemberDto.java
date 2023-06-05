@@ -51,4 +51,9 @@ public class MemberDto {
             .build();
     }
 
+    public static MemberDto fromCreatorNickname(Member member) {
+        return MemberDto.builder()
+            .creatorNickname(member.getCreatorNickname())
+            .build();
+    }
 }

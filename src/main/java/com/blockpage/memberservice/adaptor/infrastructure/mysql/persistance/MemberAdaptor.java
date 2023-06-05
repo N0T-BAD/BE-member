@@ -18,7 +18,6 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Component
 @Slf4j
@@ -42,15 +41,18 @@ public class MemberAdaptor implements MemberPort {
 
     @Override
     public Member findMemberInfo(Member member) {
-        if (member.getCreatorNickname() != null) {
-            Optional<MemberEntity> memberEntity = memberRepository.findByCreatorNickname(member.getCreatorNickname());
-            if (memberEntity.isPresent()) {
-                throw new CustomException(NICKNAME_ALREADY_EXIST.getMessage(), NICKNAME_ALREADY_EXIST.getHttpStatus());
-            } else {
-                return member;
-            }
+        MemberEntity memberEntity = memberRepository.findByEmail(member.getEmail())
+            .orElseThrow(() -> new CustomException(UNKNOWN_ERROR.getMessage(), UNKNOWN_ERROR.getHttpStatus()));
+        return Member.fromMemberEntity(memberEntity);
+    }
+
+    @Override
+    public Member findNickname(Member member) {
+        Optional<MemberEntity> memberEntity = memberRepository.findByCreatorNickname(member.getCreatorNickname());
+        if (memberEntity.isPresent()) {
+            throw new CustomException(NICKNAME_ALREADY_EXIST.getMessage(), NICKNAME_ALREADY_EXIST.getHttpStatus());
         } else {
-            return Member.fromMemberEntity(memberRepository.findByEmail(member.getEmail()).get());
+            return member;
         }
     }
 
