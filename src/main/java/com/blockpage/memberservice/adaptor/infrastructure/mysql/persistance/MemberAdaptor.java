@@ -49,6 +49,13 @@ public class MemberAdaptor implements MemberPort {
     }
 
     @Override
+    public Member findAuthorInfo(Member member) {
+        MemberEntity memberEntity = memberRepository.findByCreatorNickname(member.getCreatorNickname())
+            .orElseThrow(() -> new CustomException(ID_NOT_EXIST.getMessage(), ID_NOT_EXIST.getHttpStatus()));
+        return Member.fromMemberEntity(memberEntity);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public void findNickname(Member member) {
         this.memberRepository.findByCreatorNickname(member.getCreatorNickname())

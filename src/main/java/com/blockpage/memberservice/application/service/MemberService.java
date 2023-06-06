@@ -39,6 +39,9 @@ public class MemberService implements MemberUseCase {
         } else if (findMemberQuery.getType().equals("nickname")) {
             memberPort.findNickname(Member.findNickname(findMemberQuery.getCreatorNickname()));
             return MemberDto.fromCreatorNickname(findMemberQuery.getCreatorNickname());
+        } else if (findMemberQuery.getType().equals("author")) {
+            Member member = memberPort.findAuthorInfo(Member.findNickname(findMemberQuery.getCreator()));
+            return new MemberDto(member.getEmail());
         } else {
             throw new CustomException(UNKNOWN_ERROR.getMessage(), UNKNOWN_ERROR.getHttpStatus());
         }
