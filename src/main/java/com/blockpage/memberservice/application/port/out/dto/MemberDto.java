@@ -29,6 +29,10 @@ public class MemberDto {
     private Boolean adult;
 
     private Boolean signUp;
+
+    public MemberDto(String email) {
+        this.email = email;
+    }
     //true 일시 최초로그인(회원가입)
 
     public static MemberDto signIn(Member member) {
@@ -40,7 +44,6 @@ public class MemberDto {
 
     public static MemberDto fromMember(Member member) {
         return MemberDto.builder()
-            .email(member.getEmail())
             .nickname(member.getNickname())
             .profileImage(member.getProfileImage())
             .profileSkin(member.getProfileSkin())
@@ -56,4 +59,5 @@ public class MemberDto {
             .creatorNickname(creatorNickname)
             .build();
     }
+
 }

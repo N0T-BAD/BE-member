@@ -19,6 +19,8 @@ public class MemberView {
 
     //MemberView
 
+    private String email;
+
     private String nickname;
 
     private String profileImage;
@@ -43,7 +45,6 @@ public class MemberView {
     private String genre;
 
     //EmotionView
-    private Long commentId;
 
     private Boolean choice;
 
@@ -53,7 +54,6 @@ public class MemberView {
     private Integer ratings;
 
     //AdminView
-    private String adminId;
 
     private String name;
 
@@ -83,6 +83,7 @@ public class MemberView {
     }
 
     public MemberView(MemberDto memberDto) {
+        this.email = memberDto.getEmail();
         this.nickname = memberDto.getNickname();
         this.profileImage = memberDto.getProfileImage();
         this.profileSkin = memberDto.getProfileSkin();
