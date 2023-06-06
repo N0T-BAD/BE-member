@@ -55,9 +55,13 @@ public class MemberController {
     @GetMapping
     public ResponseEntity<ApiResponse<MemberView>> findMember(@RequestHeader(value = "memberId", required = false) String email,
         @RequestParam("type") String type,
-        @RequestParam(value = "creatorNickname", required = false) String nickName) {
-        MemberDto memberDto = memberUseCase.findMemberInfo(FindMemberQuery.toQuery(email, type, nickName));
+        @RequestParam(value = "creatorNickname", required = false) String nickName,
+        @RequestParam(value = "creator", required = false) String creator) {
+        MemberDto memberDto = memberUseCase.findMemberInfo(FindMemberQuery.toQuery(email, type, nickName, creator));
         if (memberDto.getRole() != null) {
+            MemberView memberView = new MemberView(memberDto);
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(memberView));
+        } else if (memberDto.getEmail() != null) {
             MemberView memberView = new MemberView(memberDto);
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(memberView));
         } else {
