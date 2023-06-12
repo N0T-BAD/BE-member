@@ -24,7 +24,14 @@ public class RatingAdaptor implements RatingPort {
     @Override
     @Transactional
     public void postRating(Rating rating) {
-        ratingRepository.save(RatingEntity.fromRating(rating));
+        ratingRepository.findByMemberEmailAndEpisodeId(rating.getMemberEmail(),
+            rating.getEpisodeId()).ifPresentOrElse(ratingEntity -> {
+                throw new CustomException(RATINGS_ALREADY_EXIST.getMessage(), RATINGS_ALREADY_EXIST.getHttpStatus());
+            },
+            () -> {
+                ratingRepository.save(RatingEntity.fromRating(rating));
+            }
+        );
     }
 
     @Override
