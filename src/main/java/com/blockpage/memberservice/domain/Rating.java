@@ -14,6 +14,8 @@ public class Rating {
 
     private Long id;
 
+    private Boolean choice;
+
     private String memberEmail;
 
     private Long webtoonId;
@@ -22,7 +24,8 @@ public class Rating {
 
     private Integer ratings;
 
-    public Rating(Integer ratings) {
+    public Rating(Boolean choice, Integer ratings) {
+        this.choice = choice;
         this.ratings = ratings;
     }
 
@@ -41,7 +44,7 @@ public class Rating {
         this.episodeId = findQuery.getEpisodeId();
     }
 
-    public static Rating fromEntity(RatingEntity ratingEntity){
+    public static Rating fromEntity(RatingEntity ratingEntity) {
         return Rating.builder()
             .webtoonId(ratingEntity.getWebtoonId())
             .episodeId(ratingEntity.getEpisodeId())

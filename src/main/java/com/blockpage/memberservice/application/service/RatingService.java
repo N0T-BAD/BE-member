@@ -21,6 +21,6 @@ public class RatingService implements RatingUseCase {
 
     @Override
     public RatingDto findRatingQuery(FindQuery findQuery) {
-        return new RatingDto(ratingPort.findRating(new Rating(findQuery)).getRatings());
+        return new RatingDto(ratingPort.findRating(new Rating(findQuery)));
     }
 }

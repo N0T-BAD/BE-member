@@ -4,6 +4,7 @@ import com.blockpage.memberservice.adaptor.infrastructure.mysql.value.Role;
 import com.blockpage.memberservice.application.port.out.dto.AdminDto;
 import com.blockpage.memberservice.application.port.out.dto.InterestDto;
 import com.blockpage.memberservice.application.port.out.dto.MemberDto;
+import com.blockpage.memberservice.application.port.out.dto.RatingDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.ToString;
@@ -64,8 +65,9 @@ public class MemberView {
     }
 
     //평점조회
-    public MemberView(Integer ratings) {
-        this.ratings = ratings;
+    public MemberView(RatingDto ratingDto) {
+        this.choice = ratingDto.getChoice();
+        this.ratings = ratingDto.getRatings();
     }
 
     public MemberView(InterestDto interestDto) {

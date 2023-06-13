@@ -6,6 +6,7 @@ import com.blockpage.memberservice.application.port.in.RatingUseCase;
 import com.blockpage.memberservice.application.port.in.RatingUseCase.FindQuery;
 import com.blockpage.memberservice.application.port.in.RatingUseCase.PostQuery;
 import com.blockpage.memberservice.adaptor.web.requestBody.RequestRating;
+import com.blockpage.memberservice.application.port.out.dto.RatingDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -36,8 +37,8 @@ public class RatingsController {
     @GetMapping("/{episodeId}")
     public ResponseEntity<ApiResponse<MemberView>> getInterest(@RequestHeader("memberId") String email,
         @PathVariable Long episodeId) {
-        Integer ratings = ratingUseCase.findRatingQuery(new FindQuery(email, episodeId)).getRatings();
-        return ResponseEntity.ok().body(new ApiResponse<>(new MemberView(ratings)));
+        RatingDto ratingDto = ratingUseCase.findRatingQuery(new FindQuery(email, episodeId));
+        return ResponseEntity.ok().body(new ApiResponse<>(new MemberView(ratingDto)));
     }
 
 }

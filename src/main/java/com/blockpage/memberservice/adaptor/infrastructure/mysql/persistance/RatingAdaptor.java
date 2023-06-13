@@ -40,9 +40,9 @@ public class RatingAdaptor implements RatingPort {
         Optional<RatingEntity> ratingEntity = ratingRepository.findByMemberEmailAndEpisodeId(rating.getMemberEmail(),
             rating.getEpisodeId());
         if (ratingEntity.isPresent()) {
-            return new Rating(ratingEntity.get().getRatings());
+            return new Rating(Boolean.TRUE, ratingEntity.get().getRatings());
         } else {
-            throw new CustomException(RATINGS_NOT_EXIST.getMessage(), RATINGS_NOT_EXIST.getHttpStatus());
+            return new Rating(Boolean.FALSE, 0);
         }
 
     }
